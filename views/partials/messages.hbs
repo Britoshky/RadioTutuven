@@ -1,0 +1,14 @@
+{{#if success_msg}}
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div class="toast show succes_msg" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <strong class="me-auto">Chanquina</strong>
+        <small> {{hora}}</small>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+      </div>
+      <div class="toast-body">
+         {{success_msg}}
+      </div>
+    </div>
+  </div>
+{{/if}}

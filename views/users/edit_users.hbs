@@ -1,0 +1,35 @@
+{{> navigation}}
+<div class="container">
+    <h1 class="my-2 text-center">Hola {{user.name}}</h1>
+    <a href="https://www.chanquinafm.cl/comunicados/add" class="btn btn-primary ml-auto">Crear Comunicado</a>
+    <table class="table table-responsive table-bordered my-3">
+        <thead>
+            <tr class="border border-dark">
+                <th>UserName</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td width="70%">{{name}} </td>
+                <td width="70%">{{email}} </td>
+                <td>
+                    <div class="d-inline d-flex justify-content-center">
+                        <form action="/users/delete/{{_id}}?_method=DELETE" method="post" class="d-inline">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <a class="btn btn-warning btn-sm mx-2 mb-2" href="https://www.chanquinafm.cl/users/edit/{{_id}}">Editar</a>
+                            <button class="btn btn-danger btn-sm mx-2 mb-2" type="submit">Eliminar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {{else }}
+            <div class="alert alert-danger border border-danger my-3"><b>No hay registros de Usuarios</b></div>
+            {{/each}}
+        </tbody>
+    </table>
+
+</div>
+</div>

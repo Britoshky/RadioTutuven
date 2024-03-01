@@ -1,0 +1,47 @@
+{
+  "name": "ChanquinaFm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/recaptcha-enterprise": "^5.2.0",
+    "@handlebars/allow-prototype-access": "^1.0.5",
+    "axios": "^1.6.7",
+    "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0-rc.12",
+    "compression": "^1.7.4",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.4",
+    "express-session": "^1.17.3",
+    "helmet": "^7.1.0",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.4",
+    "mongoose": "^5.13.5",
+    "multer": "^1.4.5-lts.1",
+    "node": "^21.6.1",
+    "node-cache": "^5.1.2",
+    "node-fetch": "^2.6.10",
+    "nodemailer": "^6.9.8",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "sharp": "^0.33.2",
+    "uuid": "^9.0.0",
+    "xmlbuilder": "^15.1.1",
+    "xmlbuilder2": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "title": "Autosize",
+  "filename": "autosize"
+}

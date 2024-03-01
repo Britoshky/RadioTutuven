@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="https://www.chanquinafm.cl/panel">panel</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" id="myNavbar">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="https://www.chanquinafm.cl/panel">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.chanquinafm.cl/panel/noticias">Noticias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.chanquinafm.cl/panel/programas">Programas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.chanquinafm.cl/panel/programacion">Programacion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.chanquinafm.cl/panel/comunicados">Comunicados</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.chanquinafm.cl/panel/arteycultura">Arte y Cultura</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.chanquinafm.cl/panel/latinos">Latinos</a>
+        </li>
+      </ul>
+     <ul class="navbar-nav px-5">
+       {{#if user}}
+       <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Configuración
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <li><a class="dropdown-item" href="https://www.chanquinafm.cl/users/edit_users/">Editar Usuario(s)</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="https://www.chanquinafm.cl/users/logout">Logout</a></li>
+          </ul>
+        </li>
+       {{else}}
+       <li class="nav-item">
+          <a class="nav-link" href="https://www.chanquinafm.cl/users/signin">SignIn</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.chanquinafm.cl/users/signup">SignUp</a>
+        </li>
+       {{/if}}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script src="https://www.chanquinafm.cl/js/script.js"></script>
