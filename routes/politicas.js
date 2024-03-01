@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 
-// Middleware para deshabilitar la caché
-router.use((req, res, next) => {
-    res.header("Cache-Control", "no-cache, private, no-store, must-revalidate");
-    res.header("Expires", "-1");
-    res.header("Pragma", "no-cache");
-    next();
-});
+// // Middleware para deshabilitar la caché
+// router.use((req, res, next) => {
+//     res.header("Cache-Control", "no-cache, private, no-store, must-revalidate");
+//     res.header("Expires", "-1");
+//     res.header("Pragma", "no-cache");
+//     next();
+// });
 
 // ...
 
@@ -25,12 +25,12 @@ router.get("/politicas", async (req, res) => {
 });
 
 // ...
-// Añadir un middleware de manejo de errores al final de tu archivo
-router.use((err, req, res, next) => {
-    console.error("Error inesperado:", err);
-    req.flash("error_msg", "Error inesperado");
-    res.status(500).redirect("/panel/panel");
-});
+// // Añadir un middleware de manejo de errores al final de tu archivo
+// router.use((err, req, res, next) => {
+//     console.error("Error inesperado:", err);
+//     req.flash("error_msg", "Error inesperado");
+//     res.status(500).redirect("/panel/panel");
+// });
 
 
 module.exports = router;
