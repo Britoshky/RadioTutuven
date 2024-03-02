@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const moment = require("moment");
 const NodeCache = require("node-cache");
+const sitemapUpdateMiddleware = require('../middleware/sitemap');
+
 
 // Middleware para deshabilitar la caché
 router.use((req, res, next) => {
@@ -27,6 +29,8 @@ router.use((req, res, next) => {
 
 // Ruta para mostrar los elementos en la página principal
 router.get("/", async (req, res, next) => {
+  //router.use(sitemapUpdateMiddleware);
+
   res.render("index");
 });
 

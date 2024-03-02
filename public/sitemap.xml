@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.radiotutuven.cl/quienes_somos</loc>
+    <lastmod>2024-03-02</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.radiotutuven.cl/contacto</loc>
+    <lastmod>2024-03-02</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.radiotutuven.cl/politicas</loc>
+    <lastmod>2024-03-02</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.radiotutuven.cl/</loc>
+    <lastmod>2024-03-02</lastmod>
+    <priority>1</priority>
+  </url>
+</urlset>
