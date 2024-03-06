@@ -1,1 +1,167 @@
-#img-noticia,#img-noticiaCh,#img-noticiaG,#img-prensa{object-fit:cover}.card-title,.card-title-principal,.card-titleArte,.latinoIndex,.title_principal{text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}.main-text h1,h1{font-size:20px}.btn-wsp,.main-text,.socials{text-align:center}h2{font-size:15px}h3{font-size:14px}h4{font-size:13px}h5{font-size:20px}h6{font-size:15px}#bg-navbar{background-color:#2f0744}#img-programas{width:100%;height:auto;border-radius:50%}#section{background-color:rgba(255,255,255,.63)}#bg-fecha,#bg-programas,#bg-titulo{background-color:#09044f;color:#fff}#bg-repro{background-color:#1d0335;color:#fff;opacity:1}#bg-titulo-chico{background-color:#01326e;color:#fff;opacity:1}#bg-weather,#fondo-noticia{background-color:#f6eefd}#text-color-programacion,.titulo-noticia{color:#002552}#playBtn{color:#0da1db;outline:rgb(13,161,219) solid 1px}#img-noticiaG{height:430px;width:100%}#img-noticiaCh{height:150px;width:100%}#img-noticia{height:auto;width:100%}#img-prensa,.img1 img{height:250px;width:100%}#img-arteycultura{height:350px;width:100%;object-fit:cover}.nav-link.active{background-color:#007bff;color:#fff;padding:8px 16px;border-radius:4px;font-weight:700;transition:background-color .3s,color .3s}.nav-link.active:hover{background-color:#0056b3}.separator{width:2px;background-color:#ccc;height:20px;margin:2 15px}.card-title,.card-titleArte{max-height:3.6em;-webkit-line-clamp:2}.card-title-principal{max-height:7.6em;-webkit-line-clamp:6}.latinoIndex{max-height:6.6em;-webkit-line-clamp:8}.hr-principal{border:1px solid rgba(32,20,22,.685);height:1px;background:linear-gradient(to right,transparent,#ccc);box-shadow:3px 4px 5px rgba(0,0,0,.1);margin:20px 4}.title_principal{max-height:10em;-webkit-line-clamp:10}.succes_msg{transition:opacity .5s ease-out}.profile-area{padding:80px 0}.card{box-shadow:0 0 30px rgba(0,0,0,.5);overflow:hidden;border-radius:15px}.img1 img{border-top-right-radius:15px;border-top-left-radius:15px}.img2 img{position:relative;display:block;margin-left:auto;margin-right:auto;z-index:1;width:140px;height:140px;border-radius:50%;border:7px solid #fff;margin-top:-80px}.main-text h1,.text-latinos{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical}.card:hover .img2 img{border-color:#2f0744;transition:.7s}.main-text{padding:30px 0}.main-text h1{text-transform:uppercase;font-weight:900;margin:0 0 20px;max-height:3.6em;-webkit-line-clamp:2}.main-text p{font-size:16px;padding:0 35px}.socials{padding-bottom:20px}.socials i{font-size:20px;color:#008b8b;padding:0 10px}.text-latinos{max-height:15.3em;-webkit-line-clamp:10}.btn-wsp{position:fixed;width:45px;height:45px;line-height:30px;bottom:210px;right:25px;background:#25d366;color:#fff;border-radius:50%;font-size:45px;box-shadow:2px 4px 2px 1px rgba(0,0,0,.3);z-index:100;transition:.3s}.btn-wsp:hover{background:#20ba5a}@media only screen and (min-width:320px) and (max-width:768px){.btn-wsp{width:45px;height:45px;line-height:30px;font-size:45px}}
+.socials {
+    text-align: center
+}
+h2 {
+    font-size: 15px
+}
+h3 {
+    font-size: 14px
+}
+h4 {
+    font-size: 13px
+}
+h5 {
+    font-size: 20px
+}
+h6 {
+    font-size: 15px
+}
+#bg-navbar {
+    background-color: #2f0744
+}
+
+#bg-repro {
+    background-color: #1d0335;
+    color: #fff;
+    opacity: 1
+}
+#bg-titulo-chico {
+    background-color: #01326e;
+    color: #fff;
+    opacity: 1
+}
+#bg-weather,
+#fondo-noticia {
+    background-color: #f6eefd
+}
+#text-color-programacion,
+.titulo-noticia {
+    color: #002552
+}
+#playBtn {
+    color: #0da1db;
+    outline: rgb(13, 161, 219) solid 1px
+}
+#img-noticiaG {
+    height: 430px;
+    width: 100%
+}
+#img-noticiaCh {
+    height: 150px;
+    width: 100%
+}
+#img-noticia {
+    height: auto;
+    width: 100%
+}
+#img-prensa,
+.img1 img {
+    height: 250px;
+    width: 100%
+}
+#img-arteycultura {
+    height: 350px;
+    width: 100%;
+    object-fit: cover
+}
+.nav-link.active {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 700;
+    transition: background-color .3s, color .3s
+}
+.nav-link.active:hover {
+    background-color: #0056b3
+}
+.separator {
+    width: 2px;
+    background-color: #ccc;
+    height: 20px;
+    margin: 2 15px
+}
+.card-title,
+.card-titleArte {
+    max-height: 3.6em;
+    -webkit-line-clamp: 2
+}
+.card-title-principal {
+    max-height: 7.6em;
+    -webkit-line-clamp: 6
+}
+.latinoIndex {
+    max-height: 6.6em;
+    -webkit-line-clamp: 8
+}
+.hr-principal {
+    border: 1px solid rgba(32, 20, 22, .685);
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ccc);
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, .1);
+    margin: 20px 4
+}
+.title_principal {
+    max-height: 10em;
+    -webkit-line-clamp: 10
+}
+.succes_msg {
+    transition: opacity .5s ease-out
+}
+.profile-area {
+    padding: 80px 0
+}
+.card {
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    overflow: hidden;
+    border-radius: 15px
+}
+.img1 img {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px
+}
+.img2 img {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 7px solid #fff;
+    margin-top: -80px
+}
+.main-text h1,
+.text-latinos {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical
+}
+.card:hover .img2 img {
+    border-color: #2f0744;
+    transition: .7s
+}
+.main-text {
+    padding: 30px 0
+}
+.main-text h1 {
+    text-transform: uppercase;
+    font-weight: 900;
+    margin: 0 0 20px;
+    max-height: 3.6em;
+    -webkit-line-clamp: 2
+}
+.main-text p {
+    font-size: 16px;
+    padding: 0 35px
+}
+.socials {
+    padding-bottom: 20px
+}
+.socials i {
+    font-size: 20px;
+    color: #008b8b;
+    padding: 0 10px
+}

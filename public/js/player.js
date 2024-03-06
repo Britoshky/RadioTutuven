@@ -11,7 +11,7 @@ if (playBtn == null) {
       playBtn.innerHTML = '<i class="bi bi-play"></i> Play';
     } else {
       playBtn.innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div>  Cargando'; // Agrega "bi-spin" para la animación de rotación
-      link.src = "https://stream.chanquinafm.cl/chanquina.mp3";
+      link.src = "https://stream.chanquinafm.cl/radiotutuven";
 
       // Elimina la animación de rotación cuando se ha cargado el audio
       link.addEventListener("loadeddata", () => {
