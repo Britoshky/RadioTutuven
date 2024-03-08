@@ -1,157 +1,158 @@
 {{> navbar}}
 
-<br><br><br>
-<div class="container mt-5">
 
-    <div class="section">
-        {{!-- carousel --}}
-        <div class="row mt-5">
-            <div class="col">
-                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" data-bs-interval="10000">
-                            <img src="/img_carousel/Centro_Civico_de_Cauquenes.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Banco Estado de la ciudad de Cauquenes</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item" data-bs-interval="2000">
-                            <img src="/img_carousel/Centro_Civico_de_Cauquenes.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Second slide label</h5>
-                                <p>Some representative placeholder content for the second slide.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="/img_carousel/Centro_Civico_de_Cauquenes.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Third slide label</h5>
-                                <p>Some representative placeholder content for the third slide.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+<div class="section">
+    {{!-- carousel --}}
+    <div class="row mt-5">
+        <div class="col">
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
                 </div>
-            </div>
-        </div>
-        {{!-- fin carousel --}}
-    </div>
-    <hr>
-    <div class="section">
-        <div class="row">
-            <div class="col text-center">
-                <h3>¿Quiénes Somos?</h3>
-                <p class="text-justify">Radio Tutuven es una emisora online cuyo único propósito es promover la imagen
-                    de Cauquenes en todo
-                    el mundo, así como acercar a nuestra tierra a los cauqueninos dispersos en Chile y en otras
-                    latitudes, somos una radio comprometida, única y exclusivamente con nuestra ciudad y su gente, razón
-                    por la cual somos absolutamente independientes de cualquier ideología, ya que éstas distorsionan el
-                    enfoque de servicio que perseguimos como radio emisora. Somo un medio de comunicación sin fines de
-                    lucro, nuestras metas están en continuar con la difusión de la música de nuestros artistas
-                    Cauqueninos y la música de artistas chilenos y del mundo. Esperando contar con el apoyo de ustedes
-                    para seguir siendo tu punto de encuentro y ser una radio de calidad, orgullo de nuestro querido
-                    Cauquenes.</p>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="section">
-        <div class="row">
-            <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 col-xm-12 text-center">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <h2 class="text-center mb-4">Formulario de Contacto de Radio Tutuven</h2>
-                        {{#if success_msg}}
-                        <div class="alert alert-success" role="alert">
-                            {{success_msg}}
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="10000">
+                        <img src="/img_carousel/Centro_Civico_de_Cauquenes.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Banco Estado de la ciudad de Cauquenes</h5>
+                            <p>Some representative placeholder content for the first slide.</p>
                         </div>
-                        {{/if}}
-                        {{#if error_msg}}
-                        <div class="alert alert-danger" role="alert">
-                            {{error_msg}}
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="/img_carousel/Centro_Civico_de_Cauquenes.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Second slide label</h5>
+                            <p>Some representative placeholder content for the second slide.</p>
                         </div>
-                        {{/if}}
-                        <form action="/contacto" method="post">
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="correo" class="form-label">Correo Electrónico:</label>
-                                <input type="email" class="form-control" id="correo" name="correo" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="mensaje" class="form-label">Mensaje:</label>
-                                <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
-                            </div>
-                            <!-- Agrega el campo del captcha -->
-                            <div id="token" class="g-recaptcha" data-sitekey="6LcqX14pAAAAAD9uELxUBj9mhODRz4H44ZNEIvGL"
-                                data-action="BTNCONTACTO" name="g-recaptcha-response"></div>
-                            <br>
-                            <div class="text-center">
-                                <button type="submit" value="Submit" class="btn btn-secondary">Enviar Mensaje</button>
-                            </div>
-                        </form>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img_carousel/Centro_Civico_de_Cauquenes.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Third slide label</h5>
+                            <p>Some representative placeholder content for the third slide.</p>
+                        </div>
                     </div>
                 </div>
-
-            </div>
-            <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 col-xm-12 text-center">
-                <div id="bg-weather" class="d-inline-block mt-2 rounded shadow">
-                    <iframe title="Radio Chanquina presenta el Tiempo en Chanco"
-                        src="https://www.meteoblue.com/es/tiempo/widget/daily/cauquenes_chile_3896105?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=0&pictoicon=1&maxtemperature=0&maxtemperature=1&mintemperature=0&mintemperature=1&windspeed=0&windspeed=1&windgust=0&windgust=1&winddirection=0&winddirection=1&uv=0&uv=1&humidity=0&humidity=1&precipitation=0&precipitation=1&precipitationprobability=0&precipitationprobability=1&spot=0&pressure=0&layout=light"
-                        frameborder="0" scrolling="NO" allowtransparency="true"
-                        sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
-                        style="width: auto; max-width: 100%; height: 430px"></iframe>
-                    <div>
-                        <!-- DO NOT REMOVE THIS LINK --><a
-                            title="Radio Chanquina presenta el tiempo actual en la comuna de Chanco"
-                            href="https://www.meteoblue.com/es/tiempo/semana/cauquenes_chile_3896105?utm_source=weather_widget&utm_medium=linkus&utm_content=daily&utm_campaign=Weather%2BWidget"
-                            target="_blank" rel="noopener"></a>
-                    </div>
-                </div>
-
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </div>
     </div>
-    <hr>
-    <div class="section">
-        <div class="row">
-            <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 text-center">
-                <h3>Páginas amigas</h3>
-                <ul class="list-unstyled">
-                    <li><a href="https://lasuperestacion.cl/" target="_blank">La Super Estación</a></li>
-                    <li><a href="https://www.chanquinafm.cl" target="_blank">Radio Chanquina</a></li>
-                    <li><a href="https://www.cauquenino.cl/" target="_blank">Cauquenino</a></li>
-                    <li><a href="https://cauquenesnet.cl/" target="_blank">CauquenesNet</a></li>
-                </ul>
-            </div>
-            <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 text-center">
-                <h3>Contador de Visitas</h3>
-                <p id="counter" class="fs-1">0</p>
-            </div>
-        </div>
-    </div>
-
+    {{!-- fin carousel --}}
 </div>
+<hr>
+<div class="section">
+    <div class="row">
+        <div class="col text-center">
+            <h3>¿Quiénes Somos?</h3>
+            <p class="text-justify">Radio Tutuven es una emisora online cuyo único propósito es promover la imagen
+                de Cauquenes en todo
+                el mundo, así como acercar a nuestra tierra a los cauqueninos dispersos en Chile y en otras
+                latitudes, somos una radio comprometida, única y exclusivamente con nuestra ciudad y su gente, razón
+                por la cual somos absolutamente independientes de cualquier ideología, ya que éstas distorsionan el
+                enfoque de servicio que perseguimos como radio emisora. Somo un medio de comunicación sin fines de
+                lucro, nuestras metas están en continuar con la difusión de la música de nuestros artistas
+                Cauqueninos y la música de artistas chilenos y del mundo. Esperando contar con el apoyo de ustedes
+                para seguir siendo tu punto de encuentro y ser una radio de calidad, orgullo de nuestro querido
+                Cauquenes.</p>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="section">
+    <div class="row">
+        <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 col-xm-12 text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h2 class="text-center mb-4">Formulario de Contacto de Radio Tutuven</h2>
+                    {{#if success_msg}}
+                    <div class="alert alert-success" role="alert">
+                        {{success_msg}}
+                    </div>
+                    {{/if}}
+                    {{#if error_msg}}
+                    <div class="alert alert-danger" role="alert">
+                        {{error_msg}}
+                    </div>
+                    {{/if}}
+                    <form action="/contacto" method="post">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo Electrónico:</label>
+                            <input type="email" class="form-control" id="correo" name="correo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje:</label>
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
+                        </div>
+                        <!-- Agrega el campo del captcha -->
+                        <div id="token" class="g-recaptcha" data-sitekey="6LcqX14pAAAAAD9uELxUBj9mhODRz4H44ZNEIvGL"
+                            data-action="BTNCONTACTO" name="g-recaptcha-response"></div>
+                        <br>
+                        <div class="text-center">
+                            <button type="submit" value="Submit" class="btn btn-secondary">Enviar Mensaje</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 col-xm-12 text-center">
+            <div id="bg-weather" class="d-inline-block mt-2 rounded shadow">
+                <iframe title="Radio Chanquina presenta el Tiempo en Chanco"
+                    src="https://www.meteoblue.com/es/tiempo/widget/daily/cauquenes_chile_3896105?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=0&pictoicon=1&maxtemperature=0&maxtemperature=1&mintemperature=0&mintemperature=1&windspeed=0&windspeed=1&windgust=0&windgust=1&winddirection=0&winddirection=1&uv=0&uv=1&humidity=0&humidity=1&precipitation=0&precipitation=1&precipitationprobability=0&precipitationprobability=1&spot=0&pressure=0&layout=light"
+                    frameborder="0" scrolling="NO" allowtransparency="true"
+                    sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
+                    style="width: auto; max-width: 100%; height: 430px"></iframe>
+                <div>
+                    <!-- DO NOT REMOVE THIS LINK --><a
+                        title="Radio Chanquina presenta el tiempo actual en la comuna de Chanco"
+                        href="https://www.meteoblue.com/es/tiempo/semana/cauquenes_chile_3896105?utm_source=weather_widget&utm_medium=linkus&utm_content=daily&utm_campaign=Weather%2BWidget"
+                        target="_blank" rel="noopener"></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<hr>
+<div class="section">
+    <div class="row">
+        <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 text-center">
+            <h3>Páginas amigas</h3>
+            <ul class="list-unstyled">
+                <li><a href="https://www.carabineros.cl/" target="_blank">Carabineros de Chile</a></li>
+                <li><a href="https://lasuperestacion.cl/" target="_blank">La Super Estación</a></li>
+                <li><a href="https://www.chanquinafm.cl" target="_blank">Radio Chanquina</a></li>
+                <li><a href="https://www.cauquenino.cl/" target="_blank">Cauquenino</a></li>
+                <li><a href="https://cauquenesnet.cl/" target="_blank">CauquenesNet</a></li>
+                <li><a href="https://chanco.cl/" target="_blank">I. Municipalidad de Chanco</a></li>
+                <li><a href="https://www.munipelluhue.cl/" target="_blank">I. Municipalidad de Pelluhue</a></li>
+                <li><a href="https://www.cauquenes.cl/" target="_blank">I. Municipalidad de Cauquenes</a></li>
+            </ul>
+        </div>
+        <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 text-center">
+            <h3>Contador de Visitas</h3>
+            <p id="counter" class="fs-1">0</p>
+        </div>
+    </div>
+</div>
+
 
 
 {{> footer}}
