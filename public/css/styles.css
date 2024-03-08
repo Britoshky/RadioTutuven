@@ -1,3 +1,6 @@
+h1 {
+    font-size: 18px;
+}
 h2 {
     font-size: 15px
 }
@@ -28,6 +31,16 @@ h6 {
 #background {
     background-color: #fff;
 }
+#img_carousel {
+    width: auto;
+    height: 300px;
+}
+#card {
+    border-radius: 15px; /* Este valor determina el radio de las esquinas redondeadas */
+    border: #0056b3;
+
+}
+
 
 .nav-link.active {
     background-color: #007bff;
