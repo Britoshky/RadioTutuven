@@ -1642,31 +1642,6 @@ a.box-triangle__aside:hover .box-triangle__image {
 	}
 }
 
-.button1 {
-	display: inline-block;
-	width: auto;
-	max-width: 100%;
-	min-width: 60px;
-	border: 0;
-	padding: 12px 20px;
-	font-family: "Lato", Helvetica, Arial, sans-serif;
-	font-weight: 700;
-	letter-spacing: .05em;
-	transition: .33s all ease;
-	white-space: normal;
-	text-transform: uppercase;
-	cursor: pointer;
-	text-align: center;
-	vertical-align: middle;
-}
-
-@media (min-width: 768px) {
-	.button1 {
-		padding: 12px 40px;
-		font-size: 14px;
-		line-height: 4px;
-	}
-}
 
 /*
 * Appearance style
@@ -16205,7 +16180,7 @@ html.tablet .ui-to-top {
 @media (min-width: 480px) {
 	.ui-to-top {
 		right: 40px;
-		bottom: 40px;
+		bottom: 90px;
 	}
 }
 
@@ -33701,25 +33676,10 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 }
 
 #bg-repro {
-    background-color: #1d0335;
+    background-color: #00bd9d;
     color: #fff;
-    opacity: 1;
-    position: fixed;
-    bottom: 0;
-    left: 25%; /* Desplaza la barra hacia el centro */
-    width: 50%;
-    height: 60px;
-    text-align: center; /* Centra el texto horizontalmente */
+    opacity: 3;
 }
 
 
 
-
-
-
-
-
-#playBtn {
-    color: #0da1db;
-    outline: rgb(13, 161, 219) solid 1px
-}
