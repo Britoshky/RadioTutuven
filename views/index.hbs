@@ -1,181 +1,436 @@
 {{> navbar}}
-<br><br><br><br><br><br>
-<div class="container">
-    <div class="section">
-        {{!-- carousel --}}
-        <div class="row d-flex align-items-center justify-content-center">
-            <div class="col-6">
-                <div class="card">
-                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
-                                class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
+{{> pageloader}}
+
+<!-- Page-->
+<div class="page">
+
+
+    <!-- My Best Photos-->
+    <section class="section bg-white text-center">
+        <!-- Slick Carousel-->
+        <div class="slick-wrap">
+            <div class="slick-slider slick-style-1" data-arrows="true" data-autoplay="false" data-loop="true"
+                data-dots="true" data-swipe="true" data-xs-swipe="true" data-sm-swipe="false" data-items="1"
+                data-sm-items="3" data-md-items="3" data-lg-items="3" data-center-mode="true"
+                data-lightgallery="group-slick">
+                <div class="item">
+                    <div class="slick-slide-inner">
+                        <div class="slick-slide-caption"><a class="thumb-ann thumb-mixed_large"
+                                href="images/carousel/Tranque_Tutuven.jpg" data-lightgallery="item"><img
+                                    class="thumb-ann__image" src="images/carousel/Tranque_Tutuven.jpg" alt=""
+                                    width="961" height="664" />
+                                <div class="thumb-ann__caption">
+                                    <p class="thumb-ann__title heading-3">Tranque Tutuven de Cauquenes</p>
+                                    <p class="thumb-ann__text">El Embalse Tutuven es una obra hidráulica de
+                                        almacenamiento para 13 hm³ de agua con fines de uso agrícola ubicada cerca de la
+                                        ciudad de Cauquenes, en la Región del Maule, Chile. </p>
+                                </div>
+                            </a>
                         </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img id="img_carousel" src="/img_carousel/Centro_Civico_de_Cauquenes.jpg"
-                                    class="d-block w-100" alt="...">
-                                <div class="carousel-caption">
-                                    <div class="card-body">
-                                        <h5 class="card-title">First slide label</h5>
-                                        <p class="card-text">Some representative placeholder content for the first
-                                            slide.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img id="img_carousel" src="/img_carousel/Centro_Civico_de_Cauquenes.jpg"
-                                    class="d-block w-100" alt="...">
-                                <div class="carousel-caption">
-                                    <div class="card-body">
-                                        <h5 class="card-title">First slide label</h5>
-                                        <p class="card-text">Some representative placeholder content for the first
-                                            slide.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img id="img_carousel" src="/img_carousel/Centro_Civico_de_Cauquenes.jpg"
-                                    class="d-block w-100" alt="...">
-                                <div class="carousel-caption">
-                                    <div class="card-body">
-                                        <h5 class="card-title">First slide label</h5>
-                                        <p class="card-text">Some representative placeholder content for the first
-                                            slide.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
+                </div>
+                <div class="item">
+                    <div class="slick-slide-inner">
+                        <div class="slick-slide-caption"><a class="thumb-ann thumb-mixed_large"
+                                href="images/carousel/Interior_Parroquia_San_Alfonso.jpg" data-lightgallery="item"><img
+                                    class="thumb-ann__image" src="images/carousel/Interior_Parroquia_San_Alfonso.jpg"
+                                    alt="" width="961" height="664" />
+                                <div class="thumb-ann__caption">
+                                    <p class="thumb-ann__title heading-3">Interior Parroquia San Alfonso Cauquenes</p>
+                                    <p class="thumb-ann__text">Iglesia de estilo Neo-gótico construida durante el 1900
+                                        en la ciudad de Cauquenes, sobrevivió los terremotos de 1925, 1939, 1985 y 2010,
+                                        siendo uno de los patrimonios Arquitectónicos mas importantes de la ciudad, en
+                                        su interior altares y esculturas traídas desde Bélgica.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="slick-slide-inner">
+                        <div class="slick-slide-caption"><a class="thumb-ann thumb-mixed_large"
+                                href="images/carousel/Liceo_Claudina_Urrutia.jpg" data-lightgallery="item"><img
+                                    class="thumb-ann__image" src="images/carousel/Liceo_Claudina_Urrutia.jpg" alt=""
+                                    width="961" height="664" />
+                                <div class="thumb-ann__caption">
+                                    <p class="thumb-ann__title heading-3">Liceo Claudina Urrutia de Lavin de Cauquenes
+                                    </p>
+                                    <p class="thumb-ann__text">El Liceo Claudina Urrutia de Lavín fue fundado el 6 de
+                                        junio de 1900, en ese entonces como Liceo de Niñas de Cauquenes, siendo uno de
+                                        los más importantes de la comuna dado sus más de cien años de historia.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="slick-slide-inner">
+                        <div class="slick-slide-caption"><a class="thumb-ann thumb-mixed_large"
+                                href="images/carousel/Viaducto_Chovollen.jpg" data-lightgallery="item"><img
+                                    class="thumb-ann__image" src="images/carousel/Viaducto_Chovollen.jpg" alt=""
+                                    width="961" height="664" />
+                                <div class="thumb-ann__caption">
+                                    <p class="thumb-ann__title heading-3">Viadutco Chollevén, provincia de Cauquenes</p>
+                                    <p class="thumb-ann__text">Ubicado en Quilicura a 13 kilómetros al sur de Curanipe,
+                                        siguiendo la ruta costera entre el sector del cruce Chovellén y el sector de
+                                        Tregualemu, se encuentra el Viaducto, mirador natural en el que podrán
+                                        contemplar un hermoso paisaje y disfrutar de su entorno.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="slick-slide-inner">
+                        <div class="slick-slide-caption"><a class="thumb-ann thumb-mixed_large"
+                                href="images/carousel/Kiosko_Plaza_Cauquenes.jpg" data-lightgallery="item"><img
+                                    class="thumb-ann__image" src="images/carousel/Kiosko_Plaza_Cauquenes.jpg" alt=""
+                                    width="961" height="664" />
+                                <div class="thumb-ann__caption">
+                                    <p class="thumb-ann__title heading-3">Kiosko Plaza de Cauquenes</p>
+                                    <p class="thumb-ann__text">Muchos dirían que es el corazón de la ciudad, este lugar
+                                        ve pasar a sus ciudadanos con más frecuencia. Una foto en el característico
+                                        kiosko, será una postal que no te debes perder, lugar que suele albergar eventos
+                                        y que además sirve de escenario, está rodeado por árboles que llevan años
+                                        existiendo.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-
-
+    <section class="section section-md bg-white text-center">
+        <div class="shell-fluid">
+            <p class="heading-1">Portfolio</p>
+            <div class="isotope thumb-ruby-wrap wow fadeIn" data-isotope-layout="masonry" data-isotope-group="gallery"
+                data-lightgallery="group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item"><a
+                            class="thumb-ruby thumb-mixed_height-2 thumb-mixed_md"
+                            href="images/portafolio/el_chuico_grande.jpg" data-lightgallery="item"><img
+                                class="thumb-ruby__image" src="images/portafolio/el_chuico.jpg" alt="" width="440"
+                                height="327" />
+                            <div class="thumb-ruby__caption">
+                                <p class="thumb-ruby__title heading-3">El Chuico de Cauquenes</p>
+                                <p class="thumb-ruby__text">Escenario del Festival del Chuico que se realiza en
+                                    Cauquenes durante el mes de Febrero.
+                                    <!-- Portfolio-->
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item"><a
+                            class="thumb-ruby thumb-mixed_height-3 thumb-mixed_md"
+                            href="images/portafolio/iglesia_san_alfonso_grande.jpg" data-lightgallery="item"><img
+                                class="thumb-ruby__image" src="images/portafolio/iglesia_san_alfonso.jpg" alt=""
+                                width="444" height="683" />
+                            <div class="thumb-ruby__caption">
+                                <p class="thumb-ruby__title heading-3">Iglesia San Alfonso de Cauquenes</p>
+                                <p class="thumb-ruby__text">En 1951 la iglesia es nombrada Parroquia y pasa a depender
+                                    del Obispado de Linares, administrando las capillas de la ciudad, las misas del
+                                    hospital local y las capillas del sector rural.
+                                    <!-- Portfolio-->
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item"><a
+                            class="thumb-ruby thumb-mixed_height-2 thumb-mixed_md"
+                            href="images/portafolio/iglesia_san_pedro_grande.jpg" data-lightgallery="item"><img
+                                class="thumb-ruby__image" src="images/portafolio/iglesia_san_pedro.jpg" alt=""
+                                width="440" height="327" />
+                            <div class="thumb-ruby__caption">
+                                <p class="thumb-ruby__title heading-3">Iglesia San Pedro de Cauquenes</p>
+                                <p class="thumb-ruby__text">Es en esta parroquia que se realizan actividades
+                                    civiles eclesiásticas como Tedeum, Misas Oficiales, Festividades Patrias y
+                                    Aniversario de la ciudad.
+                                    <!-- Portfolio-->
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item"><a
+                            class="thumb-ruby thumb-mixed_height-3 thumb-mixed_md"
+                            href="images/portafolio/parroquia_san_francisco_grande.jpg" data-lightgallery="item"><img
+                                class="thumb-ruby__image" src="images/portafolio/parroquia_san_francisco.jpg" alt=""
+                                width="444" height="683" />
+                            <div class="thumb-ruby__caption">
+                                <p class="thumb-ruby__title heading-3">Parroquia San Francisco de Cauquenes</p>
+                                <p class="thumb-ruby__text">La Iglesia de San Francisco es reconocida por su particular
+                                    estilo clásico y la abundante presencia de obras de arte.
+                                    <!-- Portfolio-->
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item"><a
+                            class="thumb-ruby thumb-mixed_height-2 thumb-mixed_md"
+                            href="images/portafolio/liceo_antonio_varas_grande.jpg" data-lightgallery="item"><img
+                                class="thumb-ruby__image" src="images/portafolio/liceo_antonio_varas.jpg" alt=""
+                                width="440" height="327" />
+                            <div class="thumb-ruby__caption">
+                                <p class="thumb-ruby__title heading-3">Liceo Antonio Varas de la Barra de Cauquenes</p>
+                                <p class="thumb-ruby__text">En el año 1837 funciona el Liceo Antonio de la Barra, hoy es
+                                    el quinto más antiguo del país
+                                    <!-- Portfolio-->
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item"><a
+                            class="thumb-ruby thumb-mixed_height-2 thumb-mixed_md"
+                            href="images/portafolio/teatro_municipal_grande.jpg" data-lightgallery="item"><img
+                                class="thumb-ruby__image" src="images/portafolio/teatro_municipal.jpg" alt=""
+                                width="440" height="327" />
+                            <div class="thumb-ruby__caption">
+                                <p class="thumb-ruby__title heading-3">Teatro Municipal de Cauquenes</p>
+                                <p class="thumb-ruby__text">Éste fue dañado durante el
+                                    terremoto de 1939 y demolido años después. Es de estilo Art-deco y contaba con los
+                                    llamados palcos cueva.
+                                    <!-- Portfolio-->
+                                </p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        {{!-- fin carousel --}}
-    </div>
-    <hr>
-    <div class="section">
-        <div class="row">
-            <div class="col text-center">
-                <h3>¿Quiénes Somos?</h3>
-                <p class="text-justify">Radio Tutuven es una emisora online cuyo único propósito es promover la imagen
-                    de Cauquenes en todo
-                    el mundo, así como acercar a nuestra tierra a los cauqueninos dispersos en Chile y en otras
-                    latitudes, somos una radio comprometida, única y exclusivamente con nuestra ciudad y su gente, razón
-                    por la cual somos absolutamente independientes de cualquier ideología, ya que éstas distorsionan el
-                    enfoque de servicio que perseguimos como radio emisora. Somo un medio de comunicación sin fines de
-                    lucro, nuestras metas están en continuar con la difusión de la música de nuestros artistas
-                    Cauqueninos y la música de artistas chilenos y del mundo. Esperando contar con el apoyo de ustedes
-                    para seguir siendo tu punto de encuentro y ser una radio de calidad, orgullo de nuestro querido
-                    Cauquenes.</p>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="section">
-        <div class="row">
-            <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 col-xm-12 text-center">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <h2 class="text-center mb-4">Formulario de Contacto de Radio Tutuven</h2>
-                        {{#if success_msg}}
-                        <div class="alert alert-success" role="alert">
-                            {{success_msg}}
+    </section>
+    {{!--
+    <!-- Awards-->
+    <section class="section parallax-container bg-image-dark" data-parallax-img="images/bg-image-7-1920x1244.jpg">
+        <div class="parallax-content">
+            <div class="section-md text-center">
+                <div class="shell">
+                    <div class="range range-50 range-lg-bottom">
+                        <div class="cell-xs-6 cell-md-3 wow fadeIn">
+                            <!-- Box award-->
+                            <article class="box-award"><img class="box-award__image"
+                                    src="images/award-1-134x98-inverse.png" alt="" width="134" height="98" />
+                                <h3 class="box-award__title">Best photo of the year</h3>
+                                <div class="box-award__divider"></div>
+                                <time class="box-award__time" datetime="2010">2010</time>
+                            </article>
                         </div>
-                        {{/if}}
-                        {{#if error_msg}}
-                        <div class="alert alert-danger" role="alert">
-                            {{error_msg}}
+                        <div class="cell-xs-6 cell-md-3 wow fadeIn" data-wow-delay=".1s">
+                            <!-- Box award-->
+                            <article class="box-award"><img class="box-award__image"
+                                    src="images/award-2-115x117-inverse.png" alt="" width="115" height="117" />
+                                <h3 class="box-award__title">Best couple photo</h3>
+                                <div class="box-award__divider"></div>
+                                <time class="box-award__time" datetime="2014">2014</time>
+                            </article>
                         </div>
-                        {{/if}}
-                        <form action="/contacto" method="post">
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="correo" class="form-label">Correo Electrónico:</label>
-                                <input type="email" class="form-control" id="correo" name="correo" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="mensaje" class="form-label">Mensaje:</label>
-                                <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
-                            </div>
-                            <!-- Agrega el campo del captcha -->
-                            <div id="token" class="g-recaptcha" data-sitekey="6LcqX14pAAAAAD9uELxUBj9mhODRz4H44ZNEIvGL"
-                                data-action="BTNCONTACTO" name="g-recaptcha-response"></div>
-                            <br>
-                            <div class="text-center">
-                                <button type="submit" value="Submit" class="btn btn-secondary">Enviar Mensaje</button>
-                            </div>
-                        </form>
+                        <div class="cell-xs-6 cell-md-3 wow fadeIn" data-wow-delay=".2s">
+                            <!-- Box award-->
+                            <article class="box-award"><img class="box-award__image"
+                                    src="images/award-3-116x103-inverse.png" alt="" width="116" height="103" />
+                                <h3 class="box-award__title">Best love story photo</h3>
+                                <div class="box-award__divider"></div>
+                                <time class="box-award__time" datetime="2015">2015</time>
+                            </article>
+                        </div>
+                        <div class="cell-xs-6 cell-md-3 wow fadeIn" data-wow-delay=".3s">
+                            <!-- Box award-->
+                            <article class="box-award"><img class="box-award__image"
+                                    src="images/award-4-131x96-inverse.png" alt="" width="131" height="96" />
+                                <h3 class="box-award__title">Best photo shoot</h3>
+                                <div class="box-award__divider"></div>
+                                <time class="box-award__time" datetime="2016">2016</time>
+                            </article>
+                        </div>
                     </div>
                 </div>
-
             </div>
-            <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 col-xm-12 text-center">
-                <div id="bg-weather" class="d-inline-block mt-2 rounded shadow">
-                    <iframe title="Radio Chanquina presenta el Tiempo en Chanco"
-                        src="https://www.meteoblue.com/es/tiempo/widget/daily/cauquenes_chile_3896105?geoloc=fixed&days=5&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=coloured&pictoicon=0&pictoicon=1&maxtemperature=0&maxtemperature=1&mintemperature=0&mintemperature=1&windspeed=0&windspeed=1&windgust=0&windgust=1&winddirection=0&winddirection=1&uv=0&uv=1&humidity=0&humidity=1&precipitation=0&precipitation=1&precipitationprobability=0&precipitationprobability=1&spot=0&pressure=0&layout=light"
-                        frameborder="0" scrolling="NO" allowtransparency="true"
-                        sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
-                        style="width: auto; max-width: 100%; height: 430px"></iframe>
-                    <div>
-                        <!-- DO NOT REMOVE THIS LINK --><a
-                            title="Radio Chanquina presenta el tiempo actual en la comuna de Chanco"
-                            href="https://www.meteoblue.com/es/tiempo/semana/cauquenes_chile_3896105?utm_source=weather_widget&utm_medium=linkus&utm_content=daily&utm_campaign=Weather%2BWidget"
-                            target="_blank" rel="noopener"></a>
+        </div>
+    </section>
+
+
+    <!-- Blog-->
+    <section class="section section-md bg-gray-lighter text-center">
+        <div class="shell">
+            <p class="heading-1">Blog</p>
+            <div class="range range-30">
+                <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall">
+                    <!-- Post boxed-->
+                    <article class="post-boxed">
+                        <ul class="post-boxed__meta">
+                            <li>
+                                <time datetime="2019">Jul 20, 2019</time>
+                            </li>
+                            <li><a href="#">3 comments</a></li>
+                        </ul>
+                        <div class="post-boxed__main">
+                            <h3 class="post-boxed__title"><a href="#">Becoming a King and Queen for a Day</a></h3>
+                            <p>For one day, the two of you are the focus of attention. The concerns of the world slip...
+                            </p>
+                        </div>
+                        <div class="post-boxed__aside">
+                            <div class="unit unit-horizontal unit-middle unit-spacing-xs">
+                                <div class="unit__left"><img class="post-boxed__avatar" src="images/user-6-46x46.jpg"
+                                        alt="" width="46" height="46" />
+                                </div>
+                                <div class="unit__body">
+                                    <h6 class="text-uppercase">by Susan Parker</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall" data-wow-delay=".15s">
+                    <!-- Post boxed-->
+                    <article class="post-boxed">
+                        <ul class="post-boxed__meta">
+                            <li>
+                                <time datetime="2019">Jul 15, 2019</time>
+                            </li>
+                            <li><a href="#">3 comments</a></li>
+                        </ul>
+                        <div class="post-boxed__main">
+                            <h3 class="post-boxed__title"><a href="#">How to Make Great Wedding Photos</a></h3>
+                            <p>Today I’m going to answer the question that my clients ask almost after every photo
+                                shoot. It’s a question...</p>
+                        </div>
+                        <div class="post-boxed__aside">
+                            <div class="unit unit-horizontal unit-middle unit-spacing-xs">
+                                <div class="unit__left"><img class="post-boxed__avatar" src="images/user-6-46x46.jpg"
+                                        alt="" width="46" height="46" />
+                                </div>
+                                <div class="unit__body">
+                                    <h6 class="text-uppercase">by Susan Parker</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall" data-wow-delay=".3s">
+                    <!-- Post boxed-->
+                    <article class="post-boxed">
+                        <ul class="post-boxed__meta">
+                            <li>
+                                <time datetime="2019">Jul 5, 2019</time>
+                            </li>
+                            <li><a href="#">3 comments</a></li>
+                        </ul>
+                        <div class="post-boxed__main">
+                            <h3 class="post-boxed__title"><a href="#">5 Most Exotic Weddings</a></h3>
+                            <p>Do you want to know where your wedding will be the most unforgettable? Read this post and
+                                you’ll find...</p>
+                        </div>
+                        <div class="post-boxed__aside">
+                            <div class="unit unit-horizontal unit-middle unit-spacing-xs">
+                                <div class="unit__left"><img class="post-boxed__avatar" src="images/user-6-46x46.jpg"
+                                        alt="" width="46" height="46" />
+                                </div>
+                                <div class="unit__body">
+                                    <h6 class="text-uppercase">by Susan Parker</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section> --}}
+
+    <!-- Book Your Photo Shoot-->
+    <section class="section section-md bg-white">
+        <div class="shell">
+            <div class="range range-50 range-sm-center range-md-left range-md-reverse range-md-middle">
+                <div class="cell-sm-10 cell-md-6 wow fadeInRight">
+                    <div class="box-width-4 box-centered">
+                        <p class="heading-1">Conéctate con <br> Nosotros</p>
+                        <p>¿Tienes algo que decir? ¡Nos encantaría escucharte! Si deseas dejar un mensaje de
+                            agradecimiento, sugerencia o simplemente quieres ponerte en contacto con nosotros, completa
+                            el formulario a continuación. Nuestro equipo revisará tu mensaje y te responderá lo antes
+                            posible. ¡Gracias por tu interés y confianza en nosotros!"</p>
                     </div>
                 </div>
-
+                <div class="cell-sm-10 cell-md-6 wow fadeInLeft">
+                    <article class="box-line"><span></span><span></span><span></span><span></span>
+                        <div class="box-line__main">
+                            <!-- RD Mailform-->
+                            <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact"
+                                method="post" action="bat/rd-mailform.php">
+                                {{!-- <div class="form-wrap">
+                                    <input class="form-input" id="contact-date" type="text" data-time-picker="date"
+                                        name="date" data-constraints="@Required">
+                                    <label class="form-label" for="contact-date">Event Date</label>
+                                </div> --}}
+                                <div class="form-wrap">
+                                    <input class="form-input" id="contact-name" type="text" name="name"
+                                        data-constraints="@Required">
+                                    <label class="form-label" for="contact-name">Tu nombre</label>
+                                </div>
+                                <div class="form-wrap">
+                                    <input class="form-input" id="contact-email" type="email" name="email"
+                                        data-constraints="@Email @Required">
+                                    <label class="form-label" for="contact-email">Correo</label>
+                                </div>
+                                <div class="form-wrap">
+                                    <label class="form-label" for="contact-message">Tu mensaje</label>
+                                    <textarea class="form-input" id="contact-message" name="message"
+                                        data-constraints="@Required"></textarea>
+                                </div>
+                                <div class="form-wrap form-button offset-1">
+                                    <button class="button button-block button-primary-outline button-ujarak"
+                                        type="submit">make an appointment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </article>
+                </div>
             </div>
         </div>
-    </div>
-    <hr>
-    <div class="section">
-        <div class="row">
-            <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 text-center">
-                <h3>Páginas amigas</h3>
-                <ul class="list-unstyled">
-                    <li><a href="https://www.carabineros.cl/" target="_blank">Carabineros de Chile</a></li>
-                    <li><a href="https://lasuperestacion.cl/" target="_blank">La Super Estación</a></li>
-                    <li><a href="https://www.chanquinafm.cl" target="_blank">Radio Chanquina</a></li>
-                    <li><a href="https://www.cauquenino.cl/" target="_blank">Cauquenino</a></li>
-                    <li><a href="https://cauquenesnet.cl/" target="_blank">CauquenesNet</a></li>
-                    <li><a href="https://chanco.cl/" target="_blank">I. Municipalidad de Chanco</a></li>
-                    <li><a href="https://www.munipelluhue.cl/" target="_blank">I. Municipalidad de Pelluhue</a></li>
-                    <li><a href="https://www.cauquenes.cl/" target="_blank">I. Municipalidad de Cauquenes</a></li>
-                </ul>
-            </div>
-            <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12 text-center">
-                <h3>Contador de Visitas</h3>
-                <p id="counter" class="fs-1">0</p>
+    </section>
+
+    <!-- Page Footer-->
+    <footer class="footer-centered section bg-gray-darker">
+        <div class="shell">
+            <div class="range range-sm-center">
+                <div class="cell-sm-10 cell-md-8 cell-lg-6">
+                    <!-- Brand--><a class="brand" href="/">
+                        <div class="brand__name"><img src="images/logo-inverse-243x571.png" alt="" width="243"
+                                height="57" />
+                        </div>
+                    </a>
+                    <!-- RD Mailform-->
+                    {{!-- <form class="rd-mailform form_inline" data-form-output="form-output-global"
+                        data-form-type="subscribe" method="post" action="bat/rd-mailform.php">
+                        <div class="form__inner">
+                            <div class="form-wrap">
+                                <input class="form-input" id="subscribe-form-footer-email" type="email" name="email"
+                                    data-constraints="@Email @Required">
+                                <label class="form-label" for="subscribe-form-footer-email">Your E-mail...</label>
+                            </div>
+                            <div class="form-button">
+                                <button class="button button-link" type="submit">Subscribe</button>
+                            </div>
+                        </div>
+                    </form> --}}
+                    <ul class="list-icons list-inline-sm">
+                        <li><a class="icon icon-sm fa fa-instagram icon-style-camera"
+                                href="#"><span></span><span></span><span></span><span></span></a></li>
+                        <li><a class="icon icon-sm fa fa-facebook icon-style-camera"
+                                href="#"><span></span><span></span><span></span><span></span></a></li>
+                        <li><a class="icon icon-sm fa fa-pinterest icon-style-camera"
+                                href="#"><span></span><span></span><span></span><span></span></a></li>
+                    </ul>
+                    <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span>. All Rights
+                        Reserved. Design by <a href="https://www.radiotutuven.cl">Radio Tutuven Online</a></p>
+                </div>
             </div>
         </div>
-    </div>
-
+    </footer>
 </div>
+<!-- Global Mailform Output-->
+<div class="snackbars" id="form-output-global"></div>
 
-{{> footer}}
-{{> player}}
 
-
+{{!-- {{> player}} --}}
 <!-- Agrega el script de la biblioteca de reCAPTCHA -->
 <script async src="https://www.google.com/recaptcha/enterprise.js"></script>
 <script src="/js/player.js"></script>
