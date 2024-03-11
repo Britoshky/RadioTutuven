@@ -167,8 +167,8 @@ $document.ready(function () {
 			animateIn: c.attr('data-animation-in') ? c.attr('data-animation-in') : false,
 			animateOut: c.attr('data-animation-out') ? c.attr('data-animation-out') : false,
 			responsive: responsive,
-			navText: c.attr("data-nav-text") ? $.parseJSON( c.attr("data-nav-text") ) : [],
-			navClass: c.attr("data-nav-class") ? $.parseJSON( c.attr("data-nav-class") ) : ['owl-prev', 'owl-next']
+			navText: c.attr("data-nav-text") ? $.parseJSON(c.attr("data-nav-text")) : [],
+			navClass: c.attr("data-nav-class") ? $.parseJSON(c.attr("data-nav-class")) : ['owl-prev', 'owl-next']
 		});
 	}
 
@@ -280,9 +280,9 @@ $document.ready(function () {
 		regula.custom({
 			name: 'PhoneNumber',
 			defaultMessage: 'Invalid phone number format',
-			validator: function() {
-				if ( this.value === '' ) return true;
-				else return /^(\+\d)?[0-9\-\(\) ]{5,}$/i.test( this.value );
+			validator: function () {
+				if (this.value === '') return true;
+				else return /^(\+\d)?[0-9\-\(\) ]{5,}$/i.test(this.value);
 			}
 		});
 
@@ -299,7 +299,7 @@ $document.ready(function () {
 			if (e.type !== "blur") if (!$this.parent().hasClass("has-error")) return;
 			if ($this.parents('.rd-mailform').hasClass('success')) return;
 
-			if (( results = $this.regula('validate') ).length) {
+			if ((results = $this.regula('validate')).length) {
 				for (i = 0; i < results.length; i++) {
 					$this.siblings(".form-validation").text(results[i].message).parent().addClass("has-error");
 				}
@@ -532,22 +532,22 @@ $document.ready(function () {
 	}
 
 	// RD Navbar
-	if ( plugins.rdNavbar.length ) {
+	if (plugins.rdNavbar.length) {
 		var
 			navbar = plugins.rdNavbar,
 			aliases = { '-': 0, '-sm-': 576, '-md-': 768, '-lg-': 992, '-xl-': 1200, '-xxl-': 1600 },
 			responsive = {};
 
-		for ( var alias in aliases ) {
-			var link = responsive[ aliases[ alias ] ] = {};
-			if ( navbar.attr( 'data'+ alias +'layout' ) )          link.layout        = navbar.attr( 'data'+ alias +'layout' );
-			if ( navbar.attr( 'data'+ alias +'device-layout' ) )   link.deviceLayout  = navbar.attr( 'data'+ alias +'device-layout' );
-			if ( navbar.attr( 'data'+ alias +'hover-on' ) )        link.focusOnHover  = navbar.attr( 'data'+ alias +'hover-on' ) === 'true';
-			if ( navbar.attr( 'data'+ alias +'auto-height' ) )     link.autoHeight    = navbar.attr( 'data'+ alias +'auto-height' ) === 'true';
-			if ( navbar.attr( 'data'+ alias +'stick-up-offset' ) ) link.stickUpOffset = navbar.attr( 'data'+ alias +'stick-up-offset' );
-			if ( navbar.attr( 'data'+ alias +'stick-up' ) )        link.stickUp       = navbar.attr( 'data'+ alias +'stick-up' ) === 'true';
-			if ( isNoviBuilder ) link.stickUp = false;
-			else if ( navbar.attr( 'data'+ alias +'stick-up' ) )   link.stickUp       = navbar.attr( 'data'+ alias +'stick-up' ) === 'true';
+		for (var alias in aliases) {
+			var link = responsive[aliases[alias]] = {};
+			if (navbar.attr('data' + alias + 'layout')) link.layout = navbar.attr('data' + alias + 'layout');
+			if (navbar.attr('data' + alias + 'device-layout')) link.deviceLayout = navbar.attr('data' + alias + 'device-layout');
+			if (navbar.attr('data' + alias + 'hover-on')) link.focusOnHover = navbar.attr('data' + alias + 'hover-on') === 'true';
+			if (navbar.attr('data' + alias + 'auto-height')) link.autoHeight = navbar.attr('data' + alias + 'auto-height') === 'true';
+			if (navbar.attr('data' + alias + 'stick-up-offset')) link.stickUpOffset = navbar.attr('data' + alias + 'stick-up-offset');
+			if (navbar.attr('data' + alias + 'stick-up')) link.stickUp = navbar.attr('data' + alias + 'stick-up') === 'true';
+			if (isNoviBuilder) link.stickUp = false;
+			else if (navbar.attr('data' + alias + 'stick-up')) link.stickUp = navbar.attr('data' + alias + 'stick-up') === 'true';
 		}
 
 		plugins.rdNavbar.RDNavbar({
@@ -756,7 +756,7 @@ $document.ready(function () {
 
 
 
-// lightGallery
+	// lightGallery
 	if (plugins.lightGallery.length) {
 		for (var i = 0; i < plugins.lightGallery.length; i++) {
 			initLightGallery(plugins.lightGallery[i]);
@@ -830,7 +830,7 @@ $document.ready(function () {
 			$mailchimpItem.attr('novalidate', 'true');
 			$email.attr('name', 'EMAIL');
 
-			$mailchimpItem.on('submit', $.proxy( function ( $email, event ) {
+			$mailchimpItem.on('submit', $.proxy(function ($email, event) {
 				event.preventDefault();
 
 				var $this = this;
@@ -858,8 +858,8 @@ $document.ready(function () {
 					success: function (resp) {
 						$output.html(resp.msg).addClass('active');
 						$email[0].value = '';
-						var $label = $('[for="'+ $email.attr( 'id' ) +'"]');
-						if ( $label.length ) $label.removeClass( 'focus not-empty' );
+						var $label = $('[for="' + $email.attr('id') + '"]');
+						if ($label.length) $label.removeClass('focus not-empty');
 
 						setTimeout(function () {
 							$output.removeClass("active");
@@ -906,7 +906,7 @@ $document.ready(function () {
 				});
 
 				return false;
-			}, $mailchimpItem, $email ));
+			}, $mailchimpItem, $email));
 		}
 	}
 
@@ -958,8 +958,8 @@ $document.ready(function () {
 				var inputs = $this[0].getElementsByTagName('input');
 				for (var i = 0; i < inputs.length; i++) {
 					inputs[i].value = '';
-					var label = document.querySelector( '[for="'+ inputs[i].getAttribute( 'id' ) +'"]' );
-					if( label ) label.classList.remove( 'focus', 'not-empty' );
+					var label = document.querySelector('[for="' + inputs[i].getAttribute('id') + '"]');
+					if (label) label.classList.remove('focus', 'not-empty');
 				}
 
 				return false;
@@ -1017,7 +1017,7 @@ $document.ready(function () {
 							$.ajax({
 								method: "POST",
 								url: "bat/reCaptcha.php",
-								data: {'g-recaptcha-response': captchaToken},
+								data: { 'g-recaptcha-response': captchaToken },
 								async: false
 							})
 								.done(function (responceCode) {
@@ -1282,14 +1282,14 @@ $document.ready(function () {
 
 				if ($selectedEvent.hasClass("opened")) {
 					eventRow = $('#calendarEvent' + event.data + ' .event-panel');
-					eventRow.animate({height: "0"}, animationDuration);
+					eventRow.animate({ height: "0" }, animationDuration);
 
 					setTimeout(function () {
 						eventRow.parent().remove();
 					}, animationDuration);
 				} else {
 					if (openedEvents.length) {
-						openedEvents.animate({height: "0"}, animationDuration);
+						openedEvents.animate({ height: "0" }, animationDuration);
 
 						$('.rdc-table_has-events.opened').removeClass('opened');
 
@@ -1306,7 +1306,7 @@ $document.ready(function () {
 						eventRow = hiddenEvents.clone().appendTo($('#calendarEvent' + event.data + ' .event-panel'));
 						ch = eventRow.outerHeight();
 						eventRow.parent().css("height", "0");
-						eventRow.parent().animate({height: ch + "px"}, animationDuration);
+						eventRow.parent().animate({ height: ch + "px" }, animationDuration);
 						console.log(ch);
 
 					}, revealOffset);
@@ -1371,3 +1371,29 @@ $document.ready(function () {
 
 });
 
+const playBtn = document.getElementById("playBtn");
+const link = new Audio();
+let isPlaying = false;
+
+if (playBtn == null) {
+	console.log("playBtn es nulo");
+} else {
+	playBtn.addEventListener("click", async () => {
+		if (isPlaying) {
+			link.pause();
+			playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Play';
+		} else {
+			playBtn.innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div>  Cargando'; // Agrega "bi-spin" para la animación de rotación
+			link.src = "https://stream.chanquinafm.cl/radiotutuven";
+
+			// Elimina la animación de rotación cuando se ha cargado el audio
+			link.addEventListener("loadeddata", () => {
+				playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pausa';
+				playBtn.classList.remove("bi-spin");
+			});
+
+			await link.play();
+		}
+		isPlaying = !isPlaying;
+	});
+}
