@@ -15,8 +15,7 @@ router.use((req, res, next) => {
 
 // Ruta protegida que utiliza isAuthenticated
 router.get("/contacto", async (req, res) => {
-  const catpchakey = process.env.RECAPTCHA_SITE_KEY;
-  res.render("contacto", { catpchakey });
+  res.render("contacto", { });
 });
 
 
