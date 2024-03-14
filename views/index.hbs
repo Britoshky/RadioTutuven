@@ -24,17 +24,16 @@
                 data-md-stage-padding="260" data-lg-stage-padding="1" data-loop="true" data-margin="0"
                 data-mouse-drag="false" data-nav-custom="#owl-carousel-nav" data-center-mode="true" data-speed="500"
                 data-lightgallery="group">
-                <a class="thumb-ruby thumb-mixed_large"
-                    href="images/owl-carousel/reserva_nacional_federico_albert_chanco_grande.jpg"
+                <a class="thumb-ruby thumb-mixed_large" href="images/owl-carousel/tranque_tutuven_cauquenes_grande.png"
                     data-lightgallery="item"><img class="thumb-ruby__image"
-                        src="images/owl-carousel/reserva_nacional_federico_albert_chanco.jpg"
-                        alt="Reserva Nacional Federico Albert Chanco" width="649" height="427" />
+                        src="images/owl-carousel/tranque_tutuven_cauquenes.png" alt="Tranque Tutuven Cauquenes"
+                        width="649" height="427" />
                     <div class="thumb-ruby__caption">
                         <h2 class="text-light thumb-ruby__title heading-3">
-                            Reserva Nacional Federico Albert
+                            Tranque Tutuven Cauquenes
                         </h2>
-                        <p class="thumb-ruby__text">La Reserva Nacional Federico Albert es una reserva natural ubicada
-                            en las cercanías de la comunidad de Chanco, en Chile.</p>
+                        <p class="thumb-ruby__text">El tranque Tutuven aprovecha las aguas del río Tutuvén y del estero
+                            Tobalguén. El caudal de los afluentes se estima en 2 m³/s</p>
                     </div>
                 </a><a class="thumb-ruby thumb-mixed_large"
                     href="images/owl-carousel/compuerta_tranque_tutuven_cauquenes_grande.jpg"
@@ -43,31 +42,18 @@
                         alt="Compuerta Tranque Tutuven Cauquenes" width="649" height="427" />
                     <div class="thumb-ruby__caption">
                         <h2 class="text-light thumb-ruby__title heading-3">
-                            Compuerta Tranque Tutuven
+                            Compuerta Tranque Tutuven Cauquenes
                         </h2>
                         <p class="thumb-ruby__text">Se encuentra a sólo 9 kilómetros camino a Chanco Es un lugar muy
                             atractivo en verano para ir de picnic o a practicar pesca de orilla.</p>
                     </div>
                 </a><a class="thumb-ruby thumb-mixed_large"
-                    href="images/owl-carousel/reserva_nacional_los_ruiles_chanco_grande.jpg"
-                    data-lightgallery="item"><img class="thumb-ruby__image"
-                        src="images/owl-carousel/reserva_nacional_los_ruiles_chanco.jpg"
-                        alt="Reserva Nacional Los Ruiles Chanco" width="649" height="427" />
+                    href="images/owl-carousel/embalse_tutuven_cauquenes_grande.jpg" data-lightgallery="item"><img
+                        class="thumb-ruby__image" src="images/owl-carousel/embalse_tutuven_cauquenes.jpg"
+                        alt=" Embalse Tutuven Cauquenes" width="649" height="427" />
                     <div class="thumb-ruby__caption">
                         <h2 class="text-light thumb-ruby__title heading-3">
-                            Reserva Nacional Los Ruiles
-                        </h2>
-                        <p class="thumb-ruby__text">Esta Reserva Nacional contiene árboles y arbustos nativos únicos en
-                            la región, con el objetivo principal de proteger al ruil (Nothofagus alessandrii), una
-                            especie arbórea endémica en peligro crítico de extinción. </p>
-                    </div>
-                </a><a class="thumb-ruby thumb-mixed_large"
-                    href="images/owl-carousel/tranque_tutuven_cauquenes_grande.jpg" data-lightgallery="item"><img
-                        class="thumb-ruby__image" src="images/owl-carousel/tranque_tutuven_cauquenes.jpg"
-                        alt=" Tranque Tutuven Cauquenes" width="649" height="427" />
-                    <div class="thumb-ruby__caption">
-                        <h2 class="text-light thumb-ruby__title heading-3">
-                            Tranque Tutuven
+                            Embalse Tutuven Cauquenes
                         </h2>
                         <p class="thumb-ruby__text">El Embalse Tutuven es una obra hidráulica de almacenamiento para 13
                             hm³ de agua con fines de uso agrícola ubicada cerca de la ciudad de Cauquenes, en la Región
@@ -352,6 +338,19 @@
                 <div class="cell-sm-10 cell-md-6 wow fadeInLeft">
                     <article class="box-line"><span></span><span></span><span></span><span></span>
                         <div class="box-line__main">
+                            {{!-- mensaje --}}
+                            {{#if success_msg}}
+                            <div class="alert alert-success" role="alert">
+                                {{success_msg}}
+                            </div>
+                            {{/if}}
+                            {{#if error_msg}}
+                            <div class="alert alert-danger" role="alert">
+                                {{error_msg}}
+                            </div>
+                            {{/if}}
+                            {{!-- fin mensaje --}}
+
                             <!-- RD Mailform-->
                             <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact"
                                 method="post" action="bat/rd-mailform.php">

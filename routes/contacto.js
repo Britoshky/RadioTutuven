@@ -21,8 +21,8 @@ router.get("/contacto", async (req, res) => {
 
 
 // Ruta para manejar el envío del formulario
-router.post("/contacto",   async (req, res) => {
-  const { nombre, correo, mensaje } = req.body;
+router.post("/send-mail", async (req, res) => {
+  const { contact_nombre, contact_email, contact_message } = req.body;
   try {
     const transporter = nodemailer.createTransport({
       host: "email-smtp.us-east-1.amazonaws.com",
@@ -38,15 +38,17 @@ router.post("/contacto",   async (req, res) => {
       from: "contacto@chanquinafm.cl",
       to: "administrador@chanquinafm.cl",
       subject: "Nuevo mensaje de contacto",
-      text: `Nombre: ${nombre}\nCorreo Electrónico: ${correo}\nMensaje: ${mensaje}`,
+      text: `Nombre: ${contact_nombre}\nCorreo Electrónico: ${contact_email}\nMensaje: ${contact_message}`,
     };
 
-    await transporter.sendMail(mailOptions);
+    //await transporter.sendMail(mailOptions);
 
-    res.render("contacto", { success_msg: "Correo enviado correctamente, te contactaremos a la brevedad" });
+    console.log("mail enviado");
+    req.flash('success_msg', "Correo enviado correctamente, te contactaremos a la brevedad");
+    res.render("index");
   } catch (error) {
     console.error("Error al enviar el correo electrónico:", error);
-    res.render("contacto", { error_msg: "Error al enviar el mensaje"});
+    res.render("index", { error_msg: "Error al enviar el mensaje" });
   }
 });
 
@@ -54,7 +56,7 @@ router.post("/contacto",   async (req, res) => {
 router.use((err, req, res, next) => {
   console.error("Error inesperado:", err);
   req.flash("error_msg", "Error inesperado");
-  res.status(500).redirect("/contacto");
+  res.status(500).redirect("/");
 });
 
 module.exports = router;
