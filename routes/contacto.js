@@ -14,9 +14,9 @@ router.use((req, res, next) => {
 });
 
 // Ruta protegida que utiliza isAuthenticated
-router.get("/contacto", async (req, res) => {
-  res.render("contacto", { });
-});
+// router.get("/contacto", async (req, res) => {
+//   res.render("contacto", { });
+// });
 
 
 // Ruta para manejar el envío del formulario
@@ -40,7 +40,7 @@ router.post("/contacto", verifyRecaptcha, async (req, res) => {
       text: `Nombre: ${contact_nombre}\nCorreo Electrónico: ${contact_email}\nMensaje: ${contact_message}`,
     };
 
-    //await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
 
     console.log("mail enviado");
     req.flash('success_msg', "Correo enviado correctamente, te contactaremos a la brevedad");
