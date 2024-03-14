@@ -3,7 +3,7 @@ const { RecaptchaEnterpriseServiceClient } = require('@google-cloud/recaptcha-en
 // Función para crear una evaluación de reCAPTCHA
 async function createAssessment({
   projectID = "pagina-radio-cha-1705969164687",
-  recaptchaKey = "6LcdIpkpAAAAAKHEDC-brLvXqTxqDEzcksoRuxiT",
+  recaptchaKey = "6LeHaZUpAAAAAN-VxiYmq27txOdm8MRsPpBicOWs",
   token = "g-recaptcha-response",
   recaptchaAction = "BTNCONTACTO",
 }) {
