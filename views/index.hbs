@@ -352,8 +352,7 @@
                             {{!-- fin mensaje --}}
 
                             <!-- RD Mailform-->
-                            <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact"
-                                method="post" action="bat/rd-mailform.php">
+                            <form method="post" action="/contacto">
                                 {{!-- <div class="form-wrap">
                                     <input class="form-input" id="contact-date" type="text" data-time-picker="date"
                                         name="date" data-constraints="@Required">
@@ -380,8 +379,8 @@
                                 </div>
                                 <!--Google captcha-->
                                 <div class="form-wrap">
-                                    <div id="captcha1" data-sitekey="6LcdIpkpAAAAAKHEDC-brLvXqTxqDEzcksoRuxiT"
-                                        class="g-recaptcha" name="g-recaptcha-response"></div>
+                                    <div class="g-recaptcha" data-sitekey="6LcdIpkpAAAAAKHEDC-brLvXqTxqDEzcksoRuxiT"
+                                        data-action="BTNCONTACTO" name="g-recaptcha-response"></div>
                                 </div>
                                 <!-- End google captcha-->
                             </form>

@@ -21,7 +21,7 @@ router.get("/contacto", async (req, res) => {
 
 
 // Ruta para manejar el envío del formulario
-router.post("/send-mail", async (req, res) => {
+router.post("/contacto", verifyRecaptcha, async (req, res) => {
   const { contact_nombre, contact_email, contact_message } = req.body;
   try {
     const transporter = nodemailer.createTransport({
