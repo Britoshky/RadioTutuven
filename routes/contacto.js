@@ -21,7 +21,7 @@ router.use((req, res, next) => {
 
 // Ruta para manejar el envío del formulario
 router.post("/contacto", verifyRecaptcha, async (req, res) => {
-  const { contact_nombre, contact_email, contact_message } = req.body;
+  const { name, email, message } = req.body;
   try {
     const transporter = nodemailer.createTransport({
       host: "email-smtp.us-east-1.amazonaws.com",
@@ -37,12 +37,10 @@ router.post("/contacto", verifyRecaptcha, async (req, res) => {
       from: "contacto@chanquinafm.cl",
       to: "administrador@chanquinafm.cl",
       subject: "Nuevo mensaje de contacto",
-      text: `Nombre: ${contact_nombre}\nCorreo Electrónico: ${contact_email}\nMensaje: ${contact_message}`,
+      text: `Nombre: ${name}\nCorreo Electrónico: ${email}\nMensaje: ${message}`,
     };
-
     await transporter.sendMail(mailOptions);
 
-    console.log("mail enviado");
     req.flash('success_msg', "Correo enviado correctamente, te contactaremos a la brevedad");
     res.render("index");
   } catch (error) {
