@@ -35,7 +35,7 @@ router.post("/contacto", verifyRecaptcha, async (req, res) => {
 
     const mailOptions = {
       from: "contacto@chanquinafm.cl",
-      to: "administrador@chanquinafm.cl",
+      to: "radiotutuven@gmail.com",
       subject: "Nuevo mensaje de contacto",
       text: `Nombre: ${name}\nCorreo Electrónico: ${email}\nMensaje: ${message}`,
     };
