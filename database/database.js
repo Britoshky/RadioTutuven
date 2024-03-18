@@ -1,15 +1,29 @@
 const mongoose = require("mongoose");
-
 const { database } = require("./keys.js");
+
 mongoose.set("strictQuery", false);
 
+// Conectarse a la base de datos
 mongoose
   .connect(database.URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false,
+    useCreateIndex: true,
+    useFindAndModify: false
   })
-  .then((db) => console.log("DB is connected"))
-  .catch((err) => console.error(err));
+  .then(() => {
+    console.log("DB is connected");
+  })
+  .catch((err) => {
+    console.error("Error connecting to database:", err);
+  });
 
-  module.exports = mongoose.connection;
+// Manejar eventos de conexión y error
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", () => {
+  console.log("Connected to MongoDB database");
+});
+
+module.exports = db;

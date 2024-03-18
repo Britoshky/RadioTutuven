@@ -31,7 +31,7 @@ const configureUploadMiddleware = (uploadFolder) => {
       }
 
       const compressedImageBuffer = await sharp(req.file.buffer)
-        .webp({ quality: 20 })
+        .webp({ quality: 80 })
         .toBuffer();
 
       const filename = uuidv4() + ".webp";

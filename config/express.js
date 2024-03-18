@@ -80,46 +80,31 @@ app.set("view engine", ".hbs");
 // Configuración de Content Security Policy (CSP)
 
 
-
 // Configuración de bodyParser.json()
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Middlewares
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(
   session({
     secret: secretKey,
-    resave: false,
-    saveUninitialized: false,
+    resave: true, // No vuelva a guardar la sesión si no ha cambiado
+    saveUninitialized: true, // No guarde sesiones no modificadas
     cookie: {
-      secure: false, //cambiar a true para forzar https
+      secure: false, // Cambiar a true si estás usando HTTPS
       httpOnly: true,
-      maxAge: 12 * 60 * 60 * 1000, // 12 horas en milisegundos
-      sameSite: "Lax",
-      path: "/",
-      signed: true,
-      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      maxAge: 30 * 60 * 1000, // 30 minutos
+      sameSite: 'lax', // Configura 'strict' o 'none' según tus necesidades
     },
-    store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-      collection: 'sessions',
-      autoRemove: 'interval',
-      ttl: 14 * 24 * 60 * 60, // = 14 days. Default
-      autoRemoveInterval: 10 // In minutes. Default
-    }),
   })
 );
+
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// Configurar Cache-Control para 0 minutos (en milisegundos)
-app.use((req, res, next) => {
-  if (req.url.startsWith("/")) {
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-  }
-  next();
-});
+
 
 // Global Variables
 app.use((req, res, next) => {
