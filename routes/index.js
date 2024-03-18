@@ -58,7 +58,7 @@ router.post("/send-email", async (req, res) => {
       subject: "Nuevo mensaje de contacto",
       text: `Nombre: ${name}\nCorreo Electrónico: ${email}\nMensaje: ${message}`,
     };
-    //await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
 
     req.flash('success_msg', "Correo enviado correctamente, te contactaremos a la brevedad");
     const successFlash = req.flash('success_msg')[0]; // Accede al primer mensaje flash
