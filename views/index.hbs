@@ -13,7 +13,8 @@
                 </div>
                 <div class="cell-xs-12 cell-sm-8 cell-md-9 cell-lg-9">
                     <h1 style="font-size: 4em;">Radio Tutuven Cauquenes</h1>
-                    <p style="color: #00bd9d;">¡Bienvenido a la emisora online líder en Cauquenes, región del Maule! Sintoniza nuestra
+                    <p style="color: #00bd9d;">¡Bienvenido a la emisora online líder en Cauquenes, región del Maule!
+                        Sintoniza nuestra
                         programación variada y entretenida para disfrutar de la mejor música y
                         contenido de interés. Desde Cauquenes para todo el mundo, ¡somos tu compañía diaria!</p>
                 </div>
@@ -343,18 +344,12 @@
                 <div class="cell-sm-10 cell-md-6 wow fadeInLeft">
                     <article class="box-line"><span></span><span></span><span></span><span></span>
                         <div class="box-line__main">
-                            {{!-- mensaje --}}
-                            {{#if success_msg}}
-                            <div class="alert alert-success" role="alert">
-                                {{success_msg}}
-                            </div>
+                            {{#if successFlash}}
+                            <div class="alert alert-success">{{successFlash}}</div>
                             {{/if}}
-                            {{#if error_msg}}
-                            <div class="alert alert-danger" role="alert">
-                                {{error_msg}}
-                            </div>
+                            {{#if errorFlash}}
+                            <div class="alert alert-danger">{{errorFlash}}</div>
                             {{/if}}
-                            {{!-- fin mensaje --}}
 
                             <!-- RD Mailform-->
                             <form method="post" action="/send-email">

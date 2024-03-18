@@ -39,7 +39,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // Ruta para manejar el envío del formulario
-router.post("/send-email", verifyRecaptcha, async (req, res) => {
+router.post("/send-email", async (req, res) => {
   const { name, email, message } = req.body;
   try {
     const transporter = nodemailer.createTransport({
@@ -58,13 +58,15 @@ router.post("/send-email", verifyRecaptcha, async (req, res) => {
       subject: "Nuevo mensaje de contacto",
       text: `Nombre: ${name}\nCorreo Electrónico: ${email}\nMensaje: ${message}`,
     };
-    await transporter.sendMail(mailOptions);
+    //await transporter.sendMail(mailOptions);
 
     req.flash('success_msg', "Correo enviado correctamente, te contactaremos a la brevedad");
-    res.render("index");
+    const successFlash = req.flash('success_msg')[0]; // Accede al primer mensaje flash
+    res.render("index", {successFlash});
   } catch (error) {
-    console.error("Error al enviar el correo electrónico:", error);
-    res.render("index", { error_msg: "Error al enviar el mensaje" });
+    req.flash('error_msg', "Error al enviar el mensaje de contacto");
+    const errorFlash = req.flash('error_msg')[0]; // Accede al primer mensaje flash
+    res.render("index", { errorFlash });
   }
 });
 
