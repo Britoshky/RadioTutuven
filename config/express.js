@@ -89,7 +89,7 @@ app.use(
     resave: true, // No vuelva a guardar la sesión si no ha cambiado
     saveUninitialized: true, // No guarde sesiones no modificadas
     cookie: {
-      secure: false, // Cambiar a true si estás usando HTTPS
+      secure: true, // Cambiar a true si estás usando HTTPS
       httpOnly: true,
       maxAge: 30 * 60 * 1000, // 30 minutos
       sameSite: 'lax', // Configura 'strict' o 'none' según tus necesidades
