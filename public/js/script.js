@@ -1401,12 +1401,12 @@ if (playBtn == null) {
 
 
 
-var Clock = (function(){
+var Clock = (function () {
 
-	var exports = function(element) {
+	var exports = function (element) {
 		this._element = element;
 		var html = '';
-		for (var i=0;i<6;i++) {
+		for (var i = 0; i < 6; i++) {
 			html += '<span>&nbsp;</span>';
 		}
 		this._element.innerHTML = html;
@@ -1416,23 +1416,23 @@ var Clock = (function(){
 
 	exports.prototype = {
 
-		_tick:function() {
+		_tick: function () {
 			var time = new Date();
 			this._update(this._pad(time.getHours()) + this._pad(time.getMinutes()) + this._pad(time.getSeconds()));
 			var self = this;
-			setTimeout(function(){
+			setTimeout(function () {
 				self._tick();
-			},1000);
+			}, 1000);
 		},
 
-		_pad:function(value) {
+		_pad: function (value) {
 			return ('0' + value).slice(-2);
 		},
 
-		_update:function(timeString) {
+		_update: function (timeString) {
 
-			var i=0,l=this._slots.length,value,slot,now;
-			for (;i<l;i++) {
+			var i = 0, l = this._slots.length, value, slot, now;
+			for (; i < l; i++) {
 
 				value = timeString.charAt(i);
 				slot = this._slots[i];
@@ -1445,12 +1445,12 @@ var Clock = (function(){
 				}
 
 				if (now !== value) {
-					this._flip(slot,value);
+					this._flip(slot, value);
 				}
 			}
 		},
 
-		_flip:function(slot,value) {
+		_flip: function (slot, value) {
 
 			// setup new state
 			slot.classList.remove('flip');
@@ -1470,8 +1470,74 @@ var Clock = (function(){
 	return exports;
 }());
 
-var i=0,clocks = document.querySelectorAll('.clock'),l=clocks.length;
-for (;i<l;i++) {
+var i = 0, clocks = document.querySelectorAll('.clock'), l = clocks.length;
+for (; i < l; i++) {
 	new Clock(clocks[i]);
 }
-  
+
+const socket = new WebSocket('ws://localhost:8080');
+
+socket.onopen = function (e) {
+};
+
+socket.onmessage = function(event) {
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const data = reader.result;
+        displayMessage(data);
+
+        // Desplazar el contenedor de mensajes al final
+        const chatMessages = document.getElementById('chat-messages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    reader.readAsText(event.data);
+};
+
+
+function displayMessage(message) {
+	const chatMessages = document.getElementById('chat-messages');
+	const messageItem = document.createElement('li');
+	messageItem.textContent = message;
+	chatMessages.appendChild(messageItem);
+}
+
+
+document.getElementById('form').onsubmit = function (e) {
+	e.preventDefault();
+	let message = document.getElementById('input').value;
+	socket.send(message);
+	document.getElementById('input').value = '';
+};
+
+// Esperar a que se cargue completamente la página
+window.onload = function() {
+    // Obtener el contenedor de mensajes
+    const chatMessages = document.getElementById('chat-messages');
+
+    // Desplazar el contenedor de mensajes al final
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+};
+
+// Obtener el elemento del campo de entrada y el mensaje de advertencia
+const inputField = document.getElementById('input');
+const charWarning = document.getElementById('char-warning');
+
+// Escuchar el evento de entrada de texto
+inputField.addEventListener('input', function() {
+    // Verificar la longitud del texto ingresado
+    if (inputField.value.length > 500) {
+        // Mostrar el mensaje de advertencia si se supera el límite de caracteres
+        charWarning.style.display = 'block';
+    } else {
+        // Ocultar el mensaje de advertencia si está dentro del límite de caracteres
+        charWarning.style.display = 'none';
+    }
+});
+
+
+
+
+
+

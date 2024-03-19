@@ -334,16 +334,45 @@
             <div class="range range-50 range-sm-center range-md-left range-md-reverse range-md-middle">
                 <div class="cell-sm-10 cell-md-6 wow fadeInRight">
                     <div class="box-width-4 box-centered">
-                        <p class="heading-1">Conéctate con <br> Nosotros</p>
-                        <p>¿Tienes algo que decir? ¡Nos encantaría escucharte! Si deseas dejar un mensaje de
-                            agradecimiento, sugerencia o simplemente quieres ponerte en contacto con nosotros, completa
-                            el formulario a continuación. Nuestro equipo revisará tu mensaje y te responderá lo antes
-                            posible. ¡Gracias por tu interés y confianza en nosotros!"</p>
+                        <p class="heading-3 text-center">Chat</p>
+
+                        <!-- src/views/chat.hbs -->
+                        <div id="chat-container">
+                            <div id="chat-messages">
+                                {{#each messages}}
+                                <ul>
+                                    <li class="message-item">
+                                        <div class="message-content">{{this.message}}</div>
+                                        <!-- Mostrar la hora formateada -->
+                                        <div class="message-time">{{this.formattedTimestamp}}</div>
+                                    </li>
+                                </ul>
+                                {{/each}}
+                            </div>
+                            <!-- Formulario de entrada de mensajes -->
+                            <form id="form" method="post" action="/chat">
+                                <!-- Input de texto con límite de caracteres -->
+                                <input type="text" id="input" autocomplete="off" placeholder="Escribe un mensaje..."
+                                    maxlength="500">
+                                <!-- Widget de reCAPTCHA -->
+                                <div class="g-recaptcha" data-sitekey="6Le6jp4pAAAAAPFWH0450uCAfDKvq6CETPJ3ke7c"></div>
+                                <!-- Botón para enviar el mensaje -->
+                                <button type="submit">Enviar</button>
+                                <!-- Mensaje de advertencia -->
+                                <p id="char-warning" style="display: none; color: red;">Solo se admiten 500 caracteres
+                                </p>
+                            </form>
+                        </div>
+
+
                     </div>
                 </div>
                 <div class="cell-sm-10 cell-md-6 wow fadeInLeft">
+
+
                     <article class="box-line"><span></span><span></span><span></span><span></span>
                         <div class="box-line__main">
+                            <p class="heading-3">Conéctate con Nosotros</p>
                             {{#if successFlash}}
                             <div class="alert alert-success">{{successFlash}}</div>
                             {{/if}}
@@ -404,3 +433,4 @@
 {{> player}}
 <!-- Agrega el script de la biblioteca de reCAPTCHA -->
 <script async src="https://www.google.com/recaptcha/enterprise.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>

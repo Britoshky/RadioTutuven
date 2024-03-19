@@ -3,6 +3,9 @@ const router = express.Router();
 const moment = require("moment");
 const NodeCache = require("node-cache");
 
+const Chat = require('../models/Chat');
+
+
 const nodemailer = require("nodemailer");
 const verifyRecaptcha = require("../middleware/verifyRecaptcha");
 const sitemapUpdateMiddleware = require('../middleware/sitemap');
@@ -33,13 +36,28 @@ router.use((req, res, next) => {
 
 // Ruta para mostrar los elementos en la página principal
 router.get("/", async (req, res, next) => {
-  //router.use(sitemapUpdateMiddleware);
+  try {
+    // Obtener todos los mensajes de la base de datos y ordenarlos por tiempo
+    const messages = await Chat.find().sort({ timestamp: 1 });
 
-  res.render("index");
+    // Formatear la hora de cada mensaje
+    const messagesWithFormattedTime = messages.map((message) => {
+      return {
+        ...message.toObject(), // Convierte el documento Mongoose en un objeto JavaScript plano
+        formattedTimestamp: moment(message.timestamp).format("h:mm a"), // Formatea la hora
+      };
+    });
+
+    // Renderizar la página del chat y pasar los mensajes formateados como datos
+    res.render('index', { messages: messagesWithFormattedTime });
+  } catch (error) {
+    console.error('Error al cargar los mensajes:', error);
+    res.status(500).send('Error al cargar los mensajes');
+  }
 });
 
 // Ruta para manejar el envío del formulario
-router.post("/send-email", async (req, res) => {
+router.post("/send-email", verifyRecaptcha, async (req, res) => {
   const { name, email, message } = req.body;
   try {
     const transporter = nodemailer.createTransport({
@@ -53,7 +71,7 @@ router.post("/send-email", async (req, res) => {
     });
 
     const mailOptions = {
-      from: "contacto@chanquinafm.cl",
+      from: "contacto@radiotutuven.cl",
       to: "radiotutuven@gmail.com",
       subject: "Nuevo mensaje de contacto",
       text: `Nombre: ${name}\nCorreo Electrónico: ${email}\nMensaje: ${message}`,
@@ -62,7 +80,7 @@ router.post("/send-email", async (req, res) => {
 
     req.flash('success_msg', "Correo enviado correctamente, te contactaremos a la brevedad");
     const successFlash = req.flash('success_msg')[0]; // Accede al primer mensaje flash
-    res.render("index", {successFlash});
+    res.render("index", { successFlash });
   } catch (error) {
     req.flash('error_msg', "Error al enviar el mensaje de contacto");
     const errorFlash = req.flash('error_msg')[0]; // Accede al primer mensaje flash

@@ -10,6 +10,11 @@ const crypto = require("crypto");
 const helmet = require("helmet");
 const compression = require('compression');
 const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-access");
+// Importa el middleware WebSocket
+const WebSocketMiddleware = require("../middleware/websocket");
+
+
+
 
 const generateRandomString = (length) => {
   return crypto.randomBytes(length).toString("hex");
@@ -22,6 +27,8 @@ const secretKey = generateRandomString(64); // Se recomienda una longitud de 64 
 
 // Initializations
 const app = express();
+
+
 // Usar el middleware de compresión
 app.use(compression());
 require("../database/database");
@@ -45,7 +52,7 @@ app.set('trust proxy', 1);
 // });
 
 // Settings
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 3001);
 app.set("views", path.join(__dirname, "../views"));
 
 // Configuración del motor de plantillas para la plantilla principal "main.hbs"
@@ -126,6 +133,10 @@ app.use(helmet.xssFilter());
 app.use(express.static(path.join(__dirname, "../public")));
 
 
+// Usar WebSocket como middleware
+app.use(WebSocketMiddleware);
+
+
 
 // Routes
 app.use(require("../routes/index"));
@@ -149,4 +160,4 @@ app.use((err, req, res, next) => {
 });
 
 
-module.exports = app;
+module.exports = app ;
