@@ -120,13 +120,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Helmet Middlewares
-app.use(helmet.hidePoweredBy());
-app.use(helmet.hsts());
-app.use(helmet.ieNoOpen());
-app.use(helmet.noSniff());
-app.use(helmet.frameguard());
-app.use(helmet.xssFilter());
 
 
 // Static Files
