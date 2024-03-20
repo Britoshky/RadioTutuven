@@ -10,17 +10,21 @@ const nodemailer = require("nodemailer");
 const verifyRecaptcha = require("../middleware/verifyRecaptcha");
 const sitemapUpdateMiddleware = require('../middleware/sitemap');
 
+// Resto de la configuración de Express...
+
+
+
 // Tiempo de vida del caché en segundos (6 horas = 21600 segundos)
 const cache = new NodeCache({ stdTTL: 21600 });
 
 
-// Middleware para deshabilitar la caché
-router.use((req, res, next) => {
-  res.header("Cache-Control", "no-cache, private, no-store, must-revalidate");
-  res.header("Expires", "-1");
-  res.header("Pragma", "no-cache");
-  next();
-});
+// // Middleware para deshabilitar la caché
+// router.use((req, res, next) => {
+//   res.header("Cache-Control", "no-cache, private, no-store, must-revalidate");
+//   res.header("Expires", "-1");
+//   res.header("Pragma", "no-cache");
+//   next();
+// });
 
 
 // Middleware para cachear las rutas
@@ -35,7 +39,7 @@ router.use((req, res, next) => {
 });
 
 // Ruta para mostrar los elementos en la página principal
-router.get("/", async (req, res, next) => {
+router.get("/",  async (req, res, next) => {
   try {
     // Obtener todos los mensajes de la base de datos y ordenarlos por tiempo
     const messages = await Chat.find().sort({ timestamp: 1 });

@@ -10,11 +10,11 @@ const crypto = require("crypto");
 const helmet = require("helmet");
 const compression = require('compression');
 const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-access");
-// Importa el middleware WebSocket
-const WebSocketMiddleware = require("../middleware/websocket");
+const Chat = require("../models/Chat");
 
+const WebSocket = require('ws');
 
-
+const wss = new WebSocket.Server({ port: 8080 });
 
 const generateRandomString = (length) => {
   return crypto.randomBytes(length).toString("hex");
@@ -132,9 +132,33 @@ app.use(helmet.xssFilter());
 // Static Files
 app.use(express.static(path.join(__dirname, "../public")));
 
+// Manejo de conexiones WebSocket
+wss.on('connection', ws => {
 
-// Usar WebSocket como middleware
-app.use(WebSocketMiddleware);
+  ws.on('message', async message => {
+
+    // Guardar el mensaje en la base de datos
+    try {
+      const newChatMessage = new Chat({
+        message: message,
+        sender: 'Nombre del remitente' // Puedes cambiar esto según sea necesario
+      });
+
+      await newChatMessage.save();
+    } catch (error) {
+      console.error('Error al guardar el mensaje en la base de datos:', error);
+      return;
+    }
+
+    // Envía el mensaje a todos los clientes conectados
+    wss.clients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(message);
+      }
+    });
+  });
+});
+
 
 
 
@@ -160,4 +184,4 @@ app.use((err, req, res, next) => {
 });
 
 
-module.exports = app ;
+module.exports = app;

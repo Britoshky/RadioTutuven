@@ -342,9 +342,9 @@
                                 {{#each messages}}
                                 <ul>
                                     <li class="message-item">
-                                        <div class="message-content">{{this.message}}</div>
+                                        <div id="message-content" class="message-content">{{this.message}}</div>
                                         <!-- Mostrar la hora formateada -->
-                                        <div class="message-time">{{this.formattedTimestamp}}</div>
+                                        <div id="message-time" class="message-time">{{this.formattedTimestamp}}</div>
                                     </li>
                                 </ul>
                                 {{/each}}
@@ -387,18 +387,18 @@
                                 </div> --}}
                                 <div class="form-wrap">
                                     <input class="form-input" id="contact_name" type="text" name="name"
-                                        data-constraints="@Required">
+                                        data-constraints="@Required" required>
                                     <label class="form-label" for="contact_name">Tu nombre</label>
                                 </div>
                                 <div class="form-wrap">
                                     <input class="form-input" id="contact_email" type="email" name="email"
-                                        data-constraints="@Email @Required">
+                                        data-constraints="@Email @Required" required>
                                     <label class="form-label" for="contact_email">Correo</label>
                                 </div>
                                 <div class="form-wrap">
                                     <label class="form-label" for="contact_message">Tu mensaje</label>
                                     <textarea class="form-input" id="contact_message" name="message"
-                                        data-constraints="@Required"></textarea>
+                                        data-constraints="@Required" required></textarea>
                                 </div>
                                 <!--Google captcha-->
                                 <div class="form-wrap">

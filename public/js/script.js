@@ -1499,9 +1499,17 @@ socket.onmessage = function(event) {
 function displayMessage(message) {
 	const chatMessages = document.getElementById('chat-messages');
 	const messageItem = document.createElement('li');
-	messageItem.textContent = message;
+  
+	// Obtener la hora actual y formatearla
+	const formattedTimestamp = moment().format("h:mm a");
+  
+	// Concatenar el mensaje y la hora formateada
+	messageItem.textContent = `${message}`;
+	
 	chatMessages.appendChild(messageItem);
-}
+  }
+  
+  
 
 
 document.getElementById('form').onsubmit = function (e) {
