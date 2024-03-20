@@ -1512,12 +1512,13 @@ function displayMessage(message) {
   
 
 
-document.getElementById('form').onsubmit = function (e) {
-	e.preventDefault();
-	let message = document.getElementById('input').value;
-	socket.send(message);
-	document.getElementById('input').value = '';
+  document.getElementById('form').onsubmit = function (e) {
+    e.preventDefault(); // Evita que el formulario se envíe normalmente
+    let message = document.getElementById('input').value;
+    socket.send(message); // Envía el mensaje al servidor a través de WebSockets
+    document.getElementById('input').value = ''; // Limpia el campo de entrada
 };
+
 
 // Esperar a que se cargue completamente la página
 window.onload = function() {
