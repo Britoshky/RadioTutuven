@@ -120,6 +120,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// Helmet Middlewares
+app.use(helmet.hidePoweredBy());
+app.use(helmet.hsts());
+app.use(helmet.ieNoOpen());
+app.use(helmet.noSniff());
+app.use(helmet.frameguard());
+app.use(helmet.xssFilter());
 
 
 // Static Files
@@ -129,7 +136,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 wss.on('connection', ws => {
 
   ws.on('message', async message => {
-
+console.log(message);
     // Guardar el mensaje en la base de datos
     try {
       const newChatMessage = new Chat({
