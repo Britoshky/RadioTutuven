@@ -1496,14 +1496,10 @@ socket.onmessage = function(event) {
 };
 
 
-function displayMessage(message) {
+function displayMessage(message, formattedTimestamp) {
     const chatMessages = document.getElementById('chat-messages');
     const messageItem = document.createElement('li');
     messageItem.classList.add('message-item');
-    
-    // Obtener la hora actual y formatearla
-    const formattedTimestamp = moment().format("h:mm a");
-
     messageItem.innerHTML = `
         <div class="message-content">${message}</div>
         <div class="message-time">${formattedTimestamp}</div>
@@ -1513,7 +1509,6 @@ function displayMessage(message) {
     // Desplazar el contenedor de mensajes al final para mostrar el mensaje recién agregado
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
-
 
   
   
