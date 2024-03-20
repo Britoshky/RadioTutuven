@@ -1497,27 +1497,35 @@ socket.onmessage = function(event) {
 
 
 function displayMessage(message) {
-	const chatMessages = document.getElementById('chat-messages');
-	const messageItem = document.createElement('li');
+    const chatMessages = document.getElementById('chat-messages');
+    const messageItem = document.createElement('li');
+    messageItem.classList.add('message-item');
+    
+    // Obtener la hora actual y formatearla
+    const formattedTimestamp = moment().format("h:mm a");
+
+    messageItem.innerHTML = `
+        <div class="message-content">${message}</div>
+        <div class="message-time">${formattedTimestamp}</div>
+    `;
+    chatMessages.appendChild(messageItem);
   
-	// Obtener la hora actual y formatearla
-	const formattedTimestamp = moment().format("h:mm a");
-  
-	// Concatenar el mensaje y la hora formateada
-	messageItem.textContent = `${message}`;
-	
-	chatMessages.appendChild(messageItem);
-  }
+    // Desplazar el contenedor de mensajes al final para mostrar el mensaje recién agregado
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+
   
   
 
 
-document.getElementById('form').onsubmit = function (e) {
-	e.preventDefault();
-	let message = document.getElementById('input').value;
-	socket.send(message);
-	document.getElementById('input').value = '';
+  document.getElementById('form').onsubmit = function (e) {
+    e.preventDefault(); // Evita que el formulario se envíe normalmente
+    let message = document.getElementById('input').value;
+    socket.send(message); // Envía el mensaje al servidor a través de WebSockets
+    document.getElementById('input').value = ''; // Limpia el campo de entrada
 };
+
 
 // Esperar a que se cargue completamente la página
 window.onload = function() {

@@ -136,7 +136,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 wss.on('connection', ws => {
 
   ws.on('message', async message => {
-console.log(message);
+
     // Guardar el mensaje en la base de datos
     try {
       const newChatMessage = new Chat({
