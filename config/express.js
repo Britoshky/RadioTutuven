@@ -134,6 +134,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // Manejo de conexiones WebSocket
 wss.on('connection', ws => {
+  console.log('connection established');
 
   ws.on('message', async message => {
 
