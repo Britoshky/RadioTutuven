@@ -9,6 +9,7 @@ const Chat = require('../models/Chat');
 const nodemailer = require("nodemailer");
 const verifyRecaptcha = require("../middleware/verifyRecaptcha");
 const sitemapUpdateMiddleware = require('../middleware/sitemap');
+const WebSocketMiddleware = require("../middleware/websocket");
 
 // Resto de la configuración de Express...
 
@@ -27,6 +28,8 @@ const cache = new NodeCache({ stdTTL: 21600 });
 // });
 
 
+
+
 // Middleware para cachear las rutas
 router.use((req, res, next) => {
   const key = req.originalUrl;
@@ -39,8 +42,12 @@ router.use((req, res, next) => {
 });
 
 // Ruta para mostrar los elementos en la página principal
-router.get("/",  async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
+    WebSocketMiddleware(req, res, () => {
+      // Continúa con el siguiente middleware o ruta
+      next();
+    });
     // Obtener todos los mensajes de la base de datos y ordenarlos por tiempo
     const messages = await Chat.find().sort({ timestamp: 1 });
 

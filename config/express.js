@@ -14,7 +14,7 @@ const Chat = require("../models/Chat");
 
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port:8080 });
 
 const generateRandomString = (length) => {
   return crypto.randomBytes(length).toString("hex");
@@ -143,7 +143,6 @@ wss.on('connection', ws => {
         message: message,
         sender: 'Nombre del remitente' // Puedes cambiar esto según sea necesario
       });
-
       await newChatMessage.save();
     } catch (error) {
       console.error('Error al guardar el mensaje en la base de datos:', error);
