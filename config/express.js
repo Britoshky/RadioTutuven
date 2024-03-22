@@ -143,6 +143,7 @@ wss.on('connection', ws => {
         message: message,
         sender: 'Nombre del remitente' // Puedes cambiar esto según sea necesario
       });
+      console.log("mensaje enviado");
       await newChatMessage.save();
     } catch (error) {
       console.error('Error al guardar el mensaje en la base de datos:', error);
