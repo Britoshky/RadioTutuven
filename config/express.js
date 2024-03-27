@@ -1,21 +1,19 @@
 const express = require("express");
+const http = require('http');
 const path = require("path");
 const exphbs = require("express-handlebars");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
-const cors = require("cors");
 const crypto = require("crypto");
 const helmet = require("helmet");
 const compression = require('compression');
 const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-access");
-const Chat = require("../models/Chat");
-
 const WebSocket = require('ws');
+const Chat = require('../models/Chat');
 
-const wss = new WebSocket.Server({ port:8080 });
-
+// Función para generar una clave secreta única
 const generateRandomString = (length) => {
   return crypto.randomBytes(length).toString("hex");
 };
@@ -23,33 +21,47 @@ const generateRandomString = (length) => {
 // Generar una clave secreta única
 const secretKey = generateRandomString(64); // Se recomienda una longitud de 64 caracteres
 
-
-
-// Initializations
+// Inicializaciones
 const app = express();
+const server = http.createServer(app);
 
+// Configura WebSocket
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', ws => {
+  console.log('Conexión WebSocket establecida');
+
+  ws.on('message', async message => {
+    try {
+      const newChatMessage = new Chat({
+        message: message,
+        sender: 'Nombre del remitente'
+      });
+      console.log("Mensaje enviado");
+      await newChatMessage.save();
+    } catch (error) {
+      console.error('Error al guardar el mensaje en la base de datos:', error);
+      return;
+    }
+
+    wss.clients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(message);
+      }
+    });
+  });
+});
 
 // Usar el middleware de compresión
 app.use(compression());
+
+// Configuración de la base de datos y passport
 require("../database/database");
 require("../config/passport");
 require('dotenv').config();
 
-
-
 // Configuración para confiar en el proxy
 app.set('trust proxy', 1);
-
-
-
-// Middleware para verificar las solicitudes CORS
-// app.use((req, res, next) => {
-//   const origin = req.get('origin');
-//   if (!origin) {
-//     console.log(`Solicitud sin encabezado Origin desde la URL: ${req.url}`);
-//   }
-//   next();
-// });
 
 // Settings
 app.set("port", process.env.PORT || 3001);
@@ -64,52 +76,35 @@ const mainEngine = exphbs.create({
   handlebars: allowInsecurePrototypeAccess(require("handlebars")),
 });
 
-// Configuración del motor de plantillas para la plantilla principal "panel.hbs"
-const panelEngine = exphbs.create({
-  defaultLayout: "panel",
-  layoutsDir: path.join(app.get("views"), "layouts"),
-  partialsDir: path.join(app.get("views"), "partials"),
-  extname: ".hbs",
-  handlebars: allowInsecurePrototypeAccess(require("handlebars")),
-});
-
 // Establecer el motor de plantillas "mainEngine" para la plantilla principal "main.hbs"
 app.engine(".hbs", mainEngine.engine);
 
-// Establecer el motor de plantillas "panelEngine" para la plantilla principal "panel.hbs"
-app.engine("panel.hbs", panelEngine.engine);
-
-// Establecer la extensión de las vistas y el motor de renderizado por defecto
+// Configuración del motor de plantillas y extensión de las vistas
 app.set("view engine", ".hbs");
-
-// Configuración de Content Security Policy (CSP)
-
 
 // Configuración de bodyParser.json()
 app.use(express.json());
+
 // Middlewares
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(
   session({
     secret: secretKey,
-    resave: true, // No vuelva a guardar la sesión si no ha cambiado
-    saveUninitialized: true, // No guarde sesiones no modificadas
+    resave: true,
+    saveUninitialized: true,
     cookie: {
-      secure: true, // Cambiar a true si estás usando HTTPS
+      secure: false,
       httpOnly: true,
-      maxAge: 30 * 60 * 1000, // 30 minutos
-      sameSite: 'lax', // Configura 'strict' o 'none' según tus necesidades
+      maxAge: 30 * 60 * 1000,
+      sameSite: 'lax',
     },
   })
 );
 
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
-
 
 // Global Variables
 app.use((req, res, next) => {
@@ -128,40 +123,8 @@ app.use(helmet.noSniff());
 app.use(helmet.frameguard());
 app.use(helmet.xssFilter());
 
-
 // Static Files
 app.use(express.static(path.join(__dirname, "../public")));
-
-// Manejo de conexiones WebSocket
-wss.on('connection', ws => {
-  console.log('connection established');
-
-  ws.on('message', async message => {
-
-    // Guardar el mensaje en la base de datos
-    try {
-      const newChatMessage = new Chat({
-        message: message,
-        sender: 'Nombre del remitente' // Puedes cambiar esto según sea necesario
-      });
-      console.log("mensaje enviado");
-      await newChatMessage.save();
-    } catch (error) {
-      console.error('Error al guardar el mensaje en la base de datos:', error);
-      return;
-    }
-
-    // Envía el mensaje a todos los clientes conectados
-    wss.clients.forEach(client => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(message);
-      }
-    });
-  });
-});
-
-
-
 
 // Routes
 app.use(require("../routes/index"));
@@ -173,7 +136,6 @@ app.use(require("../routes/contacto"));
 app.use(require("../routes/sitemap"));
 app.use(require("../routes/politicas"));
 
-
 // Manejo de errores
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
@@ -184,5 +146,4 @@ app.use((err, req, res, next) => {
   }
 });
 
-
-module.exports = app;
+module.exports = { app, server, wss };

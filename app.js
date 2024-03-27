@@ -1,8 +1,10 @@
-const app = require("./config/express");
+const { app, server, wss } = require("./config/express");
 
 async function main() {
-  app.listen(3001);
-  console.log("Server on port", 3001);
+  const PORT = process.env.PORT || 3001;
+  server.listen(PORT, () => {
+    console.log("Servidor en ejecución en el puerto", PORT);
+  });
 }
 
 main();
