@@ -1475,7 +1475,7 @@ for (; i < l; i++) {
 	new Clock(clocks[i]);
 }
 
-const socket = new WebSocket('ws://0.0.0.0:3001');
+const socket = new WebSocket('ws://54.160.9.157:3001');
 
 socket.onopen = function (e) {
   console.log('Conexión WebSocket establecida');

@@ -26,7 +26,7 @@ const app = express();
 const server = http.createServer(app);
 
 // Configura WebSocket
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ server, host: '0.0.0.0'});
 
 wss.on('connection', ws => {
   console.log('Conexión WebSocket establecida');
