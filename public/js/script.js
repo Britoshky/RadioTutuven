@@ -1475,48 +1475,50 @@ for (; i < l; i++) {
 	new Clock(clocks[i]);
 }
 
-const socket = new WebSocket('ws://54.160.9.157:3001');
+const socket = new WebSocket('ws://127.0.0.1:3001');
 
 socket.onopen = function (e) {
-  console.log('Conexión WebSocket establecida');
+	console.log('Conexión WebSocket establecida');
 };
 
 socket.onmessage = function(event) {
-  const reader = new FileReader();
+    const reader = new FileReader();
 
-  reader.onload = function() {
-    const data = reader.result;
-    displayMessage(data);
+    reader.onload = function() {
+        const data = reader.result;
+        displayMessage(data);
 
-    // Desplazar el contenedor de mensajes al final
-    const chatMessages = document.getElementById('chat-messages');
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  };
+        // Desplazar el contenedor de mensajes al final
+        const chatMessages = document.getElementById('chat-messages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
 
-  reader.readAsText(event.data);
+    reader.readAsText(event.data);
 };
 
+
 function displayMessage(message) {
-  const chatMessages = document.getElementById('chat-messages');
-  const messageItem = document.createElement('li');
-  messageItem.textContent = message;
-  chatMessages.appendChild(messageItem);
+	const chatMessages = document.getElementById('chat-messages');
+	const messageItem = document.createElement('li');
+	messageItem.textContent = message;
+	chatMessages.appendChild(messageItem);
 }
 
+
 document.getElementById('form').onsubmit = function (e) {
-  e.preventDefault();
-  let message = document.getElementById('input').value;
-  socket.send(message);
-  document.getElementById('input').value = '';
+	e.preventDefault();
+	let message = document.getElementById('input').value;
+	socket.send(message);
+	document.getElementById('input').value = '';
 };
 
 // Esperar a que se cargue completamente la página
 window.onload = function() {
-  // Obtener el contenedor de mensajes
-  const chatMessages = document.getElementById('chat-messages');
+    // Obtener el contenedor de mensajes
+    const chatMessages = document.getElementById('chat-messages');
 
-  // Desplazar el contenedor de mensajes al final
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Desplazar el contenedor de mensajes al final
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
 // Obtener el elemento del campo de entrada y el mensaje de advertencia
@@ -1525,14 +1527,14 @@ const charWarning = document.getElementById('char-warning');
 
 // Escuchar el evento de entrada de texto
 inputField.addEventListener('input', function() {
-  // Verificar la longitud del texto ingresado
-  if (inputField.value.length > 500) {
-    // Mostrar el mensaje de advertencia si se supera el límite de caracteres
-    charWarning.style.display = 'block';
-  } else {
-    // Ocultar el mensaje de advertencia si está dentro del límite de caracteres
-    charWarning.style.display = 'none';
-  }
+    // Verificar la longitud del texto ingresado
+    if (inputField.value.length > 500) {
+        // Mostrar el mensaje de advertencia si se supera el límite de caracteres
+        charWarning.style.display = 'block';
+    } else {
+        // Ocultar el mensaje de advertencia si está dentro del límite de caracteres
+        charWarning.style.display = 'none';
+    }
 });
 
 
