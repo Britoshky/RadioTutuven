@@ -110,8 +110,9 @@ app.use(helmet.xssFilter());
 app.use(express.static(path.join(__dirname, "../public")));
 
 // chat
-app.get('/chat', (req, res) => {
-  res.render('chat');
+app.get('/chat', async (req, res) => {
+  const messages = await Message.find({});
+  res.render('chat', { messages: messages});
 });
 
 app.get('/messages', async (req, res) => {
