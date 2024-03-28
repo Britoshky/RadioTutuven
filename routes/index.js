@@ -44,19 +44,10 @@ router.use((req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     
-    // Obtener todos los mensajes de la base de datos y ordenarlos por tiempo
-    const messages = await Chat.find().sort({ timestamp: 1 });
-
-    // Formatear la hora de cada mensaje
-    const messagesWithFormattedTime = messages.map((message) => {
-      return {
-        ...message.toObject(), // Convierte el documento Mongoose en un objeto JavaScript plano
-        formattedTimestamp: moment(message.timestamp).format("h:mm a"), // Formatea la hora
-      };
-    });
+    
 
     // Renderizar la página del chat y pasar los mensajes formateados como datos
-    res.render('index', { messages: messagesWithFormattedTime });
+    res.render('index');
   } catch (error) {
     console.error('Error al cargar los mensajes:', error);
     res.status(500).send('Error al cargar los mensajes');

@@ -1475,70 +1475,92 @@ for (; i < l; i++) {
 	new Clock(clocks[i]);
 }
 
-const socket = new WebSocket('ws://127.0.0.1:3001/ws');
+var socket = io();
+$(() => {
+    $("#send").click(() => {
+        sendMessage({ name: $("#name").val(), message: $("#message").val() });
+    });
 
-socket.onopen = function (e) {
-	console.log('Conexión WebSocket establecida');
-};
-
-socket.onmessage = function(event) {
-    const reader = new FileReader();
-
-    reader.onload = function() {
-        const data = reader.result;
-        displayMessage(data);
-
-        // Desplazar el contenedor de mensajes al final
-        const chatMessages = document.getElementById('chat-messages');
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    };
-
-    reader.readAsText(event.data);
-};
-
-
-function displayMessage(message) {
-	const chatMessages = document.getElementById('chat-messages');
-	const messageItem = document.createElement('li');
-	messageItem.textContent = message;
-	chatMessages.appendChild(messageItem);
-}
-
-
-document.getElementById('form').onsubmit = function (e) {
-	e.preventDefault();
-	let message = document.getElementById('input').value;
-	socket.send(message);
-	document.getElementById('input').value = '';
-};
-
-// Esperar a que se cargue completamente la página
-window.onload = function() {
-    // Obtener el contenedor de mensajes
-    const chatMessages = document.getElementById('chat-messages');
-
-    // Desplazar el contenedor de mensajes al final
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-};
-
-// Obtener el elemento del campo de entrada y el mensaje de advertencia
-const inputField = document.getElementById('input');
-const charWarning = document.getElementById('char-warning');
-
-// Escuchar el evento de entrada de texto
-inputField.addEventListener('input', function() {
-    // Verificar la longitud del texto ingresado
-    if (inputField.value.length > 500) {
-        // Mostrar el mensaje de advertencia si se supera el límite de caracteres
-        charWarning.style.display = 'block';
-    } else {
-        // Ocultar el mensaje de advertencia si está dentro del límite de caracteres
-        charWarning.style.display = 'none';
-    }
+    getMessages();
 });
 
+socket.on('message', addMessages);
 
+function addMessages(message) {
+    // Convertir la marca de tiempo a un objeto Date
+    let timestamp;
+    if (message.timestamp) {
+        timestamp = new Date(message.timestamp);
+    } else {
+        // Utilizar la marca de tiempo actual del sistema como marca de tiempo provisional
+        timestamp = new Date();
+    }
 
+    // Obtener las horas y minutos
+    const hours = timestamp.getHours().toString().padStart(2, '0');
+    const minutes = timestamp.getMinutes().toString().padStart(2, '0');
 
+    // Crear la cadena de hora formateada en formato "HH:mm"
+    const time = `${hours}:${minutes}`;
 
+    // Agregar el mensaje con la hora, el nombre y el mensaje con la clase de estilo personalizado
+    $("#messages").prepend(`<p class="text-success">${time} - ${message.name} - ${message.message}</p>`);
 
+    // Desplazar automáticamente hasta el principio del contenedor (último mensaje)
+    $("#messages").scrollTop(0);
+}
+
+function getMessages() {
+    $.get('/messages', (data) => {
+        data.forEach(addMessages); // Agregar todos los mensajes
+        // Desplazar automáticamente hasta el último mensaje
+        $("#messages").scrollTop($("#messages")[0].scrollHeight);
+    });
+}
+
+function sendMessage(message) {
+    // Obtener el valor de los campos de nombre y mensaje
+    const name = $("#name").val();
+    const messageText = $("#message").val();
+
+    // Validar que ambos campos no estén vacíos
+    if (name.trim() === '' && messageText.trim() === '') {
+        // Mostrar un mensaje de alerta para ambos campos (tipo danger)
+        showAlert('Por favor, ingresa tu nombre y escribe un mensaje.', 'danger');
+        return; // Evitar enviar el mensaje si ambos campos están vacíos
+    } else if (name.trim() === '') {
+        // Mostrar un mensaje de alerta para el campo de nombre (tipo danger)
+        showAlert('Por favor, ingresa tu nombre.', 'danger');
+        return; // Evitar enviar el mensaje si el campo de nombre está vacío
+    } else if (messageText.trim() === '') {
+        // Mostrar un mensaje de alerta para el campo de mensaje (tipo danger)
+        showAlert('Por favor, escribe un mensaje.', 'danger');
+        return; // Evitar enviar el mensaje si el campo de mensaje está vacío
+    }
+
+    // Envía el mensaje al servidor
+    $.post('/messages', message, () => {
+        // Si el mensaje se envió correctamente, reinicia los campos de nombre y mensaje
+        $("#name").val('');     // Reinicia el campo de nombre
+        $("#message").val('');  // Reinicia el campo de mensaje
+
+        // Muestra un mensaje de éxito (tipo success)
+        showAlert('El mensaje fue enviado exitosamente.', 'success');
+    });
+}
+
+function showAlert(message, type = 'danger') {
+    const alertContainer = $('#alertContainer');
+    alertContainer.empty(); // Limpiar cualquier mensaje anterior
+
+    // Agregar el mensaje de alerta con el tipo de alerta especificado
+    alertContainer.append(`<div class="alert alert-${type}" role="alert">${message}</div>`);
+
+    // Mostrar la alerta
+    alertContainer.show();
+
+    // Ocultar la alerta después de unos segundos
+    setTimeout(() => {
+        alertContainer.hide();
+    }, 5000); // Ocultar después de 5 segundos (5000 milisegundos)
+}

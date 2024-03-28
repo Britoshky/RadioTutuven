@@ -35343,87 +35343,61 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	transform: translate3d(0, 0, 0) rotateX(0);
 }
 
+
+/* Estilos para el contenedor del chat */
 #chat-container {
-	max-width: 600px;
-	margin: 50px auto;
-	background-color: #f9f9f9;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	overflow: hidden;
-	/* Evita que los bordes redondeados se superpongan */
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
+/* Estilos para los campos de entrada */
+#chat-container input[type="text"],
+#chat-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Estilos para el botón de enviar */
+#send {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #00bd9d; /* Color del bg del repro */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para el contenedor de mensajes */
 #chat-messages {
-	max-height: 300px;
-	overflow-y: auto;
-	/* Agrega una barra de desplazamiento vertical si es necesario */
-	padding: 10px;
-}
-
-#chat-messages li {
-	background-color: #fff;
-	border-radius: 5px;
-	padding: 10px;
-	margin-bottom: 10px;
-}
-
-#form {
-	display: flex;
-	padding: 10px;
-	background-color: #fff;
-	border-top: 1px solid #ccc;
-}
-
-#input {
-	flex: 1;
-	padding: 10px;
-	border: none;
-	border-radius: 5px;
-	margin-right: 10px;
-}
-
-#input:focus {
-	outline: none;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-button {
-	padding: 10px 20px;
-	background-color: #00bd9d;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-button:hover {
-	background-color: #0056b3;
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 /* Estilos para los mensajes */
-#chat-messages li {
-	display: flex;
-	justify-content: space-between;
-	background-color: #fff;
-	border-radius: 5px;
-	padding: 10px;
-	margin-bottom: 10px;
-}
-
-/* Estilos para la hora del mensaje */
 .message-item {
-	display: flex;
-	align-items: flex-start;
-	/* Alinea los elementos al inicio de la línea */
+    list-style-type: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
 }
 
+/* Estilos para el contenido del mensaje */
 .message-content {
-	margin-right: 10px;
-	/* Margen a la derecha para separar el mensaje de la hora */
+    font-size: 16px;
 }
 
-.message-time {
-	white-space: nowrap;
-	color: #00bd9d;
-	/* Evita que la hora se divida en múltiples líneas */
+/* Estilos para los nombres de los usuarios */
+.message-name {
+    font-weight: bold;
+    color: #007bff; /* Azul */
 }

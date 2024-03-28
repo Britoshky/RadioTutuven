@@ -1,4 +1,5 @@
 {{> pageloader}}
+<script src="/socket.io/socket.io.js"></script>
 
 <!-- Page-->
 <div class="page">
@@ -335,31 +336,31 @@
                 <div class="cell-sm-10 cell-md-6 wow fadeInRight">
                     <div class="box-width-4 box-centered">
                         <p class="heading-3 text-center">Chat</p>
-
+<br>
                         <!-- src/views/chat.hbs -->
                         <div id="chat-container">
+                            <div id="alertContainer" class="alert" role="alert" style="display: none;">
+                                <!-- Mensaje de alerta se agregará aquí -->
+                            </div>
+
+
+                            <input id="name" class="form-control" placeholder="Nombre">
+                            <br>
+                            <textarea id="message" class="form-control"
+                                placeholder="Escribe tu mensaje aquí..."></textarea>
+                            <br>
+                            <button id="send" class="btn btn-success">Enviar</button>
                             <div id="chat-messages">
-                                {{#each messages}}
                                 <ul>
                                     <li class="message-item">
-                                        <div id="message-content" class="message-content">{{this.message}}</div>
-                                        <!-- Mostrar la hora formateada -->
-                                        <div id="message-time" class="message-time">{{this.formattedTimestamp}}</div>
+                                        <div id="message-content" class="message-content">
+                                            <div id="messages">
+
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
-                                {{/each}}
                             </div>
-                            <!-- Formulario de entrada de mensajes -->
-                            <form id="form" method="post" action="/chat">
-                                <!-- Input de texto con límite de caracteres -->
-                                <input type="text" id="input" autocomplete="off" placeholder="Escribe un mensaje..."
-                                    maxlength="500">
-                                 <!-- Botón para enviar el mensaje -->
-                                <button type="submit">Enviar</button>
-                                <!-- Mensaje de advertencia -->
-                                <p id="char-warning" style="display: none; color: red;">Solo se admiten 500 caracteres
-                                </p>
-                            </form>
                         </div>
 
 

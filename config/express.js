@@ -110,9 +110,9 @@ app.use(helmet.xssFilter());
 app.use(express.static(path.join(__dirname, "../public")));
 
 // chat
-app.get('/chat', async (req, res) => {
-  const messages = await Message.find({});
-  res.render('chat', { messages: messages});
+app.get('/', async (req, res) => {
+  
+  res.render('index');
 });
 
 app.get('/messages', async (req, res) => {
@@ -136,16 +136,13 @@ app.get('/messages/:user', async (req, res) => {
 
 app.post('/messages', async (req, res) => {
   try {
-    console.log(req.body);
       const message = new Message(req.body);
       const savedMessage = await message.save();
-      console.log('Message saved');
 
       const censored = await Message.findOne({ message: 'badword' });
       if (censored) {
           await Message.remove({ _id: censored.id });
       } else {
-          console.log(req.body);
           io.emit('message', req.body); // Emitir el mensaje a través de Socket.IO
       }
 
