@@ -112,7 +112,6 @@ app.use(express.static(path.join(__dirname, "../public")));
 // chat
 app.get('/chat', async (req, res) => {
   const messages = await Message.find({});
-  console.log(messages);
   res.render('chat', { messages: messages});
 });
 
