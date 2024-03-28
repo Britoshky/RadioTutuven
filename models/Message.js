@@ -1,7 +1,7 @@
 // src/models/Chat.js
 const mongoose = require('mongoose');
 
-const chatSchema = new mongoose.Schema({
+const MessageSchema = new mongoose.Schema({
   
   name: {
     type: String,
@@ -17,6 +17,6 @@ const chatSchema = new mongoose.Schema({
   }
 });
 
-const Chat = mongoose.model('Chat', chatSchema);
+const Message = mongoose.model('Message', MessageSchema);
 
-module.exports = Chat;
+module.exports = Message;

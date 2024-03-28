@@ -1,6 +1,7 @@
 const express = require("express");
 const http = require('http');
 const path = require("path");
+const bodyparser = require("body-parser");
 const exphbs = require("express-handlebars");
 const methodOverride = require("method-override");
 const session = require("express-session");
@@ -10,8 +11,10 @@ const crypto = require("crypto");
 const helmet = require("helmet");
 const compression = require('compression');
 const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-access");
-const WebSocket = require('ws');
-const Chat = require('../models/Chat');
+const Message = require('../models/Message');
+const socketIO = require('socket.io');
+
+
 
 // Función para generar una clave secreta única
 const generateRandomString = (length) => {
@@ -25,32 +28,11 @@ const secretKey = generateRandomString(64); // Se recomienda una longitud de 64 
 const app = express();
 const server = http.createServer(app);
 
-// Configura WebSocket
-const wss = new WebSocket.Server({ server, host: '0.0.0.0'});
+const io = socketIO(server);
 
-wss.on('connection', ws => {
-  console.log('Conexión WebSocket establecida');
 
-  ws.on('message', async message => {
-    try {
-      const newChatMessage = new Chat({
-        message: message,
-        sender: 'Nombre del remitente'
-      });
-      console.log("Mensaje enviado");
-      await newChatMessage.save();
-    } catch (error) {
-      console.error('Error al guardar el mensaje en la base de datos:', error);
-      return;
-    }
 
-    wss.clients.forEach(client => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(message);
-      }
-    });
-  });
-});
+
 
 // Usar el middleware de compresión
 app.use(compression());
@@ -86,6 +68,7 @@ app.set("view engine", ".hbs");
 app.use(express.json());
 
 // Middlewares
+app.use(bodyparser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(
@@ -126,6 +109,53 @@ app.use(helmet.xssFilter());
 // Static Files
 app.use(express.static(path.join(__dirname, "../public")));
 
+// chat
+app.get('/messages', async (req, res) => {
+  try {
+      const messages = await Message.find({});
+      res.send(messages);
+  } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/messages/:user', async (req, res) => {
+  try {
+      const user = req.params.user;
+      const messages = await Message.find({ name: user });
+      res.send(messages);
+  } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+  }
+});
+
+app.post('/messages', async (req, res) => {
+  try {
+    console.log(req.body);
+      const message = new Message(req.body);
+      const savedMessage = await message.save();
+      console.log('Message saved');
+
+      const censored = await Message.findOne({ message: 'badword' });
+      if (censored) {
+          await Message.remove({ _id: censored.id });
+      } else {
+          console.log(req.body);
+          io.emit('message', req.body); // Emitir el mensaje a través de Socket.IO
+      }
+
+      res.sendStatus(200);
+  } catch (error) {
+      console.error('Error:', error);
+      res.sendStatus(500);
+  }
+});
+
+io.on('connection', () => {
+  console.log('a user is connected')
+})
+// fin chat
+
 // Routes
 app.use(require("../routes/index"));
 app.use(require("../routes/quienes_somos"));
@@ -135,6 +165,7 @@ app.use(require("../routes/panel"));
 app.use(require("../routes/contacto"));
 app.use(require("../routes/sitemap"));
 app.use(require("../routes/politicas"));
+app.use(require("../routes/chat"));
 
 // Manejo de errores
 app.use((err, req, res, next) => {
@@ -146,4 +177,4 @@ app.use((err, req, res, next) => {
   }
 });
 
-module.exports = { app, server, wss };
+module.exports =  server ;

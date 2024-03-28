@@ -1,4 +1,4 @@
-const { app, server, wss } = require("./config/express");
+const server = require("./config/express");
 
 async function main() {
   const PORT = process.env.PORT || 3001;
