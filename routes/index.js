@@ -3,7 +3,6 @@ const router = express.Router();
 const moment = require("moment");
 const NodeCache = require("node-cache");
 
-const Chat = require('../models/Chat');
 
 
 const nodemailer = require("nodemailer");
