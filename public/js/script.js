@@ -1538,15 +1538,16 @@ function sendMessage(message) {
         return; // Evitar enviar el mensaje si el campo de mensaje está vacío
     }
 
-    // Envía el mensaje al servidor
-    $.post('/messages', message, () => {
-        // Si el mensaje se envió correctamente, reinicia los campos de nombre y mensaje
-        $("#name").val('');     // Reinicia el campo de nombre
-        $("#message").val('');  // Reinicia el campo de mensaje
+ // Envía el mensaje al servidor
+$.post('/messages', message, () => {
+    // Si el mensaje se envió correctamente, reinicia las variables de nombre y mensaje a sus valores predeterminados
+    $("#name").val($("#name").prop("defaultValue"));     // Reinicia el campo de nombre
+    $("#message").val($("#message").prop("defaultValue"));  // Reinicia el campo de mensaje
 
-        // Muestra un mensaje de éxito (tipo success)
-        showAlert('El mensaje fue enviado exitosamente.', 'success');
-    });
+    // Muestra un mensaje de éxito (tipo success)
+    showAlert('El mensaje fue enviado exitosamente.', 'success');
+});
+
 }
 
 function showAlert(message, type = 'danger') {

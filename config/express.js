@@ -111,7 +111,6 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // chat
 app.get('/', async (req, res) => {
-  
   res.render('index');
 });
 
@@ -167,7 +166,7 @@ app.use(require("../routes/panel"));
 app.use(require("../routes/contacto"));
 app.use(require("../routes/sitemap"));
 app.use(require("../routes/politicas"));
-app.use(require("../routes/chat"));
+app.use(require("../routes/fotos"));
 
 // Manejo de errores
 app.use((err, req, res, next) => {

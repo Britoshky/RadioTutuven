@@ -1,108 +1,158 @@
-{{> navbar}}
-
-
 <!-- Page-->
-    <div class="page">
-      <!-- Page Header-->
-      
+<div class="page">
+  <!-- Page Header-->
 
-      <!-- Breadcrumbs-->
-      <section class="breadcrumbs-custom bg-image" style="background-image: url(images/breadcrumbs-image.jpg);">
-        <div class="shell">
-          <h1 class="breadcrumbs-custom__title">Contáctame</h1>
-          <ul class="breadcrumbs-custom__path">
-            <li><a href="/">Inicio</a></li>
-            <li class="active">Contáctame</li>
-          </ul>
+  <!-- My Best Photos-->
+  <section class="section bg-gray-lighter text-center">
+    <div class="shell">
+      <br>
+      <div class="range range-50 range-sm-center">
+        <div class="cell-xs-12 cell-sm-4 cell-md-3 cell-lg-3">
+          <img src="/images/logo-radio.png" alt="logo" style="width: 190px; height: 190px;">
         </div>
-      </section>
+        <div class="cell-xs-12 cell-sm-8 cell-md-9 cell-lg-9">
+          <h1 style="font-size: 4em;">Radio Tutuven Cauquenes</h1>
+          <p style="color: #00bd9d;">¡Bienvenido a la emisora online líder en Cauquenes, región del Maule!
+            Sintoniza nuestra
+            programación variada y entretenida para disfrutar de la mejor música y
+            contenido de interés. Desde Cauquenes para todo el mundo, ¡somos tu compañía diaria!</p>
+        </div>
+      </div>
+    </div>
+    {{> navbar}}
 
-      <!-- Get in Touch-->
-      <section class="section section-md bg-white text-center">
-        <div class="shell">
-          <div class="range range-md-center">
-            <div class="cell-md-11 cell-lg-10">
-              <h2 class="text-bold">Get in Touch</h2>
-              <p><span class="box-width-2">I am available 24/7 by fax, e-mail or by phone. You can also use a quick contact form to ask a question about my services.</span></p>
-              <div class="layout-columns">
-                <div class="layout-columns__main">
-                  <div class="layout-columns__main-inner">
-                    <!-- RD Mailform-->
-                    <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
-                      <div class="form-wrap">
-                        {{!-- <input class="form-input" id="contact-date" type="text" data-time-picker="date" name="date" data-constraints="@Required">
-                        <label class="form-label" for="contact-date">Event Date</label> --}}
-                      </div>
-                      <div class="form-wrap">
-                        <input class="form-input" id="contact-name" type="text" name="name" data-constraints="@Required">
-                        <label class="form-label" for="contact-name">Your Name</label>
-                      </div>
-                      <div class="form-wrap">
-                        <input class="form-input" id="contact-email" type="email" name="email" data-constraints="@Email @Required">
-                        <label class="form-label" for="contact-email">E-mail</label>
-                      </div>
-                      <div class="form-wrap">
-                        <label class="form-label" for="contact-message">Your Message</label>
-                        <textarea class="form-input" id="contact-message" name="message" data-constraints="@Required"></textarea>
-                      </div>
-                      <div class="form-wrap form-button offset-1">
-                        <button class="button button-block button-primary-outline button-ujarak" type="submit">make an appointment</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div class="layout-columns__aside">
-                  <div class="layout-columns__aside-item">
-                    <p class="heading-5">Socials</p>
-                    <div class="divider-modern"></div>
-                    <ul class="list-inline-xs">
-                      <li><a class="icon icon-md icon-gray-7 fa fa-facebook" href="#"></a></li>
-                      <li><a class="icon icon-md icon-gray-7 fa fa-twitter" href="#"></a></li>
-                      <li><a class="icon icon-md icon-gray-7 fa fa-google" href="#"></a></li>
-                      <li><a class="icon icon-md icon-gray-7 fa fa-youtube" href="#"></a></li>
-                    </ul>
-                  </div>
-                  <div class="layout-columns__aside-item">
-                    <p class="heading-5">Phone</p>
-                    <div class="divider-modern"></div>
-                    <div class="unit unit-horizontal unit-spacing-xxs">
-                      <div class="unit__left"><span class="icon icon-md icon-primary material-icons-local_phone"></span></div>
-                      <div class="unit__body"><a href="tel:#">1-800-1234-567</a></div>
-                    </div>
-                  </div>
-                  <div class="layout-columns__aside-item">
-                    <p class="heading-5">Address</p>
-                    <div class="divider-modern"></div>
-                    <div class="unit unit-horizontal unit-spacing-xxs">
-                      <div class="unit__left"><span class="icon icon-md icon-primary material-icons-location_on"></span></div>
-                      <div class="unit__body"><a href="#">267 Park Avenue New York, NY 90210</a></div>
-                    </div>
-                  </div>
-                  <div class="layout-columns__aside-item">
-                    <p class="heading-5">opening hours</p>
-                    <div class="divider-modern"></div>
-                    <div class="unit unit-horizontal unit-spacing-xxs">
-                      <div class="unit__left"><span class="icon icon-md icon-primary mdi mdi-clock"></span></div>
-                      <div class="unit__body"><span>I work every day 9:00–23:00</span></div>
-                    </div>
-                  </div>
-                </div>
+  </section>
+
+  <!-- Breadcrumbs-->
+  <section class="breadcrumbs-custom bg-image" style="background-color: #a7bcb9">
+    <div class="shell">
+      <h1 class="breadcrumbs-custom__title">Contáctame</h1>
+      <ul class="breadcrumbs-custom__path">
+        <li><a href="/">Inicio</a></li>
+        <li class="active">Contáctame</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Book Your Photo Shoot-->
+  <section class="section section-md bg-white">
+    <div class="shell">
+
+      <div class="range range-50 range-sm-center text-center">
+
+        <div class="cell-md-12 cell-lg-12">
+          <h2 class="text-bold">¡Nos encantaría saber de ti!</h2>
+          <p><span class="box-width-2">¿Tienes alguna pregunta, comentario o sugerencia? No dudes en
+              ponerte en contacto
+              con nosotros. Estamos aquí para ayudarte en lo que necesites. Puedes completar el formulario de contacto a
+              continuación. Nos esforzaremos por
+              responderte
+              lo antes posible. ¡Gracias por tu interés y esperamos saber de ti pronto!</span></p>
+        </div>
+
+      </div>
+      <div class="range range-50 range-sm-center range-md-reverse">
+
+        <div class="cell-sm-12 cell-md-5 wow fadeInRight">
+          <div class="layout-columns__aside-item">
+            <p class="heading-5">Redes Sociales</p>
+            <div class="divider-modern"></div>
+            <ul class="list-inline-xs">
+              <li><a class="icon icon-md icon-gray-7 fa fa-facebook" href="#"></a></li>
+              <li><a class="icon icon-md icon-gray-7 fa fa-twitter" href="#"></a></li>
+              <li><a class="icon icon-md icon-gray-7 fa fa-google" href="#"></a></li>
+              <li><a class="icon icon-md icon-gray-7 fa fa-youtube" href="#"></a></li>
+            </ul>
+          </div>
+          <div class="layout-columns__aside-item">
+            <p class="heading-5">WhatsApp</p>
+            <div class="divider-modern"></div>
+            <div class="unit unit-horizontal unit-spacing-xxs">
+              <div class="unit__left"><span class="icon icon-md icon-primary material-icons-local_phone"></span>
               </div>
+              <div class="unit__body"><a href="tel:#">1-800-1234-567</a></div>
+            </div>
+          </div>
+          <div class="layout-columns__aside-item">
+            <p class="heading-5">Dirección</p>
+            <div class="divider-modern"></div>
+            <div class="unit unit-horizontal unit-spacing-xxs">
+              <div class="unit__left"><span class="icon icon-md icon-primary material-icons-location_on"></span>
+              </div>
+              <div class="unit__body"><a href="#">Cauquenes</a></div>
+            </div>
+          </div>
+          <div class="layout-columns__aside-item">
+            <p class="heading-5">Abierto</p>
+            <div class="divider-modern"></div>
+            <div class="unit unit-horizontal unit-spacing-xxs">
+              <div class="unit__left"><span class="icon icon-md icon-primary mdi mdi-clock"></span></div>
+              <div class="unit__body"><span>24/7</span></div>
             </div>
           </div>
         </div>
-      </section>
+        <div class="cell-sm-12 cell-md-6 wow fadeInLeft">
+          <article class="box-line"><span></span><span></span><span></span><span></span>
+            <div class="box-line__main">
+              <p class="heading-3">Conéctate con Nosotros</p>
+              {{#if successFlash}}
+              <div class="alert alert-success">{{successFlash}}</div>
+              {{/if}}
+              {{#if errorFlash}}
+              <div class="alert alert-danger">{{errorFlash}}</div>
+              {{/if}}
 
-      {{> footer}}
+              <!-- RD Mailform-->
+              <form method="post" action="/send-email">
+                {{!-- <div class="form-wrap">
+                  <input class="form-input" id="contact-date" type="text" data-time-picker="date" name="date"
+                    data-constraints="@Required">
+                  <label class="form-label" for="contact-date">Event Date</label>
+                </div> --}}
+                <div class="form-wrap">
+                  <input class="form-input" id="contact_name" type="text" name="name" data-constraints="@Required"
+                    required>
+                  <label class="form-label" for="contact_name">Tu nombre</label>
+                </div>
+                <div class="form-wrap">
+                  <input class="form-input" id="contact_email" type="email" name="email"
+                    data-constraints="@Email @Required" required>
+                  <label class="form-label" for="contact_email">Correo</label>
+                </div>
+                <div class="form-wrap">
+                  <label class="form-label" for="contact_message">Tu mensaje</label>
+                  <textarea class="form-input" id="contact_message" name="message" data-constraints="@Required"
+                    required></textarea>
+                </div>
+                <!--Google captcha-->
+                <div class="form-wrap">
+                  <div id="token" class="g-recaptcha" data-sitekey="6LfraZUpAAAAAMDH8BZYuqrjpTZSDbX_AKJ5Wu_h"
+                    data-action="BTNCONTACTO" name="g-recaptcha-response"></div>
+                </div>
+                <!-- End google captcha-->
+                <div class="form-wrap form-button offset-1">
+                  <button class="button button-block button-primary-outline button-ujarak"
+                    type="submit">Escríbenos</button>
+                </div>
+              </form>
+            </div>
+          </article>
+        </div>
+
+      </div>
+
 
     </div>
-    <!-- Global Mailform Output-->
-    <div class="snackbars" id="form-output-global"></div>
+  </section>
 
-{{> player}}
+  <!-- Global Mailform Output-->
+  <div class="snackbars" id="form-output-global"></div>
 
-<!-- player -->
-<script src="/js/player.js"></script>
+  {{> footer}}
+  {{> player}}
 
-<!-- Agrega el script de la biblioteca de reCAPTCHA -->
-<script async src="https://www.google.com/recaptcha/enterprise.js"></script>
+
+
+  <!-- Agrega el script de la biblioteca de reCAPTCHA -->
+  <script async src="https://www.google.com/recaptcha/enterprise.js"></script>
+</div>

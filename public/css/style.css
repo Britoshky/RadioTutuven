@@ -574,7 +574,7 @@ hr {
 .divider-modern {
 	position: relative;
 	height: 1px;
-	width: 100%;
+	width: auto;
 	background: #d3d3d6;
 }
 
@@ -584,7 +584,7 @@ hr {
 	top: 0;
 	bottom: 0;
 	left: 0;
-	width: 45px;
+	width: 205px;
 	background: #00bd9d;
 }
 
@@ -35344,36 +35344,9 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 }
 
 
-/* Estilos para el contenedor del chat */
-#chat-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
-/* Estilos para los campos de entrada */
-#chat-container input[type="text"],
-#chat-container textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
-/* Estilos para el botón de enviar */
-#send {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #00bd9d; /* Color del bg del repro */
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+
 
 /* Estilos para el contenedor de mensajes */
 #chat-messages {

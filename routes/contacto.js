@@ -14,9 +14,9 @@ router.use((req, res, next) => {
 });
 
 // Ruta protegida que utiliza isAuthenticated
-// router.get("/contacto", async (req, res) => {
-//   res.render("contacto", { });
-// });
+router.get("/contacto", async (req, res) => {
+  res.render("contacto", { });
+});
 
 
 // Ruta para manejar el envío del formulario
