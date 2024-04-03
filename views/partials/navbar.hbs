@@ -18,22 +18,27 @@
                     </div>
                     <!-- RD Navbar Nav-->
                     <div class="rd-navbar-nav-wrap">
-                       
                         <!-- RD Navbar Nav-->
                         <ul class="rd-navbar-nav">
-                            <li class="active"><a href="/">Inicio</a>
+                            <li class="active"><a href="/">Inicio</a></li>
+                            <li><a href="/quienes_somos">¿Quiénes Somos?</a></li>
+                            <li><a href="/fotos">Fotos</a></li>
+                            <li><a href="/">Historias</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle">Páginas Amigas</a>
+                                <div class="dropdown-menu-container">
+                                    <ul class="dropdown-menu">
+                                        <li><a href="https://www.carabineros.cl/" target="_blank">Carabineros de Chile</a></li>
+                                        <li><a href="https://lasuperestacion.cl/" target="_blank">La Súper Estación</a></li>
+                                        <li><a href="https://www.chanquinafm.cl/" target="_blank">Radio Chanquina</a></li>
+                                        <li><a href="https://cauquenino.cl/" target="_blank">CauqueninoCl</a></li>
+                                        <li><a href="https://cauquenesnet.cl/" target="_blank">CauquenesNet</a></li>
+
+                                        <!-- Agrega más páginas amigas si es necesario -->
+                                    </ul>
+                                </div>
                             </li>
-                            <li><a href="/">¿Quiénes Somos?</a>
-                            </li>
-                              <li><a href="/fotos">Fotos</a>
-                            </li>
-                            <li><a href="/">Historias</a>
-                            </li>
-                              <li><a href="/">Páginas Amigas</a>
-                            </li>
-                            <li><a href="/contacto">Contacto</a>
-                            </li>
-                          
+                            <li><a href="/contacto">Contacto</a></li>
                         </ul>
                     </div>
                 </div>
@@ -41,3 +46,55 @@
         </nav>
     </div>
 </header>
+
+<style>
+    .dropdown-menu-container {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: var(--hover-background-color, #f9f9f9);
+        /* Color de fondo predeterminado o configurado al pasar el mouse */
+        padding: 10px;
+        z-index: 999;
+        text-align: center;
+        /* Centra el texto de los enlaces */
+        border-radius: 5px;
+        /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Sombra */
+        left: 0;
+        width: calc(100% + 20px);
+        /* Ajusta el ancho para cubrir todo el contenedor padre */
+        margin-left: -10px;
+        /* Compensar el margen lateral */
+    }
+
+    .dropdown-menu li {
+        list-style: none;
+    }
+
+    .dropdown-menu li a {
+        color: #333;
+        /* Color de texto */
+        text-decoration: none;
+        /* Quita subrayado */
+        display: block;
+        padding: 8px 0;
+        /* Espaciado entre elementos */
+        border-radius: 5px; /* Redondear las esquinas */
+    }
+
+    .dropdown-menu li a:hover {
+        background-color: #00bd9d;
+        /* Color de fondo al pasar el mouse */
+        color: #fff;
+        /* Cambia el color del texto cuando pasas el mouse */
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+</style>
