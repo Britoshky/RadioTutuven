@@ -23,14 +23,27 @@
                             <li class="active"><a href="/">Inicio</a></li>
                             <li><a href="/quienes_somos">¿Quiénes Somos?</a></li>
                             <li><a href="/fotos">Fotos</a></li>
-                            <li><a href="/">Historias</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle">Historias</a>
+                                <div class="dropdown-menu-container">
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/tranque_tutuven">Tranque Tutuven</a></li>
+                                        <li><a href="/faro_carranza_chanco">Faro Carranza</a></li>
+
+                                        <!-- Agrega más páginas amigas si es necesario -->
+                                    </ul>
+                                </div>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle">Páginas Amigas</a>
                                 <div class="dropdown-menu-container">
                                     <ul class="dropdown-menu">
-                                        <li><a href="https://www.carabineros.cl/" target="_blank">Carabineros de Chile</a></li>
-                                        <li><a href="https://lasuperestacion.cl/" target="_blank">La Súper Estación</a></li>
-                                        <li><a href="https://www.chanquinafm.cl/" target="_blank">Radio Chanquina</a></li>
+                                        <li><a href="https://www.carabineros.cl/" target="_blank">Carabineros de
+                                                Chile</a></li>
+                                        <li><a href="https://lasuperestacion.cl/" target="_blank">La Súper Estación</a>
+                                        </li>
+                                        <li><a href="https://www.chanquinafm.cl/" target="_blank">Radio Chanquina</a>
+                                        </li>
                                         <li><a href="https://cauquenino.cl/" target="_blank">CauqueninoCl</a></li>
                                         <li><a href="https://cauquenesnet.cl/" target="_blank">CauquenesNet</a></li>
 
@@ -84,7 +97,8 @@
         display: block;
         padding: 8px 0;
         /* Espaciado entre elementos */
-        border-radius: 5px; /* Redondear las esquinas */
+        border-radius: 5px;
+        /* Redondear las esquinas */
     }
 
     .dropdown-menu li a:hover {
