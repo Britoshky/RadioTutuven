@@ -2,33 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://www.radiotutuven.cl/</loc>
+    <lastmod>2024-04-04T16:29:14+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
     <loc>https://www.radiotutuven.cl/quienes_somos</loc>
-    <lastmod>2024-03-02</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2024-04-04T16:29:14+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.radiotutuven.cl/fotos</loc>
+    <lastmod>2024-04-04T16:29:14+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.radiotutuven.cl/tranque_tutuven</loc>
+    <lastmod>2024-04-04T16:29:14+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.radiotutuven.cl/faro_carranza_chanco</loc>
+    <lastmod>2024-04-04T16:29:14+00:00</lastmod>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://www.radiotutuven.cl/contacto</loc>
-    <lastmod>2024-03-02</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.radiotutuven.cl/politicas</loc>
-    <lastmod>2024-03-02</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.radiotutuven.cl/</loc>
-    <lastmod>2024-03-02</lastmod>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc> https://www.radiotutuven.cl/tranque_tutuven</loc>
-    <lastmod>2024-04-02</lastmod>
-    <priority>1</priority>
-  </url>
-  <url>
-    <loc> https://www.radiotutuven.cl/faro_carranza_chanco</loc>
-    <lastmod>2024-04-02</lastmod>
-    <priority>1</priority>
+    <lastmod>2024-04-04T16:29:14+00:00</lastmod>
+    <priority>0.80</priority>
   </url>
 </urlset>
