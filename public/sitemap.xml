@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.radiotutuven.cl/quienes_somos</loc>
     <lastmod>2024-03-02</lastmod>
@@ -18,6 +19,16 @@
   <url>
     <loc>https://www.radiotutuven.cl/</loc>
     <lastmod>2024-03-02</lastmod>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc> https://www.radiotutuven.cl/tranque_tutuven</loc>
+    <lastmod>2024-04-02</lastmod>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc> https://www.radiotutuven.cl/faro_carranza_chanco</loc>
+    <lastmod>2024-04-02</lastmod>
     <priority>1</priority>
   </url>
 </urlset>
