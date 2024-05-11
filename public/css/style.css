@@ -35374,3 +35374,18 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
     font-weight: bold;
     color: #007bff; /* Azul */
 }
+
+@keyframes pulse {
+	0% { transform: scale(1); color: blue; }
+	50% { transform: scale(1.2); color: red; }
+	100% { transform: scale(1); color: blue; }
+}
+.animated-text {
+	font-size: 13px;
+	font-weight: bold;
+	animation: pulse 2s infinite;
+	text-align: center;
+	margin-top: 10px;
+}
+
+
