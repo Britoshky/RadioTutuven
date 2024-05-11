@@ -13,4 +13,8 @@ router.get('/tranque_tutuven', function (req, res){
     res.render('historias/tranque_tutuven');
 });
 
+router.get('/cauquenes', function (req, res){
+    res.render('historias/cauquenes');
+});
+
 module.exports = router;
