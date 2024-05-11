@@ -17,4 +17,8 @@ router.get('/cauquenes', function (req, res){
     res.render('historias/cauquenes');
 });
 
+router.get('/chanco', function (req, res){
+    res.render('historias/chanco');
+});
+
 module.exports = router;
