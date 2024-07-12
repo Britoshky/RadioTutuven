@@ -25,4 +25,7 @@ router.get('/cienagas-de-name', function (req, res){
     res.render('historias/cienagas-de-name');
 });
 
+router.get('/reserva-nacional-federico-albert', function (req, res){
+    res.render('historias/reserva-nacional-federico-albert');
+});
 module.exports = router;
