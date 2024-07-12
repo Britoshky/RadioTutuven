@@ -21,4 +21,8 @@ router.get('/chanco', function (req, res){
     res.render('historias/chanco');
 });
 
+router.get('/cienagas-de-name', function (req, res){
+    res.render('historias/cienagas-de-name');
+});
+
 module.exports = router;
