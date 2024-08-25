@@ -16,7 +16,7 @@ if (playBtn == null) {
     } else {
       // Mostrar un indicador de carga mientras el audio se carga
       playBtn.innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div> Cargando';
-      link.src = "https://stream.chanquinafm.cl/radiotutuven";
+      link.src = "http://186.67.77.165:8000/radiotutuven";
 
       // Agregar el evento sólo una vez para evitar múltiples instancias
       link.addEventListener("loadeddata", () => {

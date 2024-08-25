@@ -14,8 +14,6 @@ const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-ac
 const Message = require('../models/Message');
 const socketIO = require('socket.io');
 
-
-
 // Función para generar una clave secreta única
 const generateRandomString = (length) => {
   return crypto.randomBytes(length).toString("hex");
@@ -27,12 +25,11 @@ const secretKey = generateRandomString(64); // Se recomienda una longitud de 64 
 // Inicializaciones
 const app = express();
 const server = http.createServer(app);
-
 const io = socketIO(server);
 
-
-
-
+// Limitar la cantidad de conexiones simultáneas
+const maxConnections = 100; // Número máximo de conexiones permitidas
+let activeConnections = 0;
 
 // Usar el middleware de compresión
 app.use(compression());
@@ -109,6 +106,26 @@ app.use(helmet.xssFilter());
 // Static Files
 app.use(express.static(path.join(__dirname, "../public")));
 
+// Función de throttle para limitar la frecuencia de las emisiones
+const throttle = (func, limit) => {
+  let lastFunc;
+  let lastRan;
+  return function(...args) {
+    if (!lastRan) {
+      func.apply(this, args);
+      lastRan = Date.now();
+    } else {
+      clearTimeout(lastFunc);
+      lastFunc = setTimeout(() => {
+        if ((Date.now() - lastRan) >= limit) {
+          func.apply(this, args);
+          lastRan = Date.now();
+        }
+      }, limit - (Date.now() - lastRan));
+    }
+  };
+};
+
 // chat
 app.get('/', async (req, res) => {
   res.render('index');
@@ -142,7 +159,10 @@ app.post('/messages', async (req, res) => {
       if (censored) {
           await Message.remove({ _id: censored.id });
       } else {
-          io.emit('message', req.body); // Emitir el mensaje a través de Socket.IO
+          const throttledEmit = throttle((msg) => {
+            io.emit('message', msg); // Emitir el mensaje a través de Socket.IO
+          }, 2000); // Emite el mensaje máximo cada 2 segundos
+          throttledEmit(req.body);
       }
 
       res.sendStatus(200);
@@ -152,9 +172,39 @@ app.post('/messages', async (req, res) => {
   }
 });
 
-io.on('connection', () => {
-  console.log('a user is connected')
-})
+io.on('connection', (socket) => {
+  if (activeConnections >= maxConnections) {
+    socket.emit('error', 'Max connections limit reached');
+    socket.disconnect();
+    return;
+  }
+
+  activeConnections++;
+
+  // Desconectar automáticamente usuarios inactivos
+  const inactiveTimeout = 300000; // 5 minutos en milisegundos
+  let timeout;
+
+  const resetTimeout = () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      socket.emit('error', 'You have been disconnected due to inactivity');
+      socket.disconnect();
+    }, inactiveTimeout);
+  };
+
+  resetTimeout();
+
+  socket.on('message', resetTimeout);
+  socket.on('someOtherEvent', resetTimeout);
+
+  socket.on('disconnect', () => {
+    clearTimeout(timeout);
+    activeConnections--;
+  });
+
+  console.log('a user is connected');
+});
 // fin chat
 
 // Routes
@@ -178,4 +228,4 @@ app.use((err, req, res, next) => {
   }
 });
 
-module.exports =  server ;
+module.exports = server;
