@@ -1566,23 +1566,3 @@ function showAlert(message, type = 'danger') {
     }, 5000); // Ocultar después de 5 segundos (5000 milisegundos)
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var dropdowns = document.querySelectorAll('.dropdown');
-
-    dropdowns.forEach(function (dropdown) {
-        dropdown.addEventListener('mouseenter', function () {
-            clearTimeout(dropdown.hideTimeout);
-            var submenu = this.querySelector('.dropdown-menu');
-            if (submenu) submenu.classList.add('show');
-        });
-
-        dropdown.addEventListener('mouseleave', function () {
-            var submenu = this.querySelector('.dropdown-menu');
-            if (submenu) {
-                dropdown.hideTimeout = setTimeout(function () {
-                    submenu.classList.remove('show');
-                }, 300); // 300ms delay before hiding
-            }
-        });
-    });
-});

@@ -1,6 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
+// PERSONAJES
+
+router.get('/guadalupe-del-carmen', function (req, res){
+    res.render('historias/guadalupe-del-carmen');
+});
+
+router.get('/federico-albert-faupp', function (req, res){
+    res.render('historias/federico-albert-faupp');
+});
+
 // COMUNAS
 
 router.get('/cauquenes', function (req, res){
@@ -15,15 +25,16 @@ router.get('/pelluhue', function (req, res){
     res.render('historias/pelluhue');
 });
 
-router.get('/curanipe', function (req, res){
-    res.render('historias/curanipe');
-});
 
 
 // HISTORIAS
 
 router.get('/historias', function (req, res){
     res.render('historias/faro_carranza_chanco');
+});
+
+router.get('/curanipe', function (req, res){
+    res.render('historias/curanipe');
 });
 
 router.get('/faro_carranza_chanco', function (req, res){
