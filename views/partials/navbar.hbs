@@ -22,12 +22,19 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle">Historias</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/tranque_tutuven">Tranque Tutuven</a></li>
-                                    <li><a href="/faro_carranza_chanco">Faro Carranza</a></li>
-                                    <li><a href="/cienagas-de-name">Ciénagas de Name</a></li>
-                                    <li><a href="/curanipe">Balneario Curanipe</a></li>
+
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle">Reservas</a>
+                                        <a href="#" class="dropdown-toggle">Históricos</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/tranque_tutuven">Tranque Tutuven</a></li>
+                                            <li><a href="/faro_carranza_chanco">Faro Carranza</a></li>
+                                            <li><a href="/cienagas-de-name">Ciénagas de Name</a></li>
+                                            <li><a href="/curanipe">Balneario Curanipe</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle">Reservas Nacionales</a>
                                         <ul class="dropdown-menu">
                                             <li><a href="/reserva-nacional-federico-albert">Reserva Nacional Federico
                                                     Albert</a></li>
@@ -36,7 +43,7 @@
                                         </ul>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle">Personajes</a>
+                                        <a href="#" class="dropdown-toggle">Personajes Históricos</a>
                                         <ul class="dropdown-menu">
                                             <li><a href="/guadalupe-del-carmen">Guadalupe del Carmen</a></li>
                                             <li><a href="/federico-albert-faupp">Federico Albert Faupp</a></li>
@@ -74,120 +81,152 @@
 </header>
 
 <style>
-  /* Estilos generales para el menú */
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: var(--hover-background-color, #f9f9f9);
-    padding: 10px;
-    z-index: 999;
-    text-align: left;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 5px;
-    min-width: 200px;
-}
-
-.dropdown:hover > .dropdown-menu,
-.dropdown-menu .dropdown:hover > .dropdown-menu {
-    display: block;
-}
-
-.dropdown-menu li {
-    list-style: none;
-    position: relative;
-}
-
-.dropdown-menu li a {
-    color: #333;
-    text-decoration: none;
-    display: block;
-    padding: 8px 10px;
-    border-radius: 5px;
-}
-
-.dropdown-menu li a:hover {
-    background-color: #00bd9d;
-    color: #fff;
-}
-
-.dropdown {
-    position: relative;
-}
-
-.dropdown > .dropdown-menu {
-    left: 0;
-    top: 100%;
-}
-
-/* Estilo específico para submenús anidados */
-.dropdown-menu .dropdown > .dropdown-menu {
-    left: 100%; /* Ajustar el posicionamiento del submenú */
-    top: 0;
-    margin-top: 0;
-    margin-left: 0;
-    z-index: 1000; /* Asegurar que el submenú esté por encima */
-    display: none; /* Mantener el submenú oculto por defecto */
-}
-
-/* Mostrar submenú al pasar el mouse por encima */
-.dropdown-menu .dropdown:hover > .dropdown-menu {
-    display: block;
-}
-
-/* Ajustes para vista móvil */
-@media (max-width: 768px) {
+    /* Estilos generales para el menú */
     .dropdown-menu {
-        position: static;
-        display: none; /* Mantener el menú oculto inicialmente en vista móvil */
-        margin: 0;
-        box-shadow: none;
+        display: none;
+        position: absolute;
+        background-color: var(--hover-background-color, #f9f9f9);
+        padding: 12px;
+        /* Aumentar padding para mejorar el espaciado */
+        z-index: 999;
+        text-align: left;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 5px;
+        min-width: 250px;
+        /* Aumentar el ancho mínimo del contenedor */
     }
 
-    .dropdown:hover > .dropdown-menu,
-    .dropdown-menu .dropdown:hover > .dropdown-menu {
-        display: block; /* Mostrar submenús en hover */
-        position: relative; /* Evitar desbordamiento en dispositivos móviles */
-        margin-top: 0;
+    .dropdown:hover>.dropdown-menu,
+    .dropdown-menu .dropdown:hover>.dropdown-menu {
+        display: block;
     }
 
-    .dropdown-menu .dropdown > .dropdown-menu {
+    .dropdown-menu li {
+        list-style: none;
         position: relative;
-        left: 0;
-        top: 0;
-        display: none; /* Ocultar submenús anidados inicialmente */
     }
 
-    .dropdown-menu .dropdown:hover > .dropdown-menu {
-        display: block; /* Mostrar submenús anidados al pasar el mouse */
-        margin-left: 20px; /* Añadir un margen para diferenciar visualmente */
-    }
-
-    .rd-navbar-nav-wrap {
+    .dropdown-menu li a {
+        color: #333;
+        text-decoration: none;
+        display: block;
         width: 100%;
+        padding: 10px 12px;
+        /* Aumentar padding interno para mayor espacio */
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        white-space: normal;
+        /* Permite que el texto se ajuste en varias líneas */
+        word-wrap: break-word;
+        /* Ajusta las palabras largas para que se rompan */
+        font-size: 16px;
+        /* Aumentar el tamaño del texto para mejor legibilidad */
     }
-}
 
+    .dropdown-menu li:hover>a {
+        background-color: #00bd9d;
+        color: #fff;
+    }
 
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown>.dropdown-menu {
+        left: 0;
+        top: 100%;
+    }
+
+    /* Estilo específico para submenús anidados en pantallas grandes */
+    @media (min-width: 769px) {
+        .dropdown-menu .dropdown>.dropdown-menu {
+            left: calc(100% + 5px);
+            /* Posiciona el submenú a la derecha del menú principal */
+            top: 0;
+            margin-left: 0;
+            z-index: 1000;
+            display: none;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-menu .dropdown:hover>.dropdown-menu {
+            display: block;
+        }
+    }
+
+    /* Ajustes para vista móvil */
+    @media (max-width: 768px) {
+        .dropdown-menu {
+            position: static;
+            display: none;
+            margin: 0;
+            box-shadow: none;
+            width: 100%;
+            /* Asegura que el menú use todo el ancho disponible */
+        }
+
+        .dropdown-menu li {
+            width: 100%;
+        }
+
+        .dropdown:hover>.dropdown-menu,
+        .dropdown-menu .dropdown:hover>.dropdown-menu {
+            display: block;
+            position: relative;
+            margin-top: 0;
+        }
+
+        .dropdown-menu .dropdown>.dropdown-menu {
+            position: relative;
+            /* Ajusta el submenú en dispositivos móviles */
+            left: 0;
+            top: 0;
+            display: none;
+            width: 100%;
+            /* Hace que el submenú use todo el ancho disponible */
+        }
+
+        .dropdown-menu .dropdown:hover>.dropdown-menu {
+            display: block;
+            margin-left: 0;
+        }
+
+        .rd-navbar-nav-wrap {
+            width: 100%;
+        }
+
+        /* Ajuste adicional para texto en móviles */
+        .dropdown-menu li a {
+            font-size: 14px;
+            /* Ajustar el tamaño del texto para mejorar el ajuste */
+        }
+    }
 </style>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var dropdowns = document.querySelectorAll('.dropdown');
+        // Seleccionar todos los dropdowns y submenús anidados
+        var allDropdowns = document.querySelectorAll('.dropdown, .dropdown-menu, .dropdown-toggle');
 
-        dropdowns.forEach(function (dropdown) {
+        allDropdowns.forEach(function (dropdown) {
+            // Añadir evento para retraso al mostrar
             dropdown.addEventListener('mouseenter', function () {
                 clearTimeout(dropdown.hideTimeout);
-                var submenu = this.querySelector('.dropdown-menu');
-                if (submenu) submenu.classList.add('show');
+                dropdown.showTimeout = setTimeout(function () {
+                    var submenu = dropdown.querySelector('.dropdown-menu');
+                    if (submenu) submenu.classList.add('show');
+                }, 100); // 200ms delay before showing
             });
 
+            // Añadir evento para retraso al ocultar con mayor duración
             dropdown.addEventListener('mouseleave', function () {
-                var submenu = this.querySelector('.dropdown-menu');
+                clearTimeout(dropdown.showTimeout);
+                var submenu = dropdown.querySelector('.dropdown-menu');
                 if (submenu) {
                     dropdown.hideTimeout = setTimeout(function () {
                         submenu.classList.remove('show');
-                    }, 100); // 300ms delay before hiding
+                    }, 100); // 500ms delay before hiding
                 }
             });
         });
