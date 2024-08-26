@@ -49,6 +49,10 @@ router.get('/cienagas-de-name', function (req, res){
     res.render('historias/cienagas-de-name');
 });
 
+router.get('/buscarril', function (req, res){
+    res.render('historias/buscarril');
+});
+
 
 // RESERVAS NACIONALES
 
