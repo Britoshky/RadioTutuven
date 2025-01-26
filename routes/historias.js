@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 // PERSONAJES
+router.get('/antonio-varas-de-la-barra', function (req, res){
+    res.render('historias/antonio-varas-de-la-barra');
+});
 
 router.get('/guadalupe-del-carmen', function (req, res){
     res.render('historias/guadalupe-del-carmen');
