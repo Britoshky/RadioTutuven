@@ -139,27 +139,6 @@
 
 </style>
 <script>
- document.addEventListener('DOMContentLoaded', function () {
-  const dropdowns = document.querySelectorAll('.dropdown');
-
-  dropdowns.forEach((dropdown) => {
-    let timeout;
-
-    // Show submenu with delay
-    dropdown.addEventListener('mouseenter', () => {
-      clearTimeout(timeout);
-      const submenu = dropdown.querySelector('.dropdown-menu');
-      if (submenu) submenu.style.display = 'block';
-    });
-
-    // Hide submenu with delay
-    dropdown.addEventListener('mouseleave', () => {
-      timeout = setTimeout(() => {
-        const submenu = dropdown.querySelector('.dropdown-menu');
-        if (submenu) submenu.style.display = 'none';
-      }, 300); // Adjust delay as needed
-    });
-  });
-});
+ 
 
 </script>
