@@ -60,3 +60,31 @@
       font-size: 14px;
     }
   }
+
+  /* Asegura que las flechas (iconos) estén alineadas */
+.dropdown-toggle {
+    display: flex; /* Para alinear contenido horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    justify-content: space-between; /* Espacio entre texto y flecha */
+    padding: 10px 15px; /* Espaciado */
+    font-size: 16px; /* Tamaño del texto */
+    text-decoration: none; /* Sin subrayado */
+    color: #333; /* Color del texto */
+    width: 100%; /* Ocupa todo el espacio disponible */
+  }
+  
+  /* Icono de flecha hacia abajo */
+  .dropdown-toggle::after {
+    content: '▼'; /* Flecha */
+    font-size: 12px; /* Tamaño de la flecha */
+    margin-left: 5px; /* Espaciado entre texto y flecha */
+    color: inherit; /* Mismo color que el texto */
+  }
+  
+  /* Ajuste de los submenús anidados */
+  .dropdown-menu .dropdown-toggle::after {
+    content: '▶'; /* Cambia a flecha derecha para submenús */
+    margin-left: auto; /* Alinea a la derecha */
+    transform: translateY(2px); /* Ajusta posición vertical */
+  }
+  
