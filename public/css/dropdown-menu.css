@@ -3,11 +3,12 @@
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    padding: 12px;
+    padding: 0; /* Elimina padding para alineación consistente */
     z-index: 999;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     min-width: 200px;
+    white-space: nowrap; /* Evita que el texto se envuelva */
 }
 
 .dropdown:hover > .dropdown-menu {
@@ -20,16 +21,21 @@
 }
 
 .dropdown-menu li a {
-    display: block;
-    padding: 12px 18px; /* Mayor área activa */
+    display: flex; /* Alinea texto y flechas horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    justify-content: space-between; /* Mantén texto y flechas separados */
+    padding: 12px 18px; /* Espaciado interno */
     text-decoration: none;
     color: #333;
-    border-radius: 5px;
+    background-color: transparent; /* Fondo transparente por defecto */
     transition: background-color 0.3s ease;
+    white-space: nowrap; /* Evita que el texto se envuelva */
+    width: 100%; /* Ocupa todo el ancho del menú */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
 }
 
 .dropdown-menu li:hover > a {
-    background-color: #00bd9d;
+    background-color: #00bd9d; /* Cambia color al pasar el mouse */
     color: #fff;
 }
 
@@ -40,7 +46,7 @@
 .dropdown-menu .dropdown > .dropdown-menu {
     left: 100%;
     top: 0;
-    margin-left: 5px;
+    margin-left: 0;
     display: none;
 }
 
@@ -58,7 +64,8 @@
 
 /* Icono de flecha para submenús */
 .dropdown-menu .dropdown > .dropdown-toggle::after {
-    content: '▶'; /* Cambia a flecha derecha para submenús */
+    content: '▶'; /* Flecha derecha para submenús */
+    font-size: 12px;
     margin-left: auto;
     color: inherit;
 }
@@ -66,13 +73,15 @@
 /* Mobile Adjustments */
 @media (max-width: 768px) {
     .dropdown-menu {
-        position: relative; /* Mejora el comportamiento en móviles */
-        display: block; /* Asegura visibilidad en pantallas pequeñas */
+        position: static; /* Asegura el comportamiento en móviles */
+        display: block; /* Mantén los menús visibles */
         box-shadow: none;
         border-radius: 0;
+        white-space: normal; /* Permite el ajuste en varias líneas en móviles */
     }
 
     .dropdown-menu li a {
         font-size: 16px; /* Aumenta la legibilidad */
+        padding: 10px 15px; /* Reduce el padding para pantallas pequeñas */
     }
 }
