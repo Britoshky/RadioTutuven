@@ -248,9 +248,12 @@ p img {
 	}
 }
 
+p {
+	color: #000000;
+}
+
 p * {
 	display: inline;
-	color: #000000;
 }
 
 p a {
