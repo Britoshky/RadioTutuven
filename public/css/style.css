@@ -250,6 +250,7 @@ p img {
 
 p * {
 	display: inline;
+	color: #000000;
 }
 
 p a {
@@ -259,7 +260,7 @@ p a {
 p [data-toggle='tooltip'] {
 	padding-left: .25em;
 	padding-right: .25em;
-	color: #000000;
+	color: #b7b7b7;
 }
 
 /*
