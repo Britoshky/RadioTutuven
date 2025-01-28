@@ -28,7 +28,9 @@ router.get('/pelluhue', function (req, res){
     res.render('historias/pelluhue');
 });
 
-
+router.get('/coronel-de-maule', function (req, res){
+    res.render('historias/coronel-de-maule');
+});
 
 // HISTORIAS
 
