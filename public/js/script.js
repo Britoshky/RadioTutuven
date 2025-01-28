@@ -1381,14 +1381,14 @@ if (playBtn == null) {
 	playBtn.addEventListener("click", async () => {
 		if (isPlaying) {
 			link.pause();
-			playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Play';
+			playBtn.innerHTML = '<div class="animated-text">ESCUCHA AQUÍ</div>';
 		} else {
 			playBtn.innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div>  Cargando'; // Agrega "bi-spin" para la animación de rotación
 			link.src = "https://stream.chanquinafm.cl/radiotutuven";
 
 			// Elimina la animación de rotación cuando se ha cargado el audio
 			link.addEventListener("loadeddata", () => {
-				playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pausa';
+				playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> <div class="animated-text"> PAUSA</div>';
 				playBtn.classList.remove("bi-spin");
 			});
 
