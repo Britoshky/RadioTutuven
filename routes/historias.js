@@ -62,6 +62,10 @@ router.get('/el-obelisco', function (req, res){
     res.render('historias/el-obelisco');
 });
 
+router.get('/ramal-parra', function (req, res){
+    res.render('historias/ramal-parra');
+});
+
 // RESERVAS NACIONALES
 
 router.get('/reserva-nacional-federico-albert', function (req, res){
