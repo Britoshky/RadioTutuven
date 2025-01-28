@@ -8,7 +8,7 @@ if (playBtn == null) {
 	playBtn.addEventListener("click", async () => {
 		if (isPlaying) {
 			link.pause();
-			playBtn.innerHTML = '<button id="playBtn" class="btn btn-light"><p> <div class="animated-text">ESCUCHA AQUÍ</div></p></button></div>';
+			playBtn.innerHTML = '<i class="fa-solid fa-play"></i><button id="playBtn" class="btn btn-light"><p> <div class="animated-text">ESCUCHA AQUÍ</div></p></button></div>';
 		} else {
 			playBtn.innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div>  Cargando'; // Agrega "bi-spin" para la animación de rotación
 			link.src = "https://stream.chanquinafm.cl/radiotutuven";

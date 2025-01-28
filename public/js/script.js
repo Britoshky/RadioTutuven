@@ -1375,7 +1375,6 @@ $document.ready(function () {
 
 
 
-
 var Clock = (function () {
 
 	var exports = function (element) {
