@@ -58,6 +58,9 @@ router.get('/buscarril', function (req, res){
     res.render('historias/buscarril');
 });
 
+router.get('/el-obelisco', function (req, res){
+    res.render('historias/el-obelisco');
+});
 
 // RESERVAS NACIONALES
 
