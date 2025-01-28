@@ -54,21 +54,6 @@
     display: block;
 }
 
-/* Icono de flecha para menús principales */
-.dropdown > .dropdown-toggle::after {
-    content: '▼'; /* Flecha */
-    font-size: 12px;
-    margin-left: 5px;
-    color: inherit;
-}
-
-/* Icono de flecha para submenús */
-.dropdown-menu .dropdown > .dropdown-toggle::after {
-    content: '▶'; /* Flecha derecha para submenús */
-    font-size: 12px;
-    margin-left: auto;
-    color: inherit;
-}
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
