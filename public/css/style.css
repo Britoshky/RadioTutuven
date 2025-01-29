@@ -7107,6 +7107,7 @@ html:not(.tablet):not(.mobile) .thumb-ruby:hover .thumb-ruby__text {
 .thumb-ann__text {
 	position: relative;
 	padding-top: 20px;
+	color: #fff;
 }
 
 .thumb-ann__text::before {
