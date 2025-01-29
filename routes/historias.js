@@ -14,6 +14,10 @@ router.get('/federico-albert-faupp', function (req, res){
     res.render('historias/federico-albert-faupp');
 });
 
+router.get('/sotero-del-rio', function (req, res){
+    res.render('historias/sotero-del-rio');
+});
+
 // COMUNAS
 
 router.get('/cauquenes', function (req, res){
