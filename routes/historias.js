@@ -66,6 +66,10 @@ router.get('/ramal-parra', function (req, res){
     res.render('historias/ramal-parra');
 });
 
+router.get('/regimiento-de-infanteria', function (req, res){
+    res.render('historias/regimiento-de-infanteria');
+});
+
 // RESERVAS NACIONALES
 
 router.get('/reserva-nacional-federico-albert', function (req, res){
