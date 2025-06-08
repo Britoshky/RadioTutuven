@@ -8,6 +8,7 @@ const NodeCache = require("node-cache");
 const nodemailer = require("nodemailer");
 const verifyRecaptcha = require("../middleware/verifyRecaptcha");
 const sitemapUpdateMiddleware = require('../middleware/sitemap');
+const Visit = require("../models/Visit");
 
 // Resto de la configuración de Express...
 
@@ -15,18 +16,6 @@ const sitemapUpdateMiddleware = require('../middleware/sitemap');
 
 // Tiempo de vida del caché en segundos (6 horas = 21600 segundos)
 const cache = new NodeCache({ stdTTL: 21600 });
-
-
-// // Middleware para deshabilitar la caché
-// router.use((req, res, next) => {
-//   res.header("Cache-Control", "no-cache, private, no-store, must-revalidate");
-//   res.header("Expires", "-1");
-//   res.header("Pragma", "no-cache");
-//   next();
-// });
-
-
-
 
 // Middleware para cachear las rutas
 router.use((req, res, next) => {
@@ -39,17 +28,21 @@ router.use((req, res, next) => {
   next(); // Continúa con el siguiente middleware o ruta
 });
 
-// Ruta para mostrar los elementos en la página principal
+// Ruta principal con contador de visitas
 router.get("/", async (req, res, next) => {
   try {
-    
-    
+    // Registrar visita
+    const visit = await Visit.findOneAndUpdate(
+      { page: "home" },
+      { $inc: { count: 1 } },
+      { upsert: true, new: true }
+    );
 
-    // Renderizar la página del chat y pasar los mensajes formateados como datos
-    res.render('index');
+    // Renderizar vista con contador
+    res.render("index", { visitCount: visit.count });
   } catch (error) {
-    console.error('Error al cargar los mensajes:', error);
-    res.status(500).send('Error al cargar los mensajes');
+    console.error("Error al contar visitas:", error);
+    res.render("index", { visitCount: "N/A" });
   }
 });
 
