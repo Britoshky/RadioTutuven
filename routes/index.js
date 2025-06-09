@@ -29,24 +29,7 @@ router.use((req, res, next) => {
 });
 
 // Ruta principal con contador de visitas
-router.get("/", async (req, res, next) => {
-  try {
-    // Registrar visita
-    const visit = await Visit.findOneAndUpdate(
-      { page: "home" },
-      { $inc: { count: 1 } },
-      { upsert: true, new: true }
-    );
 
-    console.log("Contador de visitas ejecutado");
-
-    // Renderizar vista con contador
-    res.render("index", { visitCount: visit.count });
-  } catch (error) {
-    console.error("Error al contar visitas:", error);
-    res.render("index", { visitCount: "N/A" });
-  }
-});
 
 // Ruta para manejar el envío del formulario
 router.post("/send-email", verifyRecaptcha, async (req, res) => {
