@@ -127,8 +127,23 @@ const throttle = (func, limit) => {
 };
 
 // chat
-app.get('/', async (req, res) => {
-  res.render('index');
+router.get("/", async (req, res, next) => {
+  try {
+    // Registrar visita
+    const visit = await Visit.findOneAndUpdate(
+      { page: "home" },
+      { $inc: { count: 1 } },
+      { upsert: true, new: true }
+    );
+
+    console.log("Contador de visitas ejecutado");
+
+    // Renderizar vista con contador
+    res.render("index", { visitCount: visit.count });
+  } catch (error) {
+    console.error("Error al contar visitas:", error);
+    res.render("index", { visitCount: "N/A" });
+  }
 });
 
 app.get('/messages', async (req, res) => {
