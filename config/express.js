@@ -127,7 +127,7 @@ const throttle = (func, limit) => {
 };
 
 // chat
-router.get("/", async (req, res, next) => {
+app.get("/", async (req, res, next) => {
   try {
     // Registrar visita
     const visit = await Visit.findOneAndUpdate(
