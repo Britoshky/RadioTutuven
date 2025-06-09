@@ -13,6 +13,7 @@ const compression = require('compression');
 const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-access");
 const Message = require('../models/Message');
 const socketIO = require('socket.io');
+const Visit = require("../models/Visit");
 
 // Función para generar una clave secreta única
 const generateRandomString = (length) => {
