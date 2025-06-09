@@ -38,6 +38,8 @@ router.get("/", async (req, res, next) => {
       { upsert: true, new: true }
     );
 
+    console.log("Contador de visitas ejecutado");
+
     // Renderizar vista con contador
     res.render("index", { visitCount: visit.count });
   } catch (error) {
