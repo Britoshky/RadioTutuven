@@ -11,7 +11,7 @@ if (playBtn == null) {
 			playBtn.innerHTML = '<i class="fa-solid fa-play"></i><div class="animated-text">ESCUCHA AQUÍ</div>';
 		} else {
 			playBtn.innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div>  Cargando'; // Agrega "bi-spin" para la animación de rotación
-			link.src = "https://stream.chanquinafm.cl/radiotutuven";
+ 			link.src = "https://stream.cloudmusic.cl/listen/radio_tutuven/radio.mp3";
 
 			// Elimina la animación de rotación cuando se ha cargado el audio
 			link.addEventListener("loadeddata", () => {
