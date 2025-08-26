@@ -17461,7 +17461,7 @@ html.boxed .rd-navbar--is-clone {
 	background: #00bd9d;
 	position: fixed;
 	right: 15px;
-	bottom: 145px;
+bottom: 200px;
 	overflow: hidden;
 	text-align: center;
 	text-decoration: none;
@@ -17488,7 +17488,7 @@ html.tablet .ui-to-top {
 @media (min-width: 480px) {
 	.ui-to-top {
 		right: 40px;
-		bottom: 90px;
+		bottom: 145px;
 	}
 }
 
