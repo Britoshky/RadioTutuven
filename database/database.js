@@ -8,8 +8,7 @@ mongoose
   .connect(database.URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
+  // useCreateIndex y useFindAndModify ya no son soportadas en Mongoose 6+
   })
   .then(() => {
     console.log("DB is connected");
