@@ -5,8 +5,10 @@
 <!-- Page-->
 <div class="page">
 
+    {{> header}}
+    {{> navbar}}
     <!-- My Best Photos-->
-    <section class="section bg-gray-lighter text-center">
+    {{!-- <section class="section bg-gray-lighter text-center">
         <div class="shell">
             <br>
             <div class="range range-50 range-sm-center">
@@ -28,6 +30,17 @@
                     <p style="color: #00bd9d;">¡Bienvenido a la emisora online líder en Cauquenes, región del Maule!
                         Sintoniza nuestra programación variada y entretenida para disfrutar de la mejor música y
                         contenido de interés. Desde Cauquenes para todo el mundo, ¡somos tu compañía!</p>
+                    <div
+                        style="margin-top: 2em; padding: 0.75em 1.5em; background: #f7f7f7; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: inline-block;">
+                        <span
+                            style="display: block; font-weight: 600; color: #00bd9d; margin-bottom: 0.3em; font-size: 1em;">English
+                            Translation</span>
+                        <span
+                            style="font-size: 1.08em; color: #333; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; letter-spacing: 0.01em;">Welcome
+                            to the leading online radio station in Cauquenes, Maule region! Tune in to our varied and
+                            entertaining programming to enjoy the best music and interesting content. From Cauquenes to
+                            the whole world, we're your company!</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,7 +114,7 @@
         </div>
         <br>
         <br>
-    </section>
+    </section> --}}
     <!-- Awards-->
     <section class="section section-sm parallax-container bg-image-dark" data-parallax-img="images/awards/fondo.jpg">
         <div class="parallax-content">
@@ -164,55 +177,25 @@
             <p class="heading-1">Blog</p>
             <div class="range range-30">
                 <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall">
-                    <!-- Post boxed-->
-                    <article class="post-boxed">
-                        <ul class="post-boxed__meta">
-                            <li>
-                                <time datetime="2019">Jul 20, 2019</time>
-                            </li>
-                            <li><a href="#">3 comments</a></li>
-                        </ul>
-                        <div class="post-boxed__main">
-                            <h3 class="post-boxed__title"><a href="#">Becoming a King and Queen for a Day</a></h3>
-                            <p>For one day, the two of you are the focus of attention. The concerns of the world slip...
-                            </p>
-                        </div>
-                        <div class="post-boxed__aside">
-                            <div class="unit unit-horizontal unit-middle unit-spacing-xs">
-                                <div class="unit__left"><img class="post-boxed__avatar" src="images/user-6-46x46.jpg"
-                                        alt="user" width="46" height="46" />
-                                </div>
-                                <div class="unit__body">
-                                    <h6 class="text-uppercase">by Susan Parker</h6>
-                                </div>
+                    {{> header}}
+                    </li>
+                    <li><a href="#">3 comments</a></li>
+                    </ul>
+                    <div class="post-boxed__main">
+                        <h3 class="post-boxed__title"><a href="#">How to Make Great Wedding Photos</a></h3>
+                        <p>Today I’m going to answer the question that my clients ask almost after every photo
+                            shoot. It’s a question...</p>
+                    </div>
+                    <div class="post-boxed__aside">
+                        <div class="unit unit-horizontal unit-middle unit-spacing-xs">
+                            <div class="unit__left"><img class="post-boxed__avatar" src="images/user-6-46x46.jpg"
+                                    alt="user1" width="46" height="46" />
+                            </div>
+                            <div class="unit__body">
+                                <h6 class="text-uppercase">by Susan Parker</h6>
                             </div>
                         </div>
-                    </article>
-                </div>
-                <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall" data-wow-delay=".15s">
-                    <!-- Post boxed-->
-                    <article class="post-boxed">
-                        <ul class="post-boxed__meta">
-                            <li>
-                                <time datetime="2019">Jul 15, 2019</time>
-                            </li>
-                            <li><a href="#">3 comments</a></li>
-                        </ul>
-                        <div class="post-boxed__main">
-                            <h3 class="post-boxed__title"><a href="#">How to Make Great Wedding Photos</a></h3>
-                            <p>Today I’m going to answer the question that my clients ask almost after every photo
-                                shoot. It’s a question...</p>
-                        </div>
-                        <div class="post-boxed__aside">
-                            <div class="unit unit-horizontal unit-middle unit-spacing-xs">
-                                <div class="unit__left"><img class="post-boxed__avatar" src="images/user-6-46x46.jpg"
-                                        alt="user1" width="46" height="46" />
-                                </div>
-                                <div class="unit__body">
-                                    <h6 class="text-uppercase">by Susan Parker</h6>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                     </article>
                 </div>
                 <div class="cell-sm-6 cell-md-4 wow fadeInLeftSmall" data-wow-delay=".3s">
@@ -340,8 +323,8 @@
                                 </div>
                             </form>
                         </div>
-                    </article>
-                </div>
+                                    {{> header}}
+                                    {{> navbar}}
             </div>
         </div>
     </section>

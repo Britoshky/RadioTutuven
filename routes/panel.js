@@ -14,11 +14,21 @@ router.use((req, res, next) => {
 
 // ...
 
+const Visit = require("../models/Visit");
+
 // Ruta protegida que utiliza isAuthenticated
 router.get("/panel", isAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.user._id); // Buscar usuario por su ID
-    res.render("panel/panel", { user, layout: "panel" }); // Pasar el usuario a la vista
+    const pageName = 'panel';
+    let visit = await Visit.findOne({ page: pageName });
+    if (!visit) {
+      visit = new Visit({ page: pageName, count: 1 });
+    } else {
+      visit.count += 1;
+    }
+    await visit.save();
+    res.render("panel/panel", { user, layout: "panel", visitCount: visit.count }); // Pasar el usuario y visitas a la vista
   } catch (error) {
     console.error(error);
     req.flash("error_msg", "Error al cargar la página");

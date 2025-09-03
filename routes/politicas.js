@@ -12,11 +12,21 @@ const router = express.Router();
 
 // ...
 
+const Visit = require("../models/Visit");
+
 // Ruta a politicas
 router.get("/politicas", async (req, res) => {
     try {
         const fecha = new Date().getFullYear().toString();
-        res.render("politicas", { fecha });
+        const pageName = 'politicas';
+        let visit = await Visit.findOne({ page: pageName });
+        if (!visit) {
+            visit = new Visit({ page: pageName, count: 1 });
+        } else {
+            visit.count += 1;
+        }
+        await visit.save();
+        res.render("politicas", { fecha, visitCount: visit.count });
     } catch (error) {
         console.error(error);
         req.flash("error_msg", "Error al cargar la página");

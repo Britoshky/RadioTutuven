@@ -13,9 +13,19 @@ router.use((req, res, next) => {
   next();
 });
 
+const Visit = require("../models/Visit");
+
 // Ruta protegida que utiliza isAuthenticated
 router.get("/contacto", async (req, res) => {
-  res.render("contacto", { });
+  const pageName = 'contacto';
+  let visit = await Visit.findOne({ page: pageName });
+  if (!visit) {
+    visit = new Visit({ page: pageName, count: 1 });
+  } else {
+    visit.count += 1;
+  }
+  await visit.save();
+  res.render("contacto", { visitCount: visit.count });
 });
 
 
