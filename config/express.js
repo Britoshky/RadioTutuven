@@ -224,6 +224,7 @@ io.on('connection', (socket) => {
 // Routes
 app.use(require("../routes/index"));
 app.use(require("../routes/quienes_somos"));
+app.use(require("../routes/programacion"));
 app.use(require("../routes/historias"));
 app.use(require("../routes/users"));
 app.use(require("../routes/panel"));
