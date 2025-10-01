@@ -57,7 +57,7 @@ router.get("/contacto", async (req, res) => {
     visit.count += 1;
   }
   await visit.save();
-  res.render("contacto", { visitCount: visit.count });
+  res.render("contacto", { visitCount: visit.count, recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY });
 });
 
 

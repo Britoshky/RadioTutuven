@@ -118,12 +118,10 @@
                   <label for="contact_website">No completar este campo</label>
                   <input type="text" id="contact_website" name="website" tabindex="-1" autocomplete="off">
                 </div>
-                <!--Google captcha-->
+                <!-- Google reCAPTCHA v2 Checkbox -->
                 <div class="form-wrap">
-                  <div id="token" class="g-recaptcha" data-sitekey="6LfraZUpAAAAAMDH8BZYuqrjpTZSDbX_AKJ5Wu_h"
-                    data-action="BTNCONTACTO" name="g-recaptcha-response"></div>
+                  <div class="g-recaptcha" data-sitekey="{{recaptchaSiteKey}}"></div>
                 </div>
-                <!-- End google captcha-->
                 <div class="form-wrap form-button offset-1">
                   <button class="button button-block button-primary-outline button-ujarak"
                     type="submit">Escríbenos</button>
@@ -147,8 +145,8 @@
 
 
 
-  <!-- Agrega el script de la biblioteca de reCAPTCHA -->
-  <script async src="https://www.google.com/recaptcha/enterprise.js"></script>
+  <!-- reCAPTCHA v2 Checkbox -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
     // Validación mínima en el frontend para feedback inmediato
     (function(){
@@ -167,7 +165,10 @@
         if (errors.length){
           e.preventDefault();
           alert(errors.join('\n'));
+          return;
         }
+
+        // Para reCAPTCHA v2 checkbox, el widget agrega el token automáticamente al formulario
       });
     })();
   </script>

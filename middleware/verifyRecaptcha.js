@@ -1,66 +1,40 @@
-const { RecaptchaEnterpriseServiceClient } = require('@google-cloud/recaptcha-enterprise');
+const fetch = require('node-fetch');
 
-// Función para crear una evaluación de reCAPTCHA
-async function createAssessment({
-  projectID = "pagina-radio-cha-1705969164687",
-  recaptchaKey = "6LfraZUpAAAAAMDH8BZYuqrjpTZSDbX_AKJ5Wu_h",
-  token = "g-recaptcha-response",
-  recaptchaAction = "BTNCONTACTO",
-}) {
-  const client = new RecaptchaEnterpriseServiceClient();
-  const projectPath = client.projectPath(projectID);
+// Middleware para verificar reCAPTCHA v2 Checkbox
+async function verifyRecaptcha(req, res, next) {
+  try {
+    const token = req.body['g-recaptcha-response'];
+    const secret = process.env.RECAPTCHA_SECRET_KEY;
 
-  const request = {
-    assessment: {
-      event: {
-        token: token,
-        siteKey: recaptchaKey,
-      },
-    },
-    parent: projectPath,
-  };
+    if (!token) {
+      req.flash('error_msg', 'Completa el reCAPTCHA antes de enviar.');
+      return res.redirect('/contacto');
+    }
 
-  const [response] = await client.createAssessment(request);
+    const params = new URLSearchParams();
+    params.append('secret', secret);
+    params.append('response', token);
+    params.append('remoteip', req.ip);
 
-  if (!response.tokenProperties.valid) {
-    console.log(`The CreateAssessment call failed because the token was: ${response.tokenProperties.invalidReason}`);
-    return null;
-  }
-
-  if (response.tokenProperties.action === recaptchaAction) {
-    console.log(`The reCAPTCHA score is: ${response.riskAnalysis.score}`);
-    response.riskAnalysis.reasons.forEach((reason) => {
-      console.log(reason);
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params,
     });
 
-    return response.riskAnalysis.score;
-  } else {
-    console.log("The action attribute in your reCAPTCHA tag does not match the action you are expecting to score");
-    return null;
-  }
-}
-
-// Middleware para verificar reCAPTCHA
-function verifyRecaptcha(req, res, next) {
-  const tokenValue = req.body['g-recaptcha-response'];
-  createAssessment({
-    projectID: process.env.RECAPTCHA_PROJECT_ID,
-    recaptchaKey: process.env.RECAPTCHA_SITE_KEY,
-    token: tokenValue,
-    recaptchaAction: "BTNCONTACTO",
-  }).then((recaptchaScore) => {
-    console.log("token:   "+tokenValue);
-    if (recaptchaScore !== null && recaptchaScore >= 0.5) {
-      next(); // Continuar con el siguiente middleware o ruta
-    } else {
-      req.flash("error_msg", "Error en la verificación reCAPTCHA");
-      res.redirect("/contacto");
+    const data = await response.json();
+    if (data.success) {
+      return next();
     }
-  }).catch((error) => {
-    console.error("Error al verificar reCAPTCHA:", error);
-    req.flash("error_msg", "Error al verificar reCAPTCHA");
-    res.redirect("/contacto");
-  });
+
+    console.error('reCAPTCHA verification failed:', data['error-codes']);
+    req.flash('error_msg', 'Error al verificar reCAPTCHA.');
+    return res.redirect('/contacto');
+  } catch (err) {
+    console.error('reCAPTCHA verification error:', err);
+    req.flash('error_msg', 'Error al verificar reCAPTCHA.');
+    return res.redirect('/contacto');
+  }
 }
 
 module.exports = verifyRecaptcha;
