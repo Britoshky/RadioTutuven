@@ -106,14 +106,27 @@ router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) =
       return res.status(400).render("contacto", { errors, formData: { name: trimmedName, email: trimmedEmail, message: trimmedMessage }, visitCount: currentCount });
     }
 
+    const smtpPort = Number(process.env.SMTP_PORT) || 465;
+    const smtpSecure = (typeof process.env.SMTP_SECURE !== 'undefined')
+      ? String(process.env.SMTP_SECURE).toLowerCase() === 'true'
+      : (smtpPort === 465);
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 465,
-      secure: String(process.env.SMTP_SECURE).toLowerCase() === "true",
+      port: smtpPort,
+      secure: smtpSecure, // true para 465 (SMTPS), false para 587/25 (STARTTLS)
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      connectionTimeout: Number(process.env.SMTP_CONN_TIMEOUT || 10000), // 10s
+      greetingTimeout: Number(process.env.SMTP_GREET_TIMEOUT || 10000),   // 10s
+      socketTimeout: Number(process.env.SMTP_SOCKET_TIMEOUT || 20000),    // 20s
+      logger: String(process.env.SMTP_DEBUG || '').toLowerCase() === 'true',
+      debug: String(process.env.SMTP_DEBUG || '').toLowerCase() === 'true',
+      tls: (String(process.env.SMTP_REJECT_UNAUTHORIZED || 'true').toLowerCase() === 'false')
+        ? { rejectUnauthorized: false }
+        : undefined,
     });
 
     const mailOptions = {
@@ -123,15 +136,15 @@ router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) =
       text: `Nombre: ${trimmedName}\nCorreo Electrónico: ${trimmedEmail}\nMensaje: ${trimmedMessage}`,
       replyTo: trimmedEmail,
     };
-    await transporter.sendMail(mailOptions);
-    if (prefersJSON) return res.json({ ok: true, message: "Correo enviado correctamente, te contactaremos a la brevedad." });
+  await transporter.sendMail(mailOptions);
+  if (prefersJSON) return res.json({ ok: true, message: "Correo enviado correctamente, te contactaremos a la brevedad." });
     // Mostrar feedback inmediato sin redirigir
     return res.render("contacto", { success_msg: "Correo enviado correctamente, te contactaremos a la brevedad.", visitCount: currentCount });
   } catch (error) {
     console.error("Error al enviar el correo electrónico:", error);
     // Intentar mostrar en la misma vista
     const visitDoc = await Visit.findOne({ page: 'contacto' }).lean().catch(() => null);
-    if (prefersJSON) return res.status(500).json({ ok: false, message: "Error al enviar el mensaje. Intenta nuevamente más tarde." });
+    if (prefersJSON) return res.status(500).json({ ok: false, message: "Error al enviar el mensaje. Intenta nuevamente más tarde.", code: error && (error.code || error.responseCode) });
     return res.status(500).render("contacto", { error_msg: "Error al enviar el mensaje. Intenta nuevamente más tarde.", formData: { name, email, message }, visitCount: visitDoc ? visitDoc.count : undefined });
   }
 });
