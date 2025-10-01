@@ -2,11 +2,13 @@ const fetch = require('node-fetch');
 
 // Middleware para verificar reCAPTCHA v2 Checkbox
 async function verifyRecaptcha(req, res, next) {
+  const prefersJSON = req.xhr || req.get('X-Requested-With') === 'XMLHttpRequest' || (req.headers.accept || '').includes('application/json');
   try {
     const token = req.body['g-recaptcha-response'];
     const secret = process.env.RECAPTCHA_SECRET_KEY;
 
     if (!token) {
+      if (prefersJSON) return res.status(400).json({ ok: false, message: 'Completa el reCAPTCHA antes de enviar.' });
       req.flash('error_msg', 'Completa el reCAPTCHA antes de enviar.');
       return res.redirect('/contacto');
     }
@@ -28,10 +30,12 @@ async function verifyRecaptcha(req, res, next) {
     }
 
     console.error('reCAPTCHA verification failed:', data['error-codes']);
+    if (prefersJSON) return res.status(400).json({ ok: false, message: 'Error al verificar reCAPTCHA.' });
     req.flash('error_msg', 'Error al verificar reCAPTCHA.');
     return res.redirect('/contacto');
   } catch (err) {
     console.error('reCAPTCHA verification error:', err);
+    if (prefersJSON) return res.status(500).json({ ok: false, message: 'Error al verificar reCAPTCHA.' });
     req.flash('error_msg', 'Error al verificar reCAPTCHA.');
     return res.redirect('/contacto');
   }

@@ -1,4 +1,6 @@
 <div class="box-line__main">
+  <!-- Toast top area -->
+  <div id="toast-container" style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1050; width: auto; max-width: 90%;"></div>
   <p class="heading-3">Conéctate con Nosotros</p>
   {{#if success_msg}}
   <div class="alert alert-success">{{success_msg}}</div>
@@ -16,7 +18,7 @@
   </div>
   {{/if}}
 
-  <form method="post" action="/contacto">
+  <form method="post" action="/contacto" onsubmit="return handleContactSubmit(event, this)">
     <input type="hidden" name="source" value="{{source}}" />
     <div class="form-wrap">
       <input class="form-input" id="contact_name" type="text" name="name" value="{{formData.name}}" required>
@@ -40,7 +42,74 @@
       <div class="g-recaptcha" data-sitekey="{{recaptchaSiteKey}}"></div>
     </div>
     <div class="form-wrap form-button offset-1">
-      <button class="button button-block button-primary-outline button-ujarak" type="submit">Escríbenos</button>
+      <button class="button button-block button-primary-outline button-ujarak" type="submit">
+        <span class="btn-text">Escríbenos</span>
+        <span class="btn-spinner" style="display:none; margin-left:8px;">
+          <span class="spinner-border" style="width:1rem;height:1rem;border:.15em solid currentColor;border-right-color:transparent;border-radius:50%;display:inline-block;vertical-align:middle;"></span>
+        </span>
+      </button>
     </div>
   </form>
+
+  <script>
+    function showToast(message, type){
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const bg = type === 'error' ? '#f8d7da' : '#d1e7dd';
+      const color = type === 'error' ? '#842029' : '#0f5132';
+      const border = type === 'error' ? '#f5c2c7' : '#badbcc';
+      const toast = document.createElement('div');
+      toast.style.cssText = `background:${bg};color:${color};border:1px solid ${border};padding:10px 14px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.12);margin-bottom:8px;`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => { toast.remove(); }, 4000);
+    }
+
+    async function handleContactSubmit(e, form){
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const btnText = btn.querySelector('.btn-text');
+      const btnSpinner = btn.querySelector('.btn-spinner');
+
+      // Simple client validation
+      const name = form.querySelector('#contact_name').value.trim();
+      const email = form.querySelector('#contact_email').value.trim();
+      const message = form.querySelector('#contact_message').value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const errs = [];
+      if (name.length < 2) errs.push('El nombre debe tener al menos 2 caracteres');
+      if (!emailRegex.test(email)) errs.push('Correo electrónico inválido');
+      if (message.length < 10) errs.push('El mensaje debe tener al menos 10 caracteres');
+      if (message.length > 2000) errs.push('El mensaje no puede superar los 2000 caracteres');
+      if (errs.length){ showToast(errs.join('\n'), 'error'); return false; }
+
+      // Ensure reCAPTCHA widget checked
+      if (typeof grecaptcha !== 'undefined'){
+        const response = grecaptcha.getResponse();
+        if (!response) { showToast('Por favor completa el reCAPTCHA.', 'error'); return false; }
+      }
+
+      btn.disabled = true; btnText.textContent = 'Enviando...'; btnSpinner.style.display = 'inline-block';
+      try{
+        const formData = new FormData(form);
+        const res = await fetch(form.action, { method: 'POST', headers: { 'X-Requested-With': 'XMLHttpRequest' }, body: formData });
+        const isJSON = (res.headers.get('content-type') || '').includes('application/json');
+        if (res.ok){
+          if (isJSON){ const data = await res.json(); showToast(data.message || 'Enviado', 'success'); }
+          else { showToast('Correo enviado correctamente, te contactaremos a la brevedad.', 'success'); }
+          form.reset();
+          if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+        } else {
+          if (isJSON){ const data = await res.json(); showToast((data.errors && data.errors.join('\n')) || data.message || 'Error al enviar.', 'error'); }
+          else { showToast('Error al enviar el mensaje.', 'error'); }
+        }
+      } catch(err){
+        showToast('Error al enviar el mensaje. Intenta nuevamente.', 'error');
+      } finally {
+        btn.disabled = false; btnText.textContent = 'Escríbenos'; btnSpinner.style.display = 'none';
+      }
+
+      return false;
+    }
+  </script>
 </div>

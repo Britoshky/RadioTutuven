@@ -21,6 +21,7 @@ const WINDOW_MS = 10 * 60 * 1000; // 10 minutos
 const MAX_REQUESTS = 5; // Máximo 5 envíos por ventana por IP
 
 function contactRateLimiter(req, res, next) {
+  const prefersJSON = req.xhr || req.get('X-Requested-With') === 'XMLHttpRequest' || (req.headers.accept || '').includes('application/json');
   const ip = (req.headers['x-forwarded-for'] || req.ip || req.connection?.remoteAddress || '').toString();
   const now = Date.now();
   let bucket = rateBuckets.get(ip);
@@ -31,6 +32,9 @@ function contactRateLimiter(req, res, next) {
   bucket.count += 1;
   if (bucket.count > MAX_REQUESTS) {
     // No incrementar visitas en POST; recuperar valor actual para mostrarlo
+    if (prefersJSON) {
+      return res.status(429).json({ ok: false, message: 'Has enviado demasiados mensajes. Intenta nuevamente más tarde.' });
+    }
     return Visit.findOne({ page: 'contacto' }).lean().then(doc => {
       return res.status(429).render('contacto', {
         error_msg: 'Has enviado demasiados mensajes. Intenta nuevamente más tarde.',
@@ -64,6 +68,7 @@ router.get("/contacto", async (req, res) => {
 // Ruta para manejar el envío del formulario
 router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) => {
   const { name = "", email = "", message = "", website = "" } = req.body;
+  const prefersJSON = req.xhr || req.get('X-Requested-With') === 'XMLHttpRequest' || (req.headers.accept || '').includes('application/json');
   const errors = [];
 
   // Validaciones básicas del lado del servidor
@@ -89,21 +94,16 @@ router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) =
     // Honeypot: si está llenado, asumir bot y responder éxito sin enviar correo
     const visitDocForHp = await Visit.findOne({ page: 'contacto' }).lean().catch(() => null);
     if (website && String(website).trim() !== '') {
-      return res.render("contacto", {
-        success_msg: "Gracias por tu mensaje, te contactaremos a la brevedad.",
-        visitCount: visitDocForHp ? visitDocForHp.count : undefined,
-      });
+      if (prefersJSON) return res.json({ ok: true, message: "Gracias por tu mensaje, te contactaremos a la brevedad." });
+      return res.render("contacto", { success_msg: "Gracias por tu mensaje, te contactaremos a la brevedad.", visitCount: visitDocForHp ? visitDocForHp.count : undefined });
     }
     // Obtener el contador actual para no incrementarlo en POST
     const visitDoc = await Visit.findOne({ page: 'contacto' }).lean();
     const currentCount = visitDoc ? visitDoc.count : undefined;
 
     if (errors.length > 0) {
-      return res.status(400).render("contacto", {
-        errors,
-        formData: { name: trimmedName, email: trimmedEmail, message: trimmedMessage },
-        visitCount: currentCount,
-      });
+      if (prefersJSON) return res.status(400).json({ ok: false, errors: errors.map(e => e.msg) });
+      return res.status(400).render("contacto", { errors, formData: { name: trimmedName, email: trimmedEmail, message: trimmedMessage }, visitCount: currentCount });
     }
 
     const transporter = nodemailer.createTransport({
@@ -124,21 +124,15 @@ router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) =
       replyTo: trimmedEmail,
     };
     await transporter.sendMail(mailOptions);
-
+    if (prefersJSON) return res.json({ ok: true, message: "Correo enviado correctamente, te contactaremos a la brevedad." });
     // Mostrar feedback inmediato sin redirigir
-    return res.render("contacto", {
-      success_msg: "Correo enviado correctamente, te contactaremos a la brevedad.",
-      visitCount: currentCount,
-    });
+    return res.render("contacto", { success_msg: "Correo enviado correctamente, te contactaremos a la brevedad.", visitCount: currentCount });
   } catch (error) {
     console.error("Error al enviar el correo electrónico:", error);
     // Intentar mostrar en la misma vista
     const visitDoc = await Visit.findOne({ page: 'contacto' }).lean().catch(() => null);
-    return res.status(500).render("contacto", {
-      error_msg: "Error al enviar el mensaje. Intenta nuevamente más tarde.",
-      formData: { name, email, message },
-      visitCount: visitDoc ? visitDoc.count : undefined,
-    });
+    if (prefersJSON) return res.status(500).json({ ok: false, message: "Error al enviar el mensaje. Intenta nuevamente más tarde." });
+    return res.status(500).render("contacto", { error_msg: "Error al enviar el mensaje. Intenta nuevamente más tarde.", formData: { name, email, message }, visitCount: visitDoc ? visitDoc.count : undefined });
   }
 });
 

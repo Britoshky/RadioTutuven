@@ -119,28 +119,6 @@
         alert('No se pudo copiar. Copia manualmente: ' + email);
       }
     }
-    // Validación mínima en el frontend para feedback inmediato
-    (function(){
-      const form = document.querySelector('form[action="/contacto"]');
-      if (!form) return;
-      form.addEventListener('submit', function(e){
-        const name = document.getElementById('contact_name').value.trim();
-        const email = document.getElementById('contact_email').value.trim();
-        const message = document.getElementById('contact_message').value.trim();
-        const errors = [];
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (name.length < 2) errors.push('El nombre debe tener al menos 2 caracteres');
-        if (!emailRegex.test(email)) errors.push('Correo electrónico inválido');
-        if (message.length < 10) errors.push('El mensaje debe tener al menos 10 caracteres');
-        if (message.length > 2000) errors.push('El mensaje no puede superar los 2000 caracteres');
-        if (errors.length){
-          e.preventDefault();
-          alert(errors.join('\n'));
-          return;
-        }
-
-        // Para reCAPTCHA v2 checkbox, el widget agrega el token automáticamente al formulario
-      });
-    })();
+    // La validación y envío AJAX están en el partial del formulario de contacto
   </script>
 </div>
