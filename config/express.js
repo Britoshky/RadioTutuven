@@ -138,10 +138,10 @@ app.get("/", async (req, res, next) => {
     );
 
     // Renderizar vista con contador
-    res.render("index", { visitCount: visit.count });
+    res.render("index", { visitCount: visit.count, recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY });
   } catch (error) {
     console.error("Error al contar visitas:", error);
-    res.render("index", { visitCount: "N/A" });
+    res.render("index", { visitCount: "N/A", recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY });
   }
 });
 

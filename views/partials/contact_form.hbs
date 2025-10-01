@@ -1,0 +1,46 @@
+<div class="box-line__main">
+  <p class="heading-3">Conéctate con Nosotros</p>
+  {{#if success_msg}}
+  <div class="alert alert-success">{{success_msg}}</div>
+  {{/if}}
+  {{#if error_msg}}
+  <div class="alert alert-danger">{{error_msg}}</div>
+  {{/if}}
+  {{#if errors}}
+  <div class="alert alert-danger">
+    <ul class="text-left" style="margin:0;">
+      {{#each errors}}
+      <li>{{this.msg}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+  <form method="post" action="/contacto">
+    <input type="hidden" name="source" value="{{source}}" />
+    <div class="form-wrap">
+      <input class="form-input" id="contact_name" type="text" name="name" value="{{formData.name}}" required>
+      <label class="form-label" for="contact_name">Tu nombre</label>
+    </div>
+    <div class="form-wrap">
+      <input class="form-input" id="contact_email" type="email" name="email" value="{{formData.email}}" required>
+      <label class="form-label" for="contact_email">Correo</label>
+    </div>
+    <div class="form-wrap">
+      <label class="form-label" for="contact_message">Tu mensaje</label>
+      <textarea class="form-input" id="contact_message" name="message" required>{{formData.message}}</textarea>
+    </div>
+    <!-- Honeypot -->
+    <div style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
+      <label for="contact_website_component">No completar este campo</label>
+      <input type="text" id="contact_website_component" name="website" tabindex="-1" autocomplete="off">
+    </div>
+    <!--Google reCAPTCHA v2 Checkbox-->
+    <div class="form-wrap">
+      <div class="g-recaptcha" data-sitekey="{{recaptchaSiteKey}}"></div>
+    </div>
+    <div class="form-wrap form-button offset-1">
+      <button class="button button-block button-primary-outline button-ujarak" type="submit">Escríbenos</button>
+    </div>
+  </form>
+</div>

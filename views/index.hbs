@@ -281,48 +281,7 @@
 
 
                     <article class="box-line"><span></span><span></span><span></span><span></span>
-                        <div class="box-line__main">
-                            <p class="heading-3">Conéctate con Nosotros</p>
-                            {{#if successFlash}}
-                            <div class="alert alert-success">{{successFlash}}</div>
-                            {{/if}}
-                            {{#if errorFlash}}
-                            <div class="alert alert-danger">{{errorFlash}}</div>
-                            {{/if}}
-
-                            <!-- RD Mailform-->
-                            <form method="post" action="/send-email">
-                                {{!-- <div class="form-wrap">
-                                    <input class="form-input" id="contact-date" type="text" data-time-picker="date"
-                                        name="date" data-constraints="@Required">
-                                    <label class="form-label" for="contact-date">Event Date</label>
-                                </div> --}}
-                                <div class="form-wrap">
-                                    <input class="form-input" id="contact_name" type="text" name="name" required>
-                                    <label class="form-label" for="contact_name">Tu nombre</label>
-                                </div>
-                                <div class="form-wrap">
-                                    <input class="form-input" id="contact_email" type="email" name="email" required>
-                                    <label class="form-label" for="contact_email">Correo</label>
-                                </div>
-                                <div class="form-wrap">
-                                    <label class="form-label" for="contact_message">Tu mensaje</label>
-                                    <textarea class="form-input" id="contact_message" name="message"
-                                        required></textarea>
-                                </div>
-                                <!--Google captcha-->
-                                <div class="form-wrap">
-                                    <div id="token" class="g-recaptcha"
-                                        data-sitekey="6LfraZUpAAAAAMDH8BZYuqrjpTZSDbX_AKJ5Wu_h"
-                                        data-action="BTNCONTACTO" name="g-recaptcha-response"></div>
-                                </div>
-                                <!-- End google captcha-->
-                                <div class="form-wrap form-button offset-1">
-                                    <button class="button button-block button-primary-outline button-ujarak"
-                                        type="submit">Escríbenos</button>
-                                </div>
-                            </form>
-                        </div>
+                        {{> contact_form source="home" recaptchaSiteKey=recaptchaSiteKey }}
                 </div>
             </div>
     </section>
@@ -334,7 +293,28 @@
 
 
     {{> player}}
-    <!-- Agrega el script de la biblioteca de reCAPTCHA -->
-    <script async src="https://www.google.com/recaptcha/enterprise.js"></script>
+        <!-- reCAPTCHA v2 Checkbox -->
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script>
+            (function(){
+                const form = document.querySelector('form[action="/contacto"]');
+                if (!form) return;
+                form.addEventListener('submit', function(e){
+                    const name = document.getElementById('contact_name').value.trim();
+                    const email = document.getElementById('contact_email').value.trim();
+                    const message = document.getElementById('contact_message').value.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    const errors = [];
+                    if (name.length < 2) errors.push('El nombre debe tener al menos 2 caracteres');
+                    if (!emailRegex.test(email)) errors.push('Correo electrónico inválido');
+                    if (message.length < 10) errors.push('El mensaje debe tener al menos 10 caracteres');
+                    if (message.length > 2000) errors.push('El mensaje no puede superar los 2000 caracteres');
+                    if (errors.length){
+                        e.preventDefault();
+                        alert(errors.join('\n'));
+                    }
+                });
+            })();
+        </script>
 
 </div>

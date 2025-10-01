@@ -63,7 +63,7 @@ router.get("/contacto", async (req, res) => {
 
 // Ruta para manejar el envío del formulario
 router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) => {
-  const { name = "", email = "", message = "", website = "" } = req.body;
+  const { name = "", email = "", message = "", website = "", source = "" } = req.body;
   const errors = [];
 
   // Validaciones básicas del lado del servidor
@@ -116,11 +116,18 @@ router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) =
       },
     });
 
+    // Enviar a correo adicional si viene desde la página de contacto
+    const toList = [];
+    const defaultTo = process.env.SMTP_TO || "radiotutuven@gmail.com";
+    toList.push(defaultTo);
+    if (source === 'contacto') {
+      toList.push('administrador@radiotutuven.cl');
+    }
     const mailOptions = {
       from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: process.env.SMTP_TO || "radiotutuven@gmail.com",
-      subject: "Nuevo mensaje de contacto",
-      text: `Nombre: ${trimmedName}\nCorreo Electrónico: ${trimmedEmail}\nMensaje: ${trimmedMessage}`,
+      to: toList.join(','),
+      subject: `Nuevo mensaje de contacto (${source || 'home'})`,
+      text: `Origen: ${source || 'home'}\nNombre: ${trimmedName}\nCorreo Electrónico: ${trimmedEmail}\nMensaje: ${trimmedMessage}`,
       replyTo: trimmedEmail,
     };
     await transporter.sendMail(mailOptions);
