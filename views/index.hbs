@@ -280,23 +280,8 @@
                 <div class="cell-sm-10 cell-md-6 wow fadeInLeft">
 
 
-                                        <article class="box-line"><span></span><span></span><span></span><span></span>
-                                                                        {{> contact_form source="home" recaptchaSiteKey=recaptchaSiteKey }}
-                                                                        <div class="layout-columns__aside-item" style="margin-top:1rem;">
-                                                    <p class="heading-5">Correo</p>
-                                                    <div class="divider-modern"></div>
-                                                    <div class="unit unit-horizontal unit-spacing-xxs">
-                                                        <div class="unit__left"><span class="icon icon-md icon-primary material-icons-email"></span></div>
-                                                        <div class="unit__body">
-                                                                                                                    <div>
-                                                                                                                        <a href="#" onclick="copyEmail('radiotutuven@gmail.com'); return false;">radiotutuven@gmail.com</a>
-                                                                                                                    </div>
-                                                                                                                    <div>
-                                                                                                                        <a href="#" onclick="copyEmail('administrador@radiotutuven.cl'); return false;">administrador@radiotutuven.cl</a>
-                                                                                                                    </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                            <article class="box-line"><span></span><span></span><span></span><span></span>
+                                                                    {{> contact_form source="home" recaptchaSiteKey=recaptchaSiteKey }}
                 </div>
             </div>
     </section>
@@ -311,23 +296,6 @@
         <!-- reCAPTCHA v2 Checkbox -->
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <script>
-            function copyEmail(email){
-                try{
-                    navigator.clipboard.writeText(email).then(function(){
-                        alert('Correo copiado: ' + email);
-                    }).catch(function(){
-                        const ta = document.createElement('textarea');
-                        ta.value = email;
-                        document.body.appendChild(ta);
-                        ta.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(ta);
-                        alert('Correo copiado: ' + email);
-                    });
-                }catch(e){
-                    alert('No se pudo copiar. Copia manualmente: ' + email);
-                }
-            }
             (function(){
                 const form = document.querySelector('form[action="/contacto"]');
                 if (!form) return;
