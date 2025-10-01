@@ -50,7 +50,14 @@
             <div class="unit unit-horizontal unit-spacing-xxs">
               <div class="unit__left"><span class="icon icon-md icon-primary material-icons-email"></span>
               </div>
-              <div class="unit__body">radiotutuven@gmail.com</a></div>
+              <div class="unit__body">
+                <div>
+                  <a href="#" onclick="copyEmail('radiotutuven@gmail.com'); return false;">radiotutuven@gmail.com</a>
+                </div>
+                <div>
+                  <a href="#" onclick="copyEmail('administrador@radiotutuven.cl'); return false;">administrador@radiotutuven.cl</a>
+                </div>
+              </div>
             </div>
           </div>
           <div class="layout-columns__aside-item">
@@ -94,6 +101,24 @@
   <!-- reCAPTCHA v2 Checkbox -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
+    function copyEmail(email){
+      try{
+        navigator.clipboard.writeText(email).then(function(){
+          alert('Correo copiado: ' + email);
+        }).catch(function(){
+          // Fallback
+          const ta = document.createElement('textarea');
+          ta.value = email;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          alert('Correo copiado: ' + email);
+        });
+      }catch(e){
+        alert('No se pudo copiar. Copia manualmente: ' + email);
+      }
+    }
     // Validación mínima en el frontend para feedback inmediato
     (function(){
       const form = document.querySelector('form[action="/contacto"]');
