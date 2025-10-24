@@ -1449,29 +1449,52 @@ for (; i < l; i++) {
 	new Clock(clocks[i]);
 }
 
-// Inicializar Socket.IO con configuración robusta
-var socket = io({
-    transports: ['websocket', 'polling'],
-    timeout: 20000,
-    forceNew: true,
-    reconnection: true,
-    reconnectionDelay: 1000,
-    reconnectionAttempts: 5,
-    maxReconnectionAttempts: 5
-});
+// Inicializar Socket.IO con configuración robusta y fallback
+var socket;
+try {
+    socket = io({
+        transports: ['polling', 'websocket'], // Intentar polling primero
+        timeout: 20000,
+        forceNew: true,
+        reconnection: true,
+        reconnectionDelay: 2000,
+        reconnectionAttempts: 3,
+        maxReconnectionAttempts: 3,
+        upgrade: true, // Permitir upgrade de polling a websocket
+        rememberUpgrade: false
+    });
 
-// Manejo de eventos de conexión
-socket.on('connect', function() {
-    console.log('Socket.IO conectado');
-});
+    // Manejo de eventos de conexión
+    socket.on('connect', function() {
+        console.log('Socket.IO conectado via:', socket.io.engine.transport.name);
+        
+        // Intentar upgrade a websocket si es posible
+        socket.io.engine.on('upgrade', function() {
+            console.log('Socket.IO upgraded a:', socket.io.engine.transport.name);
+        });
+    });
 
-socket.on('connect_error', function(error) {
-    console.warn('Error de conexión Socket.IO:', error);
-});
+    socket.on('connect_error', function(error) {
+        console.warn('Error de conexión Socket.IO:', error);
+    });
 
-socket.on('disconnect', function(reason) {
-    console.log('Socket.IO desconectado:', reason);
-});
+    socket.on('disconnect', function(reason) {
+        console.log('Socket.IO desconectado:', reason);
+        if (reason === 'io server disconnect') {
+            // El servidor forzó la desconexión, reconectar manualmente
+            socket.connect();
+        }
+    });
+
+} catch (error) {
+    console.error('Error al inicializar Socket.IO:', error);
+    // Crear un mock socket si falla completamente
+    socket = {
+        on: function() {},
+        emit: function() {},
+        disconnect: function() {}
+    };
+}
 $(() => {
     $("#send").click(() => {
         sendMessage({ name: $("#name").val(), message: $("#message").val() });
