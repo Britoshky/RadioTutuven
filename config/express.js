@@ -136,6 +136,8 @@ app.use(helmet.contentSecurityPolicy({
       "'self'", 
       "wss:", 
       "ws:", 
+      "wss://www.radiotutuven.cl",
+      "ws://localhost:*",
       "https://stream.cloudmusic.cl", 
       "https://www.google-analytics.com",
       "https://ep1.adtrafficquality.google",
@@ -152,9 +154,16 @@ app.use(helmet.contentSecurityPolicy({
       "https://ep1.adtrafficquality.google",
       "https://ep2.adtrafficquality.google"
     ],
+    frameAncestors: [
+      "'self'",
+      "https://www.google.com",
+      "https://googleads.g.doubleclick.net",
+      "https://tpc.googlesyndication.com"
+    ],
     objectSrc: ["'none'"],
     upgradeInsecureRequests: [],
   },
+  reportOnly: process.env.NODE_ENV !== 'production', // Solo reportar en desarrollo
 }));
 
 // Static Files
