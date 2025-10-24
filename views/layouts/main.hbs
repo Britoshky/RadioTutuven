@@ -43,8 +43,14 @@
 {{> messages}}
 {{> errors}}
 
-  <!-- jQuery actualizado -->
+  <!-- jQuery desde CDN con fallback local -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+  <script>
+    // Fallback a jQuery local si CDN falla
+    if (typeof jQuery == 'undefined') {
+      document.write('<script src="/js/jquery-3.6.0.min.js"><\/script>');
+    }
+  </script>
   <script src="js/script.js"></script>
   <script src="js/player.js"></script>
 

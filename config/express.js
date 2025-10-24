@@ -111,17 +111,44 @@ app.use(helmet.noSniff());
 app.use(helmet.frameguard());
 app.use(helmet.xssFilter());
 
-// Configurar CSP para permitir streaming de audio
+// Configurar CSP para permitir todos los recursos necesarios
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
     styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
-    fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
-    scriptSrc: ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://googleads.g.doubleclick.net", "https://pagead2.googlesyndication.com"],
+    fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com", "https://rawgit.com"],
+    scriptSrc: [
+      "'self'", 
+      "'unsafe-inline'", 
+      "https://www.googletagmanager.com", 
+      "https://www.google-analytics.com", 
+      "https://googleads.g.doubleclick.net", 
+      "https://pagead2.googlesyndication.com",
+      "https://www.google.com",
+      "https://www.gstatic.com",
+      "https://code.jquery.com",
+      "https://static.cloudflareinsights.com"
+    ],
     mediaSrc: ["'self'", "https://stream.cloudmusic.cl", "data:"],
-    connectSrc: ["'self'", "wss:", "ws:", "https://stream.cloudmusic.cl", "https://www.google-analytics.com"],
+    connectSrc: [
+      "'self'", 
+      "wss:", 
+      "ws:", 
+      "https://stream.cloudmusic.cl", 
+      "https://www.google-analytics.com",
+      "https://ep1.adtrafficquality.google",
+      "https://googleads.g.doubleclick.net",
+      "https://pagead2.googlesyndication.com"
+    ],
     imgSrc: ["'self'", "data:", "https:", "http:"],
-    frameSrc: ["'self'", "https://googleads.g.doubleclick.net", "https://tpc.googlesyndication.com"],
+    frameSrc: [
+      "'self'", 
+      "https://googleads.g.doubleclick.net", 
+      "https://tpc.googlesyndication.com",
+      "https://www.google.com"
+    ],
+    objectSrc: ["'none'"],
+    upgradeInsecureRequests: [],
   },
 }));
 
