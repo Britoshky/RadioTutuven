@@ -4,49 +4,40 @@ let isPlaying = false;
 let retryCount = 0;
 const maxRetries = 3;
 
-// URLs de streams alternativos - añadir más formatos y servidores
+// URL del stream de radio - URL oficial confirmada
 const streamUrls = [
-    "https://stream.cloudmusic.cl/listen/radio_tutuven/radio.mp3",
-    "https://stream.cloudmusic.cl/listen/radio_tutuven/radio.aac",
-    "https://stream.cloudmusic.cl:8000/radio_tutuven", // Puerto alternativo
-    "https://stream.cloudmusic.cl/radio_tutuven.mp3", // URL simplificada
-    "https://stream.cloudmusic.cl/radio_tutuven", // Sin extensión
+    "https://stream.cloudmusic.cl/listen/radio_tutuven/radio.mp3"
 ];
 
 // Configurar el audio para mejor compatibilidad con Chrome
 link.crossOrigin = "anonymous";
 link.preload = "none";
 
-// Función para verificar conectividad básica
+// Función para verificar conectividad del servidor de streaming
 async function checkStreamServer() {
     try {
-        const response = await fetch("https://stream.cloudmusic.cl/", { 
+        const response = await fetch("https://stream.cloudmusic.cl/listen/radio_tutuven/radio.mp3", { 
             method: 'HEAD', 
             mode: 'no-cors',
             cache: 'no-cache'
         });
         return true;
     } catch (error) {
-        console.warn('Servidor de streaming no accesible:', error);
+        console.warn('Servidor de streaming Radio Tutuven no accesible:', error);
         return false;
     }
 }
 
-// Función para intentar reproducir con diferentes URLs
-async function tryPlayStream(urlIndex = 0) {
-    if (urlIndex >= streamUrls.length) {
-        throw new Error("No hay más URLs disponibles para intentar");
-    }
-
+// Función para intentar reproducir el stream
+async function tryPlayStream() {
     return new Promise((resolve, reject) => {
-        link.src = streamUrls[urlIndex];
+        link.src = streamUrls[0]; // Usar la URL oficial
         
         // Timeout para evitar esperas largas
         const timeout = setTimeout(() => {
             cleanup();
-            console.warn(`Timeout con URL ${streamUrls[urlIndex]}, intentando siguiente...`);
-            tryPlayStream(urlIndex + 1).then(resolve).catch(reject);
-        }, 10000); // 10 segundos timeout
+            reject(new Error("Timeout al conectar con el servidor de streaming"));
+        }, 15000); // 15 segundos timeout para streaming
         
         const onLoadedData = () => {
             clearTimeout(timeout);
@@ -57,8 +48,7 @@ async function tryPlayStream(urlIndex = 0) {
         const onError = () => {
             clearTimeout(timeout);
             cleanup();
-            console.warn(`Error con URL ${streamUrls[urlIndex]}, intentando siguiente...`);
-            tryPlayStream(urlIndex + 1).then(resolve).catch(reject);
+            reject(new Error("Error al conectar con el servidor de streaming"));
         };
 
         const cleanup = () => {
@@ -106,7 +96,7 @@ if (playBtn == null) {
                     showUserMessage('Por favor, permite la reproducción de audio en tu navegador. Haz clic aquí para intentar de nuevo.');
                 } else if (error.name === 'NotSupportedError') {
                     showUserMessage('Tu navegador no soporta la reproducción de este formato de audio. Intenta con otro navegador.');
-                } else if (error.message.includes("No hay más URLs")) {
+                } else if (error.message.includes("Timeout") || error.message.includes("Error al conectar")) {
                     if (retryCount < maxRetries) {
                         retryCount++;
                         showUserMessage(`Servidor temporalmente no disponible. Reintentando... (${retryCount}/${maxRetries})`);
@@ -114,9 +104,9 @@ if (playBtn == null) {
                             if (!isPlaying) { // Solo reintentar si no se está reproduciendo
                                 playBtn.click();
                             }
-                        }, 5000); // Esperar 5 segundos antes de reintentar
+                        }, 3000); // Esperar 3 segundos antes de reintentar
                     } else {
-                        showUserMessage('El servidor de streaming no está disponible. Revisa tu conexión a internet o intenta más tarde.');
+                        showUserMessage('El servidor de Radio Tutuven no está disponible. Revisa tu conexión a internet o intenta más tarde.');
                         retryCount = 0;
                     }
                 } else {
