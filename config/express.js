@@ -148,7 +148,9 @@ app.use(helmet.contentSecurityPolicy({
       "'self'", 
       "https://googleads.g.doubleclick.net", 
       "https://tpc.googlesyndication.com",
-      "https://www.google.com"
+      "https://www.google.com",
+      "https://ep1.adtrafficquality.google",
+      "https://ep2.adtrafficquality.google"
     ],
     objectSrc: ["'none'"],
     upgradeInsecureRequests: [],
