@@ -26,7 +26,14 @@ const secretKey = generateRandomString(64); // Se recomienda una longitud de 64 
 // Inicializaciones
 const app = express();
 const server = http.createServer(app);
-const io = socketIO(server);
+const io = socketIO(server, {
+  cors: {
+    origin: process.env.NODE_ENV === 'production' ? "https://www.radiotutuven.cl" : "*",
+    methods: ["GET", "POST"]
+  },
+  transports: ['websocket', 'polling'],
+  allowEIO3: true
+});
 
 // Limitar la cantidad de conexiones simultáneas
 const maxConnections = 100; // Número máximo de conexiones permitidas
@@ -96,13 +103,27 @@ app.use((req, res, next) => {
   next();
 });
 
-// Helmet Middlewares
+// Helmet Middlewares con configuración para streaming de audio
 app.use(helmet.hidePoweredBy());
 app.use(helmet.hsts());
 app.use(helmet.ieNoOpen());
 app.use(helmet.noSniff());
 app.use(helmet.frameguard());
 app.use(helmet.xssFilter());
+
+// Configurar CSP para permitir streaming de audio
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+    fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+    scriptSrc: ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://googleads.g.doubleclick.net", "https://pagead2.googlesyndication.com"],
+    mediaSrc: ["'self'", "https://stream.cloudmusic.cl", "data:"],
+    connectSrc: ["'self'", "wss:", "ws:", "https://stream.cloudmusic.cl", "https://www.google-analytics.com"],
+    imgSrc: ["'self'", "data:", "https:", "http:"],
+    frameSrc: ["'self'", "https://googleads.g.doubleclick.net", "https://tpc.googlesyndication.com"],
+  },
+}));
 
 // Static Files
 app.use(express.static(path.join(__dirname, "../public")));

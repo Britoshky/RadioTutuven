@@ -10,6 +10,9 @@
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
   <meta name="keywords" content="radio tutuven, online, en vivo, cauquenes, chanquina, super estacion, cauquenino, " />
+  
+  <!-- Permisos para características del navegador -->
+  <meta http-equiv="Permissions-Policy" content="autoplay=(self), microphone=(), camera=()">
 
   <meta name="author" content="Hector Brito" />
   <meta name="description"
@@ -40,9 +43,10 @@
 {{> messages}}
 {{> errors}}
 
-  <script src="js/core.min.js"></script>
+  <!-- jQuery actualizado -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
   <script src="js/script.js"></script>
-    <script src="js/player.js"></script>
+  <script src="js/player.js"></script>
 
 </body>
 
