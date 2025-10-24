@@ -207,8 +207,22 @@ app.use(helmet.contentSecurityPolicy({
   reportOnly: false, // Siempre enforcar en producción
 }));
 
-// Static Files
-app.use(express.static(path.join(__dirname, "../public")));
+// Static Files con cache optimizado para imágenes
+app.use(express.static(path.join(__dirname, "../public"), {
+  maxAge: process.env.NODE_ENV === 'production' ? '7d' : 0, // 7 días cache en producción
+  etag: true,
+  lastModified: true,
+  setHeaders: (res, path) => {
+    // Cache largo para imágenes optimizadas
+    if (path.match(/\.(jpg|jpeg|png|gif|webp|svg|ico)$/i)) {
+      res.setHeader('Cache-Control', 'public, max-age=2592000'); // 30 días para imágenes
+    }
+    // Cache corto para CSS/JS con versioning
+    if (path.match(/\.(css|js)$/i)) {
+      res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 día para CSS/JS
+    }
+  }
+}));
 
 // Función de throttle para limitar la frecuencia de las emisiones
 const throttle = (func, limit) => {
