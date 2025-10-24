@@ -1449,7 +1449,29 @@ for (; i < l; i++) {
 	new Clock(clocks[i]);
 }
 
-var socket = io();
+// Inicializar Socket.IO con configuración robusta
+var socket = io({
+    transports: ['websocket', 'polling'],
+    timeout: 20000,
+    forceNew: true,
+    reconnection: true,
+    reconnectionDelay: 1000,
+    reconnectionAttempts: 5,
+    maxReconnectionAttempts: 5
+});
+
+// Manejo de eventos de conexión
+socket.on('connect', function() {
+    console.log('Socket.IO conectado');
+});
+
+socket.on('connect_error', function(error) {
+    console.warn('Error de conexión Socket.IO:', error);
+});
+
+socket.on('disconnect', function(reason) {
+    console.log('Socket.IO desconectado:', reason);
+});
 $(() => {
     $("#send").click(() => {
         sendMessage({ name: $("#name").val(), message: $("#message").val() });

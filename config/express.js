@@ -39,7 +39,9 @@ const io = socketIO(server, {
   pingTimeout: 60000,
   pingInterval: 25000,
   upgradeTimeout: 30000,
-  maxHttpBufferSize: 1e6
+  maxHttpBufferSize: 1e6,
+  // Debugging para producción
+  logger: process.env.NODE_ENV === 'production' ? console : undefined
 });
 
 // Limitar la cantidad de conexiones simultáneas
@@ -65,6 +67,17 @@ require('dotenv').config();
 
 // Configuración para confiar en el proxy
 app.set('trust proxy', 1);
+
+// Headers adicionales para mejorar compatibilidad
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  }
+  next();
+});
 
 // Settings
 app.set("port", process.env.PORT || 3001);
@@ -157,7 +170,10 @@ app.use(helmet.contentSecurityPolicy({
     mediaSrc: ["'self'", "https://stream.cloudmusic.cl", "data:"],
     connectSrc: [
       "'self'", 
-      "wss://www.radiotutuven.cl",
+      "wss://www.radiotutuven.cl:*",
+      "wss://radiotutuven.cl:*",
+      "https://www.radiotutuven.cl",
+      "https://radiotutuven.cl",
       "https://stream.cloudmusic.cl", 
       "https://www.google-analytics.com",
       "https://ep1.adtrafficquality.google",

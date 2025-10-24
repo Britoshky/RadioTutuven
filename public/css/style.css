@@ -35202,16 +35202,11 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	opacity: 1;
 }
 
-/* @font-face {
-	font-family: 'digital';
-	src: url(https://rawgit.com/AiramNavas/recursos_curso_JS/master/digital.ttf);
+/* Fuente digital reemplazada por fuente local para evitar errores de CSP */
+.digital-font, .clock {
+	font-family: 'Courier New', 'Monaco', 'Lucida Console', monospace;
 	font-weight: normal;
 	font-style: normal;
-} */
-
-/* Fuente digital comentada temporalmente - usar fuente monospace como alternativa */
-.digital-font {
-	font-family: 'Courier New', 'Monaco', 'Lucida Console', monospace;
 }
 
 
