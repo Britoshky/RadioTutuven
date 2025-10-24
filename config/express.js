@@ -28,11 +28,18 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' ? "https://www.radiotutuven.cl" : "*",
-    methods: ["GET", "POST"]
+    origin: process.env.NODE_ENV === 'production' 
+      ? ["https://www.radiotutuven.cl", "https://radiotutuven.cl"] 
+      : "*",
+    methods: ["GET", "POST"],
+    credentials: true
   },
   transports: ['websocket', 'polling'],
-  allowEIO3: true
+  allowEIO3: true,
+  pingTimeout: 60000,
+  pingInterval: 25000,
+  upgradeTimeout: 30000,
+  maxHttpBufferSize: 1e6
 });
 
 // Limitar la cantidad de conexiones simultáneas
@@ -41,6 +48,15 @@ let activeConnections = 0;
 
 // Usar el middleware de compresión
 app.use(compression());
+
+// Middleware de logging para producción
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ${req.method} ${req.url} - ${req.ip}`);
+    next();
+  });
+}
 
 // Configuración de la base de datos y passport
 require("../database/database");
@@ -79,13 +95,15 @@ app.use(methodOverride("_method"));
 app.use(
   session({
     secret: secretKey,
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
+    name: 'radiotutuven.sid',
     cookie: {
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
-      maxAge: 30 * 60 * 1000,
-      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000, // 24 horas
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+      domain: process.env.NODE_ENV === 'production' ? '.radiotutuven.cl' : undefined
     },
   })
 );
@@ -103,20 +121,25 @@ app.use((req, res, next) => {
   next();
 });
 
-// Helmet Middlewares con configuración para streaming de audio
+// Helmet Middlewares con configuración mejorada para producción
 app.use(helmet.hidePoweredBy());
-app.use(helmet.hsts());
+app.use(helmet.hsts({
+  maxAge: 31536000, // 1 año
+  includeSubDomains: true,
+  preload: true
+}));
 app.use(helmet.ieNoOpen());
 app.use(helmet.noSniff());
-app.use(helmet.frameguard());
+app.use(helmet.frameguard({ action: 'sameorigin' }));
 app.use(helmet.xssFilter());
+app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
 
 // Configurar CSP para permitir todos los recursos necesarios
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
     styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
-    fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com", "https://rawgit.com"],
+    fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
     scriptSrc: [
       "'self'", 
       "'unsafe-inline'", 
@@ -134,10 +157,7 @@ app.use(helmet.contentSecurityPolicy({
     mediaSrc: ["'self'", "https://stream.cloudmusic.cl", "data:"],
     connectSrc: [
       "'self'", 
-      "wss:", 
-      "ws:", 
       "wss://www.radiotutuven.cl",
-      "ws://localhost:*",
       "https://stream.cloudmusic.cl", 
       "https://www.google-analytics.com",
       "https://ep1.adtrafficquality.google",
@@ -157,13 +177,15 @@ app.use(helmet.contentSecurityPolicy({
     frameAncestors: [
       "'self'",
       "https://www.google.com",
-      "https://googleads.g.doubleclick.net",
+      "https://googleads.g.doubleclick.net", 
       "https://tpc.googlesyndication.com"
     ],
     objectSrc: ["'none'"],
-    upgradeInsecureRequests: [],
+    baseUri: ["'self'"],
+    formAction: ["'self'"],
+    upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : undefined,
   },
-  reportOnly: process.env.NODE_ENV !== 'production', // Solo reportar en desarrollo
+  reportOnly: false, // Siempre enforcar en producción
 }));
 
 // Static Files
