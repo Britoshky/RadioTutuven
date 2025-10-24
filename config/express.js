@@ -127,7 +127,9 @@ app.use(helmet.contentSecurityPolicy({
       "https://www.google.com",
       "https://www.gstatic.com",
       "https://code.jquery.com",
-      "https://static.cloudflareinsights.com"
+      "https://static.cloudflareinsights.com",
+      "https://ep1.adtrafficquality.google",
+      "https://ep2.adtrafficquality.google"
     ],
     mediaSrc: ["'self'", "https://stream.cloudmusic.cl", "data:"],
     connectSrc: [
@@ -137,6 +139,7 @@ app.use(helmet.contentSecurityPolicy({
       "https://stream.cloudmusic.cl", 
       "https://www.google-analytics.com",
       "https://ep1.adtrafficquality.google",
+      "https://ep2.adtrafficquality.google",
       "https://googleads.g.doubleclick.net",
       "https://pagead2.googlesyndication.com"
     ],
