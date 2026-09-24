@@ -98,15 +98,15 @@
 
 
 
-  <!-- reCAPTCHA v2 Checkbox -->
+  <!-- reCAPTCHA v2 Invisible -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="/js/contact-form.js" defer></script>
   <script>
     function copyEmail(email){
       try{
         navigator.clipboard.writeText(email).then(function(){
           alert('Correo copiado: ' + email);
         }).catch(function(){
-          // Fallback
           const ta = document.createElement('textarea');
           ta.value = email;
           document.body.appendChild(ta);
@@ -119,6 +119,5 @@
         alert('No se pudo copiar. Copia manualmente: ' + email);
       }
     }
-    // La validación y envío AJAX están en el partial del formulario de contacto
   </script>
 </div>

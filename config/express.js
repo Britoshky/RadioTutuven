@@ -14,6 +14,7 @@ const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-ac
 const Message = require('../models/Message');
 const socketIO = require('socket.io');
 const Visit = require("../models/Visit");
+const { getAppSettings } = require("../helpers/appSettings");
 
 // Función para generar una clave secreta única
 const generateRandomString = (length) => {
@@ -190,6 +191,8 @@ app.use(helmet.contentSecurityPolicy({
       "https://googleads.g.doubleclick.net", 
       "https://tpc.googlesyndication.com",
       "https://www.google.com",
+      "https://www.gstatic.com",
+      "https://recaptcha.google.com",
       "https://ep1.adtrafficquality.google",
       "https://ep2.adtrafficquality.google"
     ],
@@ -254,11 +257,16 @@ app.get("/", async (req, res, next) => {
       { upsert: true, new: true }
     );
 
-    // Renderizar vista con contador
-    res.render("index", { visitCount: visit.count, recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY });
+    const { recaptcha } = await getAppSettings();
+    res.render("index", { visitCount: visit.count, recaptchaSiteKey: recaptcha.siteKey });
   } catch (error) {
     console.error("Error al contar visitas:", error);
-    res.render("index", { visitCount: "N/A", recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY });
+    let siteKey = "";
+    try {
+      const { recaptcha } = await getAppSettings();
+      siteKey = recaptcha.siteKey;
+    } catch (_) {}
+    res.render("index", { visitCount: "N/A", recaptchaSiteKey: siteKey });
   }
 });
 

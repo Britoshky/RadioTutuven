@@ -1,15 +1,24 @@
 const fetch = require('node-fetch');
+const { getAppSettings } = require('../helpers/appSettings');
 
-// Middleware para verificar reCAPTCHA v2 Checkbox
+// Verifica reCAPTCHA v2 (checkbox o invisible) usando secret desde MongoDB
 async function verifyRecaptcha(req, res, next) {
   const prefersJSON = req.xhr || req.get('X-Requested-With') === 'XMLHttpRequest' || (req.headers.accept || '').includes('application/json');
   try {
     const token = req.body['g-recaptcha-response'];
-    const secret = process.env.RECAPTCHA_SECRET_KEY;
+    const { recaptcha } = await getAppSettings();
+    const secret = recaptcha.secretKey;
 
     if (!token) {
       if (prefersJSON) return res.status(400).json({ ok: false, message: 'Completa el reCAPTCHA antes de enviar.' });
       req.flash('error_msg', 'Completa el reCAPTCHA antes de enviar.');
+      return res.redirect('/contacto');
+    }
+
+    if (!secret) {
+      console.error('reCAPTCHA secret missing in Mongo settings');
+      if (prefersJSON) return res.status(500).json({ ok: false, message: 'Captcha no configurado.' });
+      req.flash('error_msg', 'Captcha no configurado.');
       return res.redirect('/contacto');
     }
 

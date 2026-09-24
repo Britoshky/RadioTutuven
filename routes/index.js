@@ -3,68 +3,62 @@ const router = express.Router();
 const moment = require("moment");
 const NodeCache = require("node-cache");
 
-
-
 const nodemailer = require("nodemailer");
 const verifyRecaptcha = require("../middleware/verifyRecaptcha");
 const sitemapUpdateMiddleware = require('../middleware/sitemap');
 const Visit = require("../models/Visit");
+const { getAppSettings } = require("../helpers/appSettings");
 
-// Resto de la configuración de Express...
-
-
-
-// Tiempo de vida del caché en segundos (6 horas = 21600 segundos)
 const cache = new NodeCache({ stdTTL: 21600 });
 
-// Middleware para cachear las rutas
 router.use((req, res, next) => {
   const key = req.originalUrl;
   const cachedData = cache.get(key);
   if (cachedData) {
     console.log(`Recuperando datos de la caché para la ruta: ${key}`);
-    res.locals.cachedData = cachedData; // Almacena los datos en res.locals
+    res.locals.cachedData = cachedData;
   }
-  next(); // Continúa con el siguiente middleware o ruta
+  next();
 });
 
-// Ruta principal con contador de visitas
-
-
-// Ruta para manejar el envío del formulario
+// Compat: POST /send-email usa la misma config SMTP de Mongo que /contacto
 router.post("/send-email", verifyRecaptcha, async (req, res) => {
   const { name, email, message } = req.body;
   try {
+    const { smtp } = await getAppSettings();
+    if (!smtp.host || !smtp.user || !smtp.pass) {
+      throw new Error("SMTP no configurado en MongoDB settings");
+    }
+
     const transporter = nodemailer.createTransport({
-      host: "email-smtp.us-east-1.amazonaws.com",
-      port: 587,
-      secure: process.env.SMTP_SECURE === "true",
+      host: smtp.host,
+      port: Number(smtp.port) || 465,
+      secure: smtp.secure !== false,
       auth: {
-        user: "AKIAWNVMKJWXXOCAHO6D",
-        pass: "BFGGhFtjX+FmbMLGKjZ2O6OackxUbtIHIuDzC6SHmq16",
+        user: smtp.user,
+        pass: smtp.pass,
       },
     });
 
-    const mailOptions = {
-      from: "contacto@radiotutuven.cl",
-      to: "radiotutuven@gmail.com",
+    await transporter.sendMail({
+      from: smtp.from || smtp.user,
+      to: smtp.to || "radiotutuven@gmail.com",
       subject: "Nuevo mensaje de contacto",
       text: `Nombre: ${name}\nCorreo Electrónico: ${email}\nMensaje: ${message}`,
-    };
-    await transporter.sendMail(mailOptions);
+      replyTo: email,
+    });
 
     req.flash('success_msg', "Correo enviado correctamente, te contactaremos a la brevedad");
-    const successFlash = req.flash('success_msg')[0]; // Accede al primer mensaje flash
+    const successFlash = req.flash('success_msg')[0];
     res.render("index", { successFlash });
   } catch (error) {
+    console.error("Error /send-email:", error);
     req.flash('error_msg', "Error al enviar el mensaje de contacto");
-    const errorFlash = req.flash('error_msg')[0]; // Accede al primer mensaje flash
+    const errorFlash = req.flash('error_msg')[0];
     res.render("index", { errorFlash });
   }
 });
 
-
-// Añadir un middleware de manejo de errores al final de tu archivo
 router.use((err, req, res, next) => {
   console.error("Error inesperado:", err);
   req.flash("error_msg", "Error inesperado");

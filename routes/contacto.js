@@ -4,8 +4,8 @@ const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
 const verifyRecaptcha = require("../middleware/verifyRecaptcha");
+const { getAppSettings } = require("../helpers/appSettings");
 
-// Middleware para deshabilitar la caché
 router.use((req, res, next) => {
   res.header("Cache-Control", "no-cache, private, no-store, must-revalidate");
   res.header("Expires", "-1");
@@ -15,10 +15,9 @@ router.use((req, res, next) => {
 
 const Visit = require("../models/Visit");
 
-// Rate limiting simple en memoria para POST /contacto
 const rateBuckets = new Map();
-const WINDOW_MS = 10 * 60 * 1000; // 10 minutos
-const MAX_REQUESTS = 5; // Máximo 5 envíos por ventana por IP
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_REQUESTS = 5;
 
 function contactRateLimiter(req, res, next) {
   const prefersJSON = req.xhr || req.get('X-Requested-With') === 'XMLHttpRequest' || (req.headers.accept || '').includes('application/json');
@@ -31,7 +30,6 @@ function contactRateLimiter(req, res, next) {
   }
   bucket.count += 1;
   if (bucket.count > MAX_REQUESTS) {
-    // No incrementar visitas en POST; recuperar valor actual para mostrarlo
     if (prefersJSON) {
       return res.status(429).json({ ok: false, message: 'Has enviado demasiados mensajes. Intenta nuevamente más tarde.' });
     }
@@ -51,7 +49,6 @@ function contactRateLimiter(req, res, next) {
   next();
 }
 
-// Ruta protegida que utiliza isAuthenticated
 router.get("/contacto", async (req, res) => {
   const pageName = 'contacto';
   let visit = await Visit.findOne({ page: pageName });
@@ -61,17 +58,15 @@ router.get("/contacto", async (req, res) => {
     visit.count += 1;
   }
   await visit.save();
-  res.render("contacto", { visitCount: visit.count, recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY });
+  const { recaptcha } = await getAppSettings();
+  res.render("contacto", { visitCount: visit.count, recaptchaSiteKey: recaptcha.siteKey });
 });
 
-
-// Ruta para manejar el envío del formulario
 router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) => {
   const { name = "", email = "", message = "", website = "" } = req.body;
   const prefersJSON = req.xhr || req.get('X-Requested-With') === 'XMLHttpRequest' || (req.headers.accept || '').includes('application/json');
   const errors = [];
 
-  // Validaciones básicas del lado del servidor
   const trimmedName = String(name).trim();
   const trimmedEmail = String(email).trim();
   const trimmedMessage = String(message).trim();
@@ -91,13 +86,12 @@ router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) =
   }
 
   try {
-    // Honeypot: si está llenado, asumir bot y responder éxito sin enviar correo
     const visitDocForHp = await Visit.findOne({ page: 'contacto' }).lean().catch(() => null);
     if (website && String(website).trim() !== '') {
       if (prefersJSON) return res.json({ ok: true, message: "Gracias por tu mensaje, te contactaremos a la brevedad." });
       return res.render("contacto", { success_msg: "Gracias por tu mensaje, te contactaremos a la brevedad.", visitCount: visitDocForHp ? visitDocForHp.count : undefined });
     }
-    // Obtener el contador actual para no incrementarlo en POST
+
     const visitDoc = await Visit.findOne({ page: 'contacto' }).lean();
     const currentCount = visitDoc ? visitDoc.count : undefined;
 
@@ -106,50 +100,48 @@ router.post("/contacto", contactRateLimiter, verifyRecaptcha, async (req, res) =
       return res.status(400).render("contacto", { errors, formData: { name: trimmedName, email: trimmedEmail, message: trimmedMessage }, visitCount: currentCount });
     }
 
-    const smtpPort = Number(process.env.SMTP_PORT) || 465;
-    const smtpSecure = (typeof process.env.SMTP_SECURE !== 'undefined')
-      ? String(process.env.SMTP_SECURE).toLowerCase() === 'true'
-      : (smtpPort === 465);
+    const { smtp } = await getAppSettings();
+    if (!smtp.host || !smtp.user || !smtp.pass) {
+      throw new Error("SMTP no configurado en MongoDB settings");
+    }
+
+    const smtpPort = Number(smtp.port) || 465;
+    const smtpSecure = typeof smtp.secure === 'boolean' ? smtp.secure : smtpPort === 465;
 
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
+      host: smtp.host,
       port: smtpPort,
-      secure: smtpSecure, // true para 465 (SMTPS), false para 587/25 (STARTTLS)
+      secure: smtpSecure,
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: smtp.user,
+        pass: smtp.pass,
       },
-      connectionTimeout: Number(process.env.SMTP_CONN_TIMEOUT || 10000), // 10s
-      greetingTimeout: Number(process.env.SMTP_GREET_TIMEOUT || 10000),   // 10s
-      socketTimeout: Number(process.env.SMTP_SOCKET_TIMEOUT || 20000),    // 20s
-      logger: String(process.env.SMTP_DEBUG || '').toLowerCase() === 'true',
-      debug: String(process.env.SMTP_DEBUG || '').toLowerCase() === 'true',
-      tls: (String(process.env.SMTP_REJECT_UNAUTHORIZED || 'true').toLowerCase() === 'false')
-        ? { rejectUnauthorized: false }
-        : undefined,
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 20000,
+      logger: Boolean(smtp.debug),
+      debug: Boolean(smtp.debug),
+      tls: smtp.rejectUnauthorized === false ? { rejectUnauthorized: false } : undefined,
     });
 
-    const mailOptions = {
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: process.env.SMTP_TO || "radiotutuven@gmail.com",
+    await transporter.sendMail({
+      from: smtp.from || smtp.user,
+      to: smtp.to || "radiotutuven@gmail.com",
       subject: "Nuevo mensaje de contacto",
       text: `Nombre: ${trimmedName}\nCorreo Electrónico: ${trimmedEmail}\nMensaje: ${trimmedMessage}`,
       replyTo: trimmedEmail,
-    };
-  await transporter.sendMail(mailOptions);
-  if (prefersJSON) return res.json({ ok: true, message: "Correo enviado correctamente, te contactaremos a la brevedad." });
-    // Mostrar feedback inmediato sin redirigir
+    });
+
+    if (prefersJSON) return res.json({ ok: true, message: "Correo enviado correctamente, te contactaremos a la brevedad." });
     return res.render("contacto", { success_msg: "Correo enviado correctamente, te contactaremos a la brevedad.", visitCount: currentCount });
   } catch (error) {
     console.error("Error al enviar el correo electrónico:", error);
-    // Intentar mostrar en la misma vista
     const visitDoc = await Visit.findOne({ page: 'contacto' }).lean().catch(() => null);
     if (prefersJSON) return res.status(500).json({ ok: false, message: "Error al enviar el mensaje. Intenta nuevamente más tarde.", code: error && (error.code || error.responseCode) });
     return res.status(500).render("contacto", { error_msg: "Error al enviar el mensaje. Intenta nuevamente más tarde.", formData: { name, email, message }, visitCount: visitDoc ? visitDoc.count : undefined });
   }
 });
 
-// Middleware de manejo de errores
 router.use((err, req, res, next) => {
   console.error("Error inesperado:", err);
   req.flash("error_msg", "Error inesperado");
