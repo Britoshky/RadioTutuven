@@ -1,26 +1,28 @@
 const multer = require("multer");
 const path = require("path");
-const { v4: uuidv4 } = require("uuid");
+const { randomUUID } = require("crypto");
 const compression = require("compression");
 const sharp = require("sharp");
 const fs = require("fs");
+
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024; // 10 MB — imágenes del panel
+const ALLOWED_IMAGE = /^(image\/(jpeg|jpg|png|gif|webp))$/i;
+const ALLOWED_EXT = /^\.(jpe?g|png|gif|webp)$/i;
 
 const configureUploadMiddleware = (uploadFolder) => {
   const storage = multer.memoryStorage();
 
   const uploadMiddleware = multer({
     storage,
-    limits: { fileSize: 50000000000 },
+    limits: { fileSize: MAX_IMAGE_BYTES, files: 1 },
     fileFilter: (req, file, cb) => {
-      const fileTypes = /jpeg|jpg|png|gif/;
-      const mimetype = fileTypes.test(file.mimetype);
-      const extname = fileTypes.test(path.extname(file.originalname));
+      const mimetypeOk = ALLOWED_IMAGE.test(file.mimetype);
+      const extOk = ALLOWED_EXT.test(path.extname(file.originalname || ""));
 
-      if (mimetype && extname) {
+      if (mimetypeOk && extOk) {
         return cb(null, true);
-      } else {
-        cb("Error: Archivo no permitido");
       }
+      return cb(new Error("Archivo no permitido: solo JPEG, PNG, GIF o WebP"));
     },
   }).single("imagen");
 
@@ -31,17 +33,17 @@ const configureUploadMiddleware = (uploadFolder) => {
       }
 
       const compressedImageBuffer = await sharp(req.file.buffer)
+        .rotate()
         .webp({ quality: 80 })
         .toBuffer();
 
-      const filename = uuidv4() + ".webp";
+      const filename = `${randomUUID()}.webp`;
       const filepath = path.join(__dirname, `../public/${uploadFolder}`, filename);
 
+      await fs.promises.mkdir(path.dirname(filepath), { recursive: true });
       await fs.promises.writeFile(filepath, compressedImageBuffer);
 
-      // Guardar el nombre de la imagen comprimida en la solicitud
       req.compressedImageFilename = filename;
-
       req.uploadSuccess = true;
       next();
     } catch (error) {
