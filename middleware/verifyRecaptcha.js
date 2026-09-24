@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const { getAppSettings } = require('../helpers/appSettings');
 
-// Verifica reCAPTCHA v2 (checkbox o invisible) usando secret desde MongoDB
+// Verifica reCAPTCHA v2 Checkbox usando secret desde MongoDB
 async function verifyRecaptcha(req, res, next) {
   const prefersJSON = req.xhr || req.get('X-Requested-With') === 'XMLHttpRequest' || (req.headers.accept || '').includes('application/json');
   try {
